@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a454276e07717944b854db8ca318a850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerCam: {fileID: 0}
   boardManager: {fileID: 0}
 --- !u!114 &1756431322895555176
 MonoBehaviour:
@@ -72,3 +73,9 @@ MonoBehaviour:
     type: 3}
   WallDownRightCornerTile: {fileID: 8648176560744591594, guid: 9470536c8c311fa499c055b9839f0e7d,
     type: 3}
+  RoomsSize:
+    Min: 5
+    Max: 10
+  CountOfRooms: 20
+  MapWidth: 70
+  MapHeight: 40

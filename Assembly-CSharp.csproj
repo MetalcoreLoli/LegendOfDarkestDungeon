@@ -65,7 +65,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\BoardManager.cs" />
     <Compile Include="Assets\Scripts\CameraMove.cs" />
+    <Compile Include="Assets\Scripts\Dungeon\Room.cs" />
     <Compile Include="Assets\Scripts\Dungeon\Tile.cs" />
+    <Compile Include="Assets\Scripts\Dungeon\TileManager.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Loader.cs" />
     <Reference Include="Unity.Timeline.Editor">
