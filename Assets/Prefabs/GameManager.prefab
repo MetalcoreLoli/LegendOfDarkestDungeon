@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4481500595553085020
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4220840591195260696}
+  - component: {fileID: 3373917942655960510}
+  - component: {fileID: 1756431322895555176}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4220840591195260696
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4481500595553085020}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.8500375, y: 0.77819705, z: -1.606191}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3373917942655960510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4481500595553085020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a454276e07717944b854db8ca318a850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boardManager: {fileID: 0}
+--- !u!114 &1756431322895555176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4481500595553085020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc0e4e18f32ebdc4b99935fa6a7264b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Exit: {fileID: 167070897840479000, guid: b25c22c5f968d2f45bf324e85101a086, type: 3}
+  FloorTile: {fileID: 2390172011050364666, guid: 519c746d12a51f247b983341b15f999d,
+    type: 3}
+  WallTileHorizontal: {fileID: 518794676057521395, guid: 17ae809ae6da48340992da83a6ddc769,
+    type: 3}
+  WallTileVertical: {fileID: 5172456881007598874, guid: d942d33424ecf1049a20d1cfed667dd0,
+    type: 3}
+  WallUpLeftCornerTile: {fileID: 7922070559763322170, guid: 23bd851a675e51841a5fc1b4a702bf2e,
+    type: 3}
+  WallUpRightCornerTile: {fileID: 8222186699196059234, guid: b0b9f2bde394814459891caf9d10b0b6,
+    type: 3}
+  WallDownLeftCornerTile: {fileID: 7850157240829866998, guid: e090ed397cce620408e82caba18841d7,
+    type: 3}
+  WallDownRightCornerTile: {fileID: 8648176560744591594, guid: 9470536c8c311fa499c055b9839f0e7d,
+    type: 3}
