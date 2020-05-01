@@ -59,8 +59,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Exit: {fileID: 167070897840479000, guid: b25c22c5f968d2f45bf324e85101a086, type: 3}
-  FloorTile: {fileID: 2390172011050364666, guid: 519c746d12a51f247b983341b15f999d,
-    type: 3}
   WallTileHorizontal: {fileID: 518794676057521395, guid: 17ae809ae6da48340992da83a6ddc769,
     type: 3}
   WallTileVertical: {fileID: 5172456881007598874, guid: d942d33424ecf1049a20d1cfed667dd0,
@@ -72,6 +70,36 @@ MonoBehaviour:
   WallDownLeftCornerTile: {fileID: 7850157240829866998, guid: e090ed397cce620408e82caba18841d7,
     type: 3}
   WallDownRightCornerTile: {fileID: 8648176560744591594, guid: 9470536c8c311fa499c055b9839f0e7d,
+    type: 3}
+  FloorPathHorizontalTile: {fileID: 6757643643406466162, guid: 308ce4cdb648b354b94ddf6a0e154b5a,
+    type: 3}
+  FloorPathRightTile: {fileID: 4580545220665052199, guid: 4cc1a39c176230b4194815b042aa5f47,
+    type: 3}
+  FloorPathLeftTile: {fileID: 7369779817621125368, guid: 001efa6e5e4551c4bba90710e6a2fdd0,
+    type: 3}
+  FloorPathVerticalTile: {fileID: 4876461352793863976, guid: 65cad83cf96578a48b3420df1ccb2ffb,
+    type: 3}
+  FloorPathUpTile: {fileID: 6142322994865348205, guid: 2ba62c65a6d43f144b3aabd994812417,
+    type: 3}
+  FloorPathDownTile: {fileID: 6087315562498246820, guid: 5acc08b0818d13146be190a8d4bcbd2a,
+    type: 3}
+  FloorTile: {fileID: 2390172011050364666, guid: 519c746d12a51f247b983341b15f999d,
+    type: 3}
+  FloorLeftTile: {fileID: 3738952486384166212, guid: 7c04aa8a1f0809d43b074f9171829467,
+    type: 3}
+  FloorRightTile: {fileID: 3906916921538154420, guid: 3db0dc38a4f31694da0fbecf8e63347e,
+    type: 3}
+  FloorTileUp: {fileID: 7666100743567828796, guid: 2e897d446e3de384cbb2e4acfdbe5717,
+    type: 3}
+  FloorTileUpRightCorner: {fileID: 2710289245169168977, guid: f5ed06253782e374d8ffd3ccab6e833b,
+    type: 3}
+  FloorTileUpLeftCorner: {fileID: 4146956672366260219, guid: e947808afbbbca54d90429ed692fbf0f,
+    type: 3}
+  FloorTileDown: {fileID: 5962775688127269644, guid: d204bc9873fa5584abaea4d290c53335,
+    type: 3}
+  FloorTileDownRightCorner: {fileID: 1315194120774771301, guid: 15a61a4e0c132894289e0eb560d2d296,
+    type: 3}
+  FloorTileDownLeftCorner: {fileID: 8637285423835633910, guid: 1ce53902f42db39479a44af17254fafd,
     type: 3}
   RoomsSize:
     Min: 5

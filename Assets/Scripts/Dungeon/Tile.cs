@@ -12,4 +12,5 @@ public struct Tile
         Location = location;
         Body = body;
     }
+
 }
