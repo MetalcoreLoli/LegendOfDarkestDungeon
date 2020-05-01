@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a454276e07717944b854db8ca318a850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerCam: {fileID: 0}
+  Player: {fileID: 5130027051594658352, guid: b34513db1fdb1084da9c00fbc66002bc, type: 3}
   boardManager: {fileID: 0}
 --- !u!114 &1756431322895555176
 MonoBehaviour:

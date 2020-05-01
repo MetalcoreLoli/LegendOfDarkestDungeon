@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager _instance = null;
 
-    public GameObject PlayerCam;
+    public GameObject Player;
 
     public BoardManager boardManager;
     private void Awake()
@@ -25,8 +25,12 @@ public class GameManager : MonoBehaviour
 
     private void Init()
     {
+        Debug.Log("Start");
         boardManager.SetUpLevel(1);
+        Debug.Log("Start board");
         var room = boardManager.Rooms.FirstOrDefault();
+
+        Instantiate(Player, room.GetCenter(), Quaternion.identity);
         //if (room != null)
         //    PlayerCam.transform.Translate(PlayerCam.transform.localPosition + room.Location);
 

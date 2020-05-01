@@ -68,8 +68,11 @@
     <Compile Include="Assets\Scripts\Dungeon\Room.cs" />
     <Compile Include="Assets\Scripts\Dungeon\Tile.cs" />
     <Compile Include="Assets\Scripts\Dungeon\TileManager.cs" />
+    <Compile Include="Assets\Scripts\Dungeon\Wall.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Loader.cs" />
+    <Compile Include="Assets\Scripts\MovingObject.cs" />
+    <Compile Include="Assets\Scripts\Player.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/danie/LegendOfDarkestDungeon/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

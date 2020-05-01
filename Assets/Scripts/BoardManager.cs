@@ -95,6 +95,7 @@ public class BoardManager : MonoBehaviour
     {
         while (roomsCount-- > 0)
         {
+            Debug.Log($"Room  with number {roomsCount} is generating");
             int width   = Random.Range(RoomsSize.Min, RoomsSize.Max);
             int height  = Random.Range(RoomsSize.Min, RoomsSize.Max);
             int x       = Random.Range(0, MapWidth - width);

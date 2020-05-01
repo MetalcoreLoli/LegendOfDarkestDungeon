@@ -4,19 +4,25 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
+    GameObject player;
     public float speed = 3.0f;
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        float deltaX = Input.GetAxis("Horizontal")  * speed;
-        float deltaY = Input.GetAxis("Vertical") * speed;
+        //float deltaX = Input.GetAxis("Horizontal")  * speed;
+        //float deltaY = Input.GetAxis("Vertical") * speed;
 
-        transform.Translate(deltaX, deltaY, 0);
+        if (player != null)
+            transform.position = (new Vector3(player.transform.position.x, player.transform.position.y, -10));
+
+        
+
+        //transform.Translate(deltaX, deltaY, 0);
     }
 }
