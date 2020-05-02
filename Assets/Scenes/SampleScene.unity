@@ -156,12 +156,12 @@ PrefabInstance:
     - target: {fileID: 3826068478554792207, guid: b34513db1fdb1084da9c00fbc66002bc,
         type: 3}
       propertyPath: m_Size.x
-      value: 1
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 3826068478554792207, guid: b34513db1fdb1084da9c00fbc66002bc,
         type: 3}
       propertyPath: m_Size.y
-      value: 1
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 5130027051594658352, guid: b34513db1fdb1084da9c00fbc66002bc,
         type: 3}
@@ -324,6 +324,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2289584726131807784, guid: 45394e698e178aa4b869f31d8a8514dd,
+        type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2289584726131807784, guid: 45394e698e178aa4b869f31d8a8514dd,
+        type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2289584726131807784, guid: 45394e698e178aa4b869f31d8a8514dd,
+        type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2289584726131807787, guid: 45394e698e178aa4b869f31d8a8514dd,
         type: 3}
       propertyPath: m_Name

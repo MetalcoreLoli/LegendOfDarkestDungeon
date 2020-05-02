@@ -45,18 +45,22 @@ public class Player : MovingObject
 
         if (horizontal != 0)
             vertical = 0;
-
-        animator.SetFloat("Horizontal", horizontal);
-        animator.SetFloat("Vertical", vertical);
-        animator.SetFloat("speed", new Vector2(horizontal, vertical).sqrMagnitude);
+        else if (vertical != 0)
+            horizontal = 0;
+        //animator.SetFloat("Horizontal", horizontal);
+        //animator.SetFloat("Vertical", vertical);
+        //animator.SetFloat("speed", new Vector2(horizontal, vertical).sqrMagnitude);
     }
 
     private void FixedUpdate()
     {
-       // rb2D.MovePosition(rb2D.position + new Vector2(horizontal, vertical) * speed * Time.fixedDeltaTime);
+        // rb2D.MovePosition(rb2D.position + new Vector2(horizontal, vertical) * speed * Time.fixedDeltaTime);
 
         if (horizontal != 0 || vertical != 0)
+        { 
             AttemptMove<Wall>((int)(horizontal), (int)(vertical));
+            //IsMoving = false;
+        }
 
     }
 
