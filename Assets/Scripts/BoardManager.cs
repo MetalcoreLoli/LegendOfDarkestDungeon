@@ -59,8 +59,9 @@ public class BoardManager : MonoBehaviour
     private List<GameObject> map;
     public void SetUpLevel(int level) 
     {
+        Debug.Log("Start board");
         BoardSetUp();
-        Generate(15);
+        Generate(CountOfRooms);
         //Rooms.ForEach(r => DrawRoom(r));
     }
 

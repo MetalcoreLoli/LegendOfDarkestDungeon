@@ -8,7 +8,18 @@ using UnityEngine.SceneManagement;
 public class Player : MovingObject
 {
 
-    public GameObject Cam;
+
+    private float restartLevelDelay = 1f;
+    private Animator animator;
+
+    protected override void Start()
+    {
+        animator = GetComponent<Animator>();
+
+
+        base.Start();
+    }
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -17,14 +28,18 @@ public class Player : MovingObject
     // Update is called once per frame
     void Update()
     {
-        int deltaX = (int)Input.GetAxis("Horizontal");
-        int deltaY = (int)Input.GetAxis("Vertical");
+
+        if (GameManager._instance.playersTurn == false) return;
+
+        int deltaX = (int)Input.GetAxisRaw("Horizontal");
+        int deltaY = (int)Input.GetAxisRaw("Vertical");
 
         if (deltaX != 0)
             deltaY = 0;
 
         if (deltaX != 0 || deltaY != 0)
             AttemptMove<Wall>(deltaX, deltaY);
+
     }
 
     private void Restart()
@@ -36,9 +51,13 @@ public class Player : MovingObject
     {
         if (collision.tag == ("Exit"))
         {
-            Invoke("Restart", 1);
+            Invoke("Restart", restartLevelDelay);
+            GameManager._instance.enabled = false;
         }
     }
+
+
+
 
     protected override void OnCantMove<T>(T comp)
     {

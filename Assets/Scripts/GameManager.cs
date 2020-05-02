@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject Player;
 
+    [HideInInspector]public bool playersTurn; 
+
     public BoardManager boardManager;
     private void Awake()
     {
@@ -18,19 +20,24 @@ public class GameManager : MonoBehaviour
         else if (_instance != null)
             Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
+        _instance.playersTurn = true;
+
+        //DontDestroyOnLoad(gameObject);
         boardManager = GetComponent<BoardManager>();
         Init();
     }
 
+    private void GameOver()
+    {
+        enabled = false;
+    }
     private void Init()
     {
-        Debug.Log("Start");
         boardManager.SetUpLevel(1);
-        Debug.Log("Start board");
         var room = boardManager.Rooms.FirstOrDefault();
 
-        Instantiate(Player, room.GetCenter(), Quaternion.identity);
+        var player = GameObject.FindGameObjectWithTag("Player");
+        player.transform.position = room.GetCenter();
         //if (room != null)
         //    PlayerCam.transform.Translate(PlayerCam.transform.localPosition + room.Location);
 
