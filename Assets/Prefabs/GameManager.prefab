@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 5130027051594658352, guid: b34513db1fdb1084da9c00fbc66002bc, type: 3}
+  playersTurn: 0
   boardManager: {fileID: 0}
 --- !u!114 &1756431322895555176
 MonoBehaviour:
@@ -58,7 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc0e4e18f32ebdc4b99935fa6a7264b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Exit: {fileID: 167070897840479000, guid: b25c22c5f968d2f45bf324e85101a086, type: 3}
+  Exit: {fileID: 6867529305742489804, guid: b25c22c5f968d2f45bf324e85101a086, type: 3}
   WallTileHorizontal: {fileID: 518794676057521395, guid: 17ae809ae6da48340992da83a6ddc769,
     type: 3}
   WallTileVertical: {fileID: 5172456881007598874, guid: d942d33424ecf1049a20d1cfed667dd0,
@@ -101,9 +102,14 @@ MonoBehaviour:
     type: 3}
   FloorTileDownLeftCorner: {fileID: 8637285423835633910, guid: 1ce53902f42db39479a44af17254fafd,
     type: 3}
+  TourchTile: {fileID: 4169067622270794527, guid: dcf7f164bc03f5849aebc320a006d3c4,
+    type: 3}
   RoomsSize:
     Min: 5
-    Max: 10
-  CountOfRooms: 20
+    Max: 7
+  Tourches:
+    Min: 9
+    Max: 20
+  CountOfRooms: 18
   MapWidth: 70
   MapHeight: 40

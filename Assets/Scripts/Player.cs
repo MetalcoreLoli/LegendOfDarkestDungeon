@@ -31,8 +31,12 @@ public class Player : MovingObject
 
         if (GameManager._instance.playersTurn == false) return;
 
-        int deltaX = (int)Input.GetAxisRaw("Horizontal");
-        int deltaY = (int)Input.GetAxisRaw("Vertical");
+        int deltaX =0;
+        int deltaY = 0;
+
+        deltaX = (int)(Input.GetAxisRaw("Horizontal"));
+        deltaY = (int)(Input.GetAxisRaw("Vertical"));
+
 
         if (deltaX != 0)
             deltaY = 0;

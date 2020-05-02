@@ -12,13 +12,14 @@ public class Room
     public Vector3 Location { get; set; }
     public Tile[] Body { get; private set; }
 
+    public List<Vector3> UpWallCoord { get; set; }
     public Room(int width, int height, Vector3 location)
     {
         Width = width;
         Height = height;
         Location = location;
+        UpWallCoord = new List<Vector3>();
         Body = Create(Width, Height);
-
     }
 
     private Tile[] Create(int width, int height)
@@ -48,7 +49,10 @@ public class Room
                     temp[idx].Body = TileManager.WallTileVertical;
 
                 if ((y == height - 1 && x > 0 && x < width - 1))
+                { 
                     temp[idx].Body = TileManager.WallTileHorizontal;
+                    UpWallCoord.Add(new Vector3(x, y) + Location);
+                }
 
                 if (x > 0 && x < width - 1 && y == 0)
                     temp[idx].Body = TileManager.WallTileHorizontal;
@@ -65,9 +69,14 @@ public class Room
     public bool IsIntersectedWith(Room room)
     {
 
-        return room.Body.Intersect(Body).Count() != 0;
-        //return room.Location.x > (Width + Location.x) && room.Location.y > (Height + Location.y) && room.Location.x < Location.x && room.Location.y < Location.y || 
-        //    (room.Location.x + room.Width) < Location.x && (room.Location.y + Height) < Location.y && room.Location.x > Location.x && room.Location.y > Location.y;
+        //return room.Body.Intersect(Body).Count() != 0;
+
+        foreach (var cell in room.Body)
+        {
+            if (Body.Select(t => t.Location).Contains(cell.Location))
+                return true;
+        }
+        return false;
     }
 
     public Vector3 GetCenter()

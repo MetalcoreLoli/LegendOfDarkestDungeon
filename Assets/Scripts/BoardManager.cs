@@ -50,13 +50,18 @@ public class BoardManager : MonoBehaviour
     public GameObject FloorTileDownRightCorner;
     public GameObject FloorTileDownLeftCorner;
 
+    public GameObject TourchTile;
+
     public Size RoomsSize;
+    public Size Tourches;
+
     public int CountOfRooms;
     public int MapWidth = 70;
     public int MapHeight = 40;
     public List<Room> Rooms;
 
     private List<GameObject> map;
+    private List<Vector3> UpWallCoords;
     public void SetUpLevel(int level) 
     {
         Debug.Log("Start board");
@@ -70,6 +75,7 @@ public class BoardManager : MonoBehaviour
         boardHolder = new GameObject("Board").transform;
         Rooms = new List<Room>();
         map = new List<GameObject>();
+        UpWallCoords = new List<Vector3>();
         
         TileManager.Exit                    = Exit;
         TileManager.FloorTile               = FloorTile;
@@ -88,7 +94,6 @@ public class BoardManager : MonoBehaviour
             GameObject obj = Instantiate(tile.Body, tile.Location, Quaternion.identity);
             AddGameObjectToMap(obj);
         }
-
        
     }
 
@@ -113,6 +118,7 @@ public class BoardManager : MonoBehaviour
                 room = new Room(width, height, new Vector3(x, y, 0));
             }
 
+         
             for (int x1 = 1; x1 < width-1; x1++)
             {
                 for (int y1 = 1; y1 < height-1; y1++)
@@ -150,6 +156,8 @@ public class BoardManager : MonoBehaviour
             Rooms.Add(room);
             DrawRoom(room);
         }
+        
+        PlaceTourches();
 
         for (int i = 1; i < Rooms.Count; i++)
         {
@@ -179,21 +187,6 @@ public class BoardManager : MonoBehaviour
             }
             else
             {
-                //if (prev.GetCenter().x > currt.GetCenter().x)
-                //{
-                //    var upEnter = new Vector3(prev.GetCenter().x - (prev.Width / 2), prev.GetCenter().y + 1);
-                //    var downEnter = new Vector3(prev.GetCenter().x - (prev.Width / 2), prev.GetCenter().y - 1);
-                //    ReplaceWith(WallDownRightCornerTile, upEnter);
-                //    ReplaceWith(WallUpRightCornerTile, downEnter);
-                //}
-                //else
-                //{
-                //    int width = (prev.Width % 2 == 0) ? prev.Width - 1 : prev.Width;
-                //    var upEnter = new Vector3((int)prev.GetCenter().x + (width / 2), prev.GetCenter().y + 1);
-                //    var downEnter = new Vector3((int)prev.GetCenter().x + (width / 2), prev.GetCenter().y - 1);
-                //    ReplaceWith(WallDownLeftCornerTile, upEnter);
-                //    ReplaceWith(WallUpLeftCornerTile, downEnter);
-                //}
                 CreateHorizontalPath((int)currt.GetCenter().x, (int)prev.GetCenter().x, (int)currt.GetCenter().y);
                 CreateVerticalPath((int)prev.GetCenter().y, (int)currt.GetCenter().y, (int)prev.GetCenter().x);
             }
@@ -203,8 +196,6 @@ public class BoardManager : MonoBehaviour
 
         var lastRoomCenter = Rooms.Last().GetCenter();
         Instantiate(Exit, lastRoomCenter, Quaternion.identity);
-
-        //TODO: ADD PLAYER SPAWN HERE !!!
     }
 
     private void CreateHorizontalPath(int xStart, int xEnd, int y)
@@ -278,5 +269,21 @@ public class BoardManager : MonoBehaviour
         map.Remove(gameObj);
         Destroy(gameObj);
         AddGameObjectToMap(Instantiate(tile, vector3, Quaternion.identity));
+    }
+
+    private Vector3 GetRandUpWallVector()
+    {
+        var vec = UpWallCoords[Random.Range(0, UpWallCoords.Count)];
+        UpWallCoords.Remove(vec);
+        return vec;
+    }
+
+    private void PlaceTourches()
+    {
+        UpWallCoords.AddRange(Rooms.SelectMany(room => room.UpWallCoord));
+        while (Tourches.Max-- > 0)
+        {
+            Instantiate(TourchTile, GetRandUpWallVector(), Quaternion.identity);
+        }
     }
 }
