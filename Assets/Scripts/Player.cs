@@ -2,15 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Player : MovingObject
 {
 
+    public float speed = 5f;
 
     private float restartLevelDelay = 1f;
     private Animator animator;
+
+    private float horizontal  = 0;
+    private float vertical    = 0;
+
+
 
     protected override void Start()
     {
@@ -23,6 +30,7 @@ public class Player : MovingObject
     // Start is called before the first frame update
     void Awake()
     {
+        
     }
 
     // Update is called once per frame
@@ -31,21 +39,28 @@ public class Player : MovingObject
 
         if (GameManager._instance.playersTurn == false) return;
 
-        int deltaX =0;
-        int deltaY = 0;
-
-        deltaX = (int)(Input.GetAxisRaw("Horizontal"));
-        deltaY = (int)(Input.GetAxisRaw("Vertical"));
+        horizontal = (Input.GetAxisRaw("Horizontal"));
+        vertical = (Input.GetAxisRaw("Vertical"));
 
 
-        if (deltaX != 0)
-            deltaY = 0;
+        if (horizontal != 0)
+            vertical = 0;
 
-        if (deltaX != 0 || deltaY != 0)
-            AttemptMove<Wall>(deltaX, deltaY);
+        animator.SetFloat("Horizontal", horizontal);
+        animator.SetFloat("Vertical", vertical);
+        animator.SetFloat("speed", new Vector2(horizontal, vertical).sqrMagnitude);
+    }
+
+    private void FixedUpdate()
+    {
+       // rb2D.MovePosition(rb2D.position + new Vector2(horizontal, vertical) * speed * Time.fixedDeltaTime);
+
+        if (horizontal != 0 || vertical != 0)
+            AttemptMove<Wall>((int)(horizontal), (int)(vertical));
 
     }
 
+   
     private void Restart()
     {
         SceneManager.LoadScene(0);

@@ -128,10 +128,35 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3190608310180739944, guid: b34513db1fdb1084da9c00fbc66002bc,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3190608310180739944, guid: b34513db1fdb1084da9c00fbc66002bc,
+        type: 3}
+      propertyPath: m_Simulated
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3190608310180739944, guid: b34513db1fdb1084da9c00fbc66002bc,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -3190608310180739944, guid: b34513db1fdb1084da9c00fbc66002bc,
+        type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 934100411617660454, guid: b34513db1fdb1084da9c00fbc66002bc,
+        type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3826068478554792207, guid: b34513db1fdb1084da9c00fbc66002bc,
         type: 3}
       propertyPath: m_Size.x
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3826068478554792207, guid: b34513db1fdb1084da9c00fbc66002bc,
         type: 3}

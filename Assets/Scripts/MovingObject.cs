@@ -5,11 +5,11 @@ using UnityEngine;
 public abstract class MovingObject : MonoBehaviour
 {
 
-    public float moveTime = 0.5f;
+    public float moveTime = 5f;
     public LayerMask blockingLayer;
 
-    private BoxCollider2D boxCollider;
-    private Rigidbody2D rb2D;
+    protected BoxCollider2D boxCollider;
+    protected Rigidbody2D rb2D;
 
     private float inverseMoveTime;
     // Start is called before the first frame update
@@ -25,9 +25,9 @@ public abstract class MovingObject : MonoBehaviour
     {
         float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
 
-        while (sqrRemainingDistance > float.Epsilon)
+        while (sqrRemainingDistance > 0.01)
         {
-            Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
+            Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.fixedDeltaTime);
 
             rb2D.MovePosition(newPosition);
             sqrRemainingDistance = (transform.position - end).sqrMagnitude;
@@ -36,7 +36,7 @@ public abstract class MovingObject : MonoBehaviour
         }
     }
 
-    protected bool Move(int xDir, int yDir, out RaycastHit2D hit) 
+    protected virtual bool Move(int xDir, int yDir, out RaycastHit2D hit) 
     {
         Vector2 start = transform.position;
 
@@ -48,8 +48,8 @@ public abstract class MovingObject : MonoBehaviour
 
         if (hit.transform == null)
         {
-            StartCoroutine(SmoothMovement(end));
-            //rb2D.MovePosition(end);
+           StartCoroutine(SmoothMovement(end));
+           //rb2D.MovePosition(end);
 
             return true;
         }
@@ -64,6 +64,7 @@ public abstract class MovingObject : MonoBehaviour
 
         if (hit.transform == null)
             return;
+
         T hitComp = hit.transform.GetComponent<T>();
 
         if (!canMove && hitComp != null)
