@@ -104,6 +104,8 @@ MonoBehaviour:
     type: 3}
   TourchTile: {fileID: 4169067622270794527, guid: dcf7f164bc03f5849aebc320a006d3c4,
     type: 3}
+  Traps:
+  - {fileID: 3177136674332636102, guid: a2a9c844d2508614c802d3ec0287ae5c, type: 3}
   RoomsSize:
     Min: 5
     Max: 7
@@ -111,5 +113,6 @@ MonoBehaviour:
     Min: 9
     Max: 20
   CountOfRooms: 18
+  CountOfTraps: 25
   MapWidth: 70
   MapHeight: 40

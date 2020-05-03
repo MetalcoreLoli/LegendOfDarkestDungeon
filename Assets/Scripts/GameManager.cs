@@ -36,8 +36,8 @@ public class GameManager : MonoBehaviour
         boardManager.SetUpLevel(1);
         var room = boardManager.Rooms.FirstOrDefault();
 
-        var player = GameObject.FindGameObjectWithTag("Player");
-        player.transform.position = room.GetCenter();
+        var Player = GameObject.FindGameObjectWithTag("Player");
+        Player.transform.position = room.GetCenter();
         //if (room != null)
         //    PlayerCam.transform.Translate(PlayerCam.transform.localPosition + room.Location);
 

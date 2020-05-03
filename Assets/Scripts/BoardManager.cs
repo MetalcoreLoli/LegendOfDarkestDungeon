@@ -4,8 +4,6 @@ using System.Linq;
 using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using UnityEditor.UIElements;
-using UnityEditor;
 
 [Serializable]
 public struct Size
@@ -52,16 +50,22 @@ public class BoardManager : MonoBehaviour
 
     public GameObject TourchTile;
 
+    public GameObject[] Traps;
+
     public Size RoomsSize;
     public Size Tourches;
 
     public int CountOfRooms;
+    public int CountOfTraps;
+
     public int MapWidth = 70;
     public int MapHeight = 40;
+    
     public List<Room> Rooms;
 
     private List<GameObject> map;
     private List<Vector3> UpWallCoords;
+    private List<Vector3> InnerRoomCoords;
     public void SetUpLevel(int level) 
     {
         Debug.Log("Start board");
@@ -76,7 +80,8 @@ public class BoardManager : MonoBehaviour
         Rooms = new List<Room>();
         map = new List<GameObject>();
         UpWallCoords = new List<Vector3>();
-        
+        InnerRoomCoords = new List<Vector3>();
+
         TileManager.Exit                    = Exit;
         TileManager.FloorTile               = FloorTile;
         TileManager.WallTileHorizontal      = WallTileHorizontal;
@@ -157,7 +162,6 @@ public class BoardManager : MonoBehaviour
             DrawRoom(room);
         }
         
-        PlaceTourches();
 
         for (int i = 1; i < Rooms.Count; i++)
         {
@@ -167,6 +171,8 @@ public class BoardManager : MonoBehaviour
             var pathType = Random.Range(0, 2);
             if (pathType == 0)
             {
+                
+                int width = (prev.Width % 2 == 0) ? prev.Width - 1 : prev.Width;
                 if (prev.GetCenter().x > currt.GetCenter().x)
                 {
                     var upEnter = new Vector3(prev.GetCenter().x - (prev.Width / 2), prev.GetCenter().y + 1);
@@ -176,7 +182,6 @@ public class BoardManager : MonoBehaviour
                 }
                 else
                 {
-                    int width = (prev.Width % 2 == 0) ? prev.Width - 1 : prev.Width;
                     var upEnter = new Vector3((int)prev.GetCenter().x + (width / 2), prev.GetCenter().y + 1);
                     var downEnter = new Vector3((int)prev.GetCenter().x + (width / 2), prev.GetCenter().y - 1);
                     ReplaceWith(WallDownLeftCornerTile, upEnter);
@@ -193,9 +198,14 @@ public class BoardManager : MonoBehaviour
 
 
         }
+        PlaceTourches();
+        PlaceTraps();
 
         var lastRoomCenter = Rooms.Last().GetCenter();
         Instantiate(Exit, lastRoomCenter, Quaternion.identity);
+
+        var test_trap = new Vector3(Rooms.First().GetCenter().x + 1, Rooms.First().GetCenter().y);
+        Instantiate(Traps[0], test_trap, Quaternion.identity);
     }
 
     private void CreateHorizontalPath(int xStart, int xEnd, int y)
@@ -271,10 +281,10 @@ public class BoardManager : MonoBehaviour
         AddGameObjectToMap(Instantiate(tile, vector3, Quaternion.identity));
     }
 
-    private Vector3 GetRandUpWallVector()
+    private Vector3 GetRandVectorFrom(List<Vector3> vector3s)
     {
-        var vec = UpWallCoords[Random.Range(0, UpWallCoords.Count)];
-        UpWallCoords.Remove(vec);
+        var vec = vector3s[Random.Range(0, vector3s.ToList().Count)];
+        vector3s.Remove(vec);
         return vec;
     }
 
@@ -283,7 +293,16 @@ public class BoardManager : MonoBehaviour
         UpWallCoords.AddRange(Rooms.SelectMany(room => room.UpWallCoord));
         while (Tourches.Max-- > 0)
         {
-            Instantiate(TourchTile, GetRandUpWallVector(), Quaternion.identity);
+            Instantiate(TourchTile, GetRandVectorFrom(UpWallCoords), Quaternion.identity);
+        }
+    }
+
+    private void PlaceTraps()
+    {
+        InnerRoomCoords.AddRange(Rooms.SelectMany(room => room.InnerCoords));
+        while (CountOfTraps-- > 0)
+        {
+            Instantiate(Traps[0], GetRandVectorFrom(InnerRoomCoords), Quaternion.identity);
         }
     }
 }

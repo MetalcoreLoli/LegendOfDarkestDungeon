@@ -27,11 +27,6 @@ public class Player : MovingObject
         base.Start();
     }
 
-    // Start is called before the first frame update
-    void Awake()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()

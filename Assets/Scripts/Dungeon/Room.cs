@@ -13,12 +13,14 @@ public class Room
     public Tile[] Body { get; private set; }
 
     public List<Vector3> UpWallCoord { get; set; }
+    public List<Vector3> InnerCoords { get; set; }
     public Room(int width, int height, Vector3 location)
     {
         Width = width;
         Height = height;
         Location = location;
         UpWallCoord = new List<Vector3>();
+        InnerCoords = new List<Vector3>();
         Body = Create(Width, Height);
     }
 
@@ -63,6 +65,10 @@ public class Room
             }
         }
 
+        for (int x = 1; x < width-1; x++)
+            for (int y = 1; y < height-1; y++)
+                InnerCoords.Add(new Vector3(x, y)+ Location);
+                
         return temp;
     }
 
