@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Dices;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,6 +15,10 @@ public class GameManager : MonoBehaviour
     [HideInInspector]public bool playersTurn; 
 
     public BoardManager boardManager;
+
+    public int playersHp    = 20;
+    public int playersMaxHp = 20;
+    public int playersMp    = DiceManager.RollUndSumFromString("2d6");
     private void Awake()
     {
         if (_instance == null)
@@ -25,26 +30,25 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         boardManager = GetComponent<BoardManager>();
         Init();
-
       
     }
 
-    private void OnLevelWasLoaded(int level)
-    {
-        SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+    //private void OnLevelWasLoaded(int level)
+    //{
+    //    SceneManager.sceneLoaded += SceneManager_sceneLoaded;
 
-    }
+    //}
 
     public void GameOver()
     {
         enabled = false;
     }
 
-    //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-    //public static void CallBackInit()
-    //{
-    //    SceneManager.sceneLoaded += SceneManager_sceneLoaded;
-    //}
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    public static void CallBackInit()
+    {
+        SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+    }
 
     private static void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
@@ -60,6 +64,11 @@ public class GameManager : MonoBehaviour
         var Player = GameObject.FindGameObjectWithTag("Player");
         Player.transform.position = room.GetCenter();
 
+        var player_comp = Player.GetComponent<Player>();
+        var players_light = GameObject.FindGameObjectWithTag("PlayersLight").GetComponent<Light>();
+        players_light.intensity = player_comp.Hp = playersHp;
+        player_comp.MaxHp = playersMaxHp;
+        player_comp.Mana = playersMp;
 
     }
 }

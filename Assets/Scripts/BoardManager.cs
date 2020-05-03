@@ -204,9 +204,6 @@ public class BoardManager : MonoBehaviour
 
         var lastRoomCenter = Rooms.Last().GetCenter();
         Instantiate(Exit, lastRoomCenter, Quaternion.identity);
-
-        var test_trap = new Vector3(Rooms.First().GetCenter().x + 1, Rooms.First().GetCenter().y);
-        Instantiate(Traps[0], test_trap, Quaternion.identity);
     }
 
     private void CreateHorizontalPath(int xStart, int xEnd, int y)

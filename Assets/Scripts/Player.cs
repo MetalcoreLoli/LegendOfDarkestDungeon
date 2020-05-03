@@ -1,10 +1,12 @@
 ﻿using Assets.Scripts.Dices;
 using Microsoft.Win32.SafeHandles;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Security.Cryptography;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -29,8 +31,7 @@ public class Player : MovingObject
     {
         animator = GetComponent<Animator>();
 
-        Hp      = MaxHp     = 20;
-        Mana    = MaxMana   = DiceManager.RollUndSumFromString("2d6");
+     
 
         base.Start();
     }
@@ -44,11 +45,21 @@ public class Player : MovingObject
 
         horizontal = (Input.GetAxisRaw("Horizontal"));
         vertical = (Input.GetAxisRaw("Vertical"));
-    
+
         if (horizontal != 0)
+        {
+            if (horizontal > 0)
+                transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
+            else
+                transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
+
             vertical = 0;
+        }
         else if (vertical != 0)
+        { 
+            transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
             horizontal = 0;
+        }
 
         //animator.SetFloat("Horizontal", horizontal);
         //animator.SetFloat("Vertical", vertical);
@@ -85,6 +96,7 @@ public class Player : MovingObject
     public void LoseHp(int damage)
     {
         Hp -= damage;
+        GameManager._instance.playersHp = Hp;
         animator.SetTrigger("Hit");
 
 
