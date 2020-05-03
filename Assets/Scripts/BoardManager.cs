@@ -293,7 +293,7 @@ public class BoardManager : MonoBehaviour
         UpWallCoords.AddRange(Rooms.SelectMany(room => room.UpWallCoord));
         while (Tourches.Max-- > 0)
         {
-            Instantiate(TourchTile, GetRandVectorFrom(UpWallCoords), Quaternion.identity);
+            Instantiate(TourchTile, GetRandVectorFrom(UpWallCoords), Quaternion.identity).transform.SetParent(boardHolder);
         }
     }
 
@@ -302,7 +302,7 @@ public class BoardManager : MonoBehaviour
         InnerRoomCoords.AddRange(Rooms.SelectMany(room => room.InnerCoords));
         while (CountOfTraps-- > 0)
         {
-            Instantiate(Traps[0], GetRandVectorFrom(InnerRoomCoords), Quaternion.identity);
+            Instantiate(Traps[0], GetRandVectorFrom(InnerRoomCoords), Quaternion.identity).transform.SetParent(boardHolder);
         }
     }
 }

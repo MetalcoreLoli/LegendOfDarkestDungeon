@@ -102,7 +102,7 @@ MonoBehaviour:
     type: 3}
   FloorTileDownLeftCorner: {fileID: 8637285423835633910, guid: 1ce53902f42db39479a44af17254fafd,
     type: 3}
-  TourchTile: {fileID: 4169067622270794527, guid: dcf7f164bc03f5849aebc320a006d3c4,
+  TourchTile: {fileID: 9143279058621068323, guid: c97c4fe975c32a54baf56502484859de,
     type: 3}
   Traps:
   - {fileID: 3177136674332636102, guid: a2a9c844d2508614c802d3ec0287ae5c, type: 3}

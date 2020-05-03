@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -36,8 +37,7 @@ public class Player : MovingObject
 
         horizontal = (Input.GetAxisRaw("Horizontal"));
         vertical = (Input.GetAxisRaw("Vertical"));
-
-
+    
         if (horizontal != 0)
             vertical = 0;
         else if (vertical != 0)
@@ -71,6 +71,11 @@ public class Player : MovingObject
         {
             Invoke("Restart", restartLevelDelay);
             GameManager._instance.enabled = false;
+        }
+
+        if (collision.tag == "Trap")
+        { 
+            animator.SetTrigger("Hit");
         }
     }
 
