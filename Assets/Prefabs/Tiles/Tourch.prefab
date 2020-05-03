@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9143279058621068320}
   - component: {fileID: 9143279058621068321}
   m_Layer: 0
-  m_Name: Tourch 1
+  m_Name: Tourch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -25,6 +25,7 @@ ScriptsOnlyBuild:
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
     - UnityEditor.Graphs.AnimationStateMachine.StateNode
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -64,19 +65,19 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11226}
+      Script: {instanceID: 11224}
     - Class: 114
-      Script: {instanceID: 11390}
+      Script: {instanceID: 11388}
     - Class: 114
-      Script: {instanceID: 12764}
+      Script: {instanceID: 11966}
     - Class: 114
-      Script: {instanceID: 12810}
+      Script: {instanceID: 12462}
     - Class: 114
-      Script: {instanceID: 14078}
+      Script: {instanceID: 12766}
     - Class: 114
-      Script: {instanceID: 20052}
+      Script: {instanceID: 12812}
     - Class: 114
-      Script: {instanceID: 20900}
+      Script: {instanceID: 14080}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -126,7 +127,7 @@ ScriptsOnlyBuild:
     className: TMP_ScrollbarEventHandler
   - hash:
       serializedVersion: 2
-      Hash: 66db7060587b73801dc38890701d79c2
+      Hash: 92bd1cd980079e9ac7ee020c9a84167a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -270,6 +271,12 @@ ScriptsOnlyBuild:
     className: AnimationPlayableAsset
   - hash:
       serializedVersion: 2
+      Hash: ceb1cacb8b6edffb478026ed37edb4ab
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Trap
+  - hash:
+      serializedVersion: 2
       Hash: aba7b2852ef61d175dd9602e7723d5e5
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -322,6 +329,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Selectable
+  - hash:
+      serializedVersion: 2
+      Hash: 4d46e584f2c31862bda0af57f01f4f81
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SoundManager
   - hash:
       serializedVersion: 2
       Hash: b3ab2106268377ffe25dd18ac23dca28
@@ -604,18 +617,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 4d46e584f2c31862bda0af57f01f4f81
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: SoundManager
-  - hash:
-      serializedVersion: 2
-      Hash: 2a2d7b828da8a3c9b45cde8b8c2e6fa1
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Trap
   platform: 5
   scenePathNames:
   - Assets/Scenes/SampleScene.unity

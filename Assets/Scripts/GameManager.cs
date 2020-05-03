@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,40 +18,48 @@ public class GameManager : MonoBehaviour
     {
         if (_instance == null)
             _instance = this;
-        else if (_instance != null)
+        else if (_instance != this)
             Destroy(gameObject);
 
-        _instance.playersTurn = true;
 
-        //DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
         boardManager = GetComponent<BoardManager>();
         Init();
+
+      
     }
 
-    private void GameOver()
+    private void OnLevelWasLoaded(int level)
+    {
+        SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+
+    }
+
+    public void GameOver()
     {
         enabled = false;
     }
+
+    //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    //public static void CallBackInit()
+    //{
+    //    SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+    //}
+
+    private static void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        _instance.Init();
+    }
+
     private void Init()
     {
-        boardManager.SetUpLevel(1);
+        _instance.playersTurn = true;
+        boardManager.SetUpLevel(0);
         var room = boardManager.Rooms.FirstOrDefault();
 
         var Player = GameObject.FindGameObjectWithTag("Player");
         Player.transform.position = room.GetCenter();
-        //if (room != null)
-        //    PlayerCam.transform.Translate(PlayerCam.transform.localPosition + room.Location);
 
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

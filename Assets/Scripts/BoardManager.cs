@@ -66,6 +66,7 @@ public class BoardManager : MonoBehaviour
     private List<GameObject> map;
     private List<Vector3> UpWallCoords;
     private List<Vector3> InnerRoomCoords;
+   
     public void SetUpLevel(int level) 
     {
         Debug.Log("Start board");
@@ -291,7 +292,8 @@ public class BoardManager : MonoBehaviour
     private void PlaceTourches()
     {
         UpWallCoords.AddRange(Rooms.SelectMany(room => room.UpWallCoord));
-        while (Tourches.Max-- > 0)
+        int count = Tourches.Max;
+        while (count-- > 0)
         {
             Instantiate(TourchTile, GetRandVectorFrom(UpWallCoords), Quaternion.identity).transform.SetParent(boardHolder);
         }
@@ -300,7 +302,8 @@ public class BoardManager : MonoBehaviour
     private void PlaceTraps()
     {
         InnerRoomCoords.AddRange(Rooms.SelectMany(room => room.InnerCoords));
-        while (CountOfTraps-- > 0)
+        int count = CountOfTraps; 
+        while (count-- > 0)
         {
             Instantiate(Traps[0], GetRandVectorFrom(InnerRoomCoords), Quaternion.identity).transform.SetParent(boardHolder);
         }

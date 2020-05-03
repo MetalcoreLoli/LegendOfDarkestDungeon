@@ -65,6 +65,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\BoardManager.cs" />
     <Compile Include="Assets\Scripts\CameraMove.cs" />
+    <Compile Include="Assets\Scripts\Dices\Dice.cs" />
+    <Compile Include="Assets\Scripts\Dices\DiceManager.cs" />
+    <Compile Include="Assets\Scripts\Dices\Edge.cs" />
     <Compile Include="Assets\Scripts\Dungeon\Room.cs" />
     <Compile Include="Assets\Scripts\Dungeon\Tile.cs" />
     <Compile Include="Assets\Scripts\Dungeon\TileManager.cs" />

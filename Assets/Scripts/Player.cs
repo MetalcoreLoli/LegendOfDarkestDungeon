@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32.SafeHandles;
+﻿using Assets.Scripts.Dices;
+using Microsoft.Win32.SafeHandles;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +19,18 @@ public class Player : MovingObject
     private float horizontal  = 0;
     private float vertical    = 0;
 
+    public int MaxHp;
+    public int Hp;
 
+    public int Mana;
+    public int MaxMana;
 
     protected override void Start()
     {
         animator = GetComponent<Animator>();
 
+        Hp      = MaxHp     = 20;
+        Mana    = MaxMana   = DiceManager.RollUndSumFromString("2d6");
 
         base.Start();
     }
@@ -42,6 +49,7 @@ public class Player : MovingObject
             vertical = 0;
         else if (vertical != 0)
             horizontal = 0;
+
         //animator.SetFloat("Horizontal", horizontal);
         //animator.SetFloat("Vertical", vertical);
         //animator.SetFloat("speed", new Vector2(horizontal, vertical).sqrMagnitude);
@@ -62,7 +70,7 @@ public class Player : MovingObject
    
     private void Restart()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -72,14 +80,23 @@ public class Player : MovingObject
             Invoke("Restart", restartLevelDelay);
             GameManager._instance.enabled = false;
         }
-
-        if (collision.tag == "Trap")
-        { 
-            animator.SetTrigger("Hit");
-        }
     }
 
+    public void LoseHp(int damage)
+    {
+        Hp -= damage;
+        animator.SetTrigger("Hit");
 
+
+        var light = GameObject.FindGameObjectWithTag("PlayersLight").GetComponent<Light>();
+
+        //float percent = (float)Hp / (float)MaxHp;
+
+        light.intensity -= damage /*light.intensity * percent*/;
+        
+        if (Hp <= 0)
+            GameManager._instance.GameOver();
+    }
 
 
     protected override void OnCantMove<T>(T comp)

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Dices;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ public class Trap : MonoBehaviour
 
     private Animator animator;
     public int damage = 1;
-
+    public bool isActive = true;
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -26,6 +27,10 @@ public class Trap : MonoBehaviour
         {
             animator.SetTrigger("playerStand");
             var player = collision.GetComponent<Player>();
+            if (DiceManager.TwentyEdges.Roll() > 5 && isActive)
+                player.LoseHp(Dice.Parser("1d4").Roll());
+
+            isActive = false;
         }
     }
 }
