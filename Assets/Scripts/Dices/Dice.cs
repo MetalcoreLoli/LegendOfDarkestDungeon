@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Random = UnityEngine.Random;
+using UnityEngine;
+using Random = System.Random;
 namespace Assets.Scripts.Dices
 {
-    public class Dice
+    public class Dice 
     {
         private int rolledValue = 0;
 
@@ -42,7 +43,7 @@ namespace Assets.Scripts.Dices
 
         public int Roll()
         {
-            int randIndex   = Random.Range(0, CountOfEdges);
+            int randIndex   = new Random().Next(0, CountOfEdges);
             rolledValue     = Edges[randIndex].Value;
             rolledEdge      = Edges[randIndex];
             return rolledValue;

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7080955621039173497}
   m_Layer: 8
   m_Name: OuterUpWall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: -1341033005
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2377586320350113716, guid: ee9011e66aeb76146818f94cffeadcbf,
+  m_Sprite: {fileID: 4936673120487352106, guid: ea46d00954e20284c92fa7c6a84b8cf2,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

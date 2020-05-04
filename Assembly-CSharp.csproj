@@ -63,8 +63,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\FireBall.cs" />
     <Compile Include="Assets\Scripts\BoardManager.cs" />
     <Compile Include="Assets\Scripts\CameraMove.cs" />
+    <Compile Include="Assets\Scripts\Casting.cs" />
     <Compile Include="Assets\Scripts\Dices\Dice.cs" />
     <Compile Include="Assets\Scripts\Dices\DiceManager.cs" />
     <Compile Include="Assets\Scripts\Dices\Edge.cs" />

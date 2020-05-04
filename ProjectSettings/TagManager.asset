@@ -7,6 +7,9 @@ TagManager:
   - Exit
   - Trap
   - PlayersLight
+  - PlayersFirePoint
+  - Wall
+  - PlayersFirePointUp
   layers:
   - Default
   - TransparentFX

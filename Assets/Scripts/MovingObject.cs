@@ -11,7 +11,7 @@ public abstract class MovingObject : MonoBehaviour
 
 
 	private BoxCollider2D boxCollider;      
-	private Rigidbody2D rb2D;              
+	protected Rigidbody2D rb2D;              
 	private float inverseMoveTime;          
 	private bool isMoving;                 
 
