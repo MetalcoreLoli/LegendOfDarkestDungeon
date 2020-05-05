@@ -45,8 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 5130027051594658352, guid: b34513db1fdb1084da9c00fbc66002bc, type: 3}
+  Enemies: []
   playersTurn: 0
   boardManager: {fileID: 0}
+  playersHp: 20
+  playersMaxHp: 20
+  playersMp: 110
+  FloorNumber: 1
 --- !u!114 &1756431322895555176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,6 +111,8 @@ MonoBehaviour:
     type: 3}
   Traps:
   - {fileID: 3177136674332636102, guid: a2a9c844d2508614c802d3ec0287ae5c, type: 3}
+  EnemyPrefab: {fileID: 616915655446757402, guid: 19948f187e647ea40ae53723dbd046b6,
+    type: 3}
   RoomsSize:
     Min: 5
     Max: 7
@@ -116,3 +123,4 @@ MonoBehaviour:
   CountOfTraps: 25
   MapWidth: 70
   MapHeight: 40
+  CountOfEnemies: 30

@@ -20,7 +20,6 @@ public enum LookDir
 
 public class Player : MovingObject
 {
-
     public float speed = 5f;
 
     private float restartLevelDelay = 1f;
@@ -36,7 +35,6 @@ public class Player : MovingObject
     public int MaxMana;
 
     public Camera Camera;
-    
     
     private bool isFlipLeftRight    = false;
     private bool isFlipUpDown       = false;
@@ -130,13 +128,13 @@ public class Player : MovingObject
         if (lookDir == LookDir.Down)
         { 
             var veca = firePoint.transform.localEulerAngles;
-            veca.z = -90f;
+            veca.z = (transform.localScale.x < 0) ? 90f : -90f;
             firePoint.transform.localEulerAngles = veca;
         }
         if (lookDir == LookDir.Up)
         {
             var veca = firePoint.transform.localEulerAngles;
-            veca.z = 90f;
+            veca.z = (transform.localScale.x < 0) ? -90f : 90f;
             firePoint.transform.localEulerAngles = veca;
         }
 
@@ -149,8 +147,12 @@ public class Player : MovingObject
         // rb2D.MovePosition(rb2D.position + new Vector2(horizontal, vertical) * speed * Time.fixedDeltaTime);
 
         if (horizontal != 0 || vertical != 0)
-        { 
-            AttemptMove<Wall>((int)(horizontal), (int)(vertical));
+        {
+            AttemptMove<Enemy>((int)(horizontal), (int)(vertical));
+            //if (GameManager._instance.playersTurn)
+            //{
+            //    GameManager._instance.playersTurn = false;
+            //}
             //IsMoving = false;
         }
     }
@@ -187,12 +189,20 @@ public class Player : MovingObject
             GameManager._instance.GameOver();
     }
 
-    public void PlayerCastSpell()
+    public bool PlayerCastSpell()
     { 
-        animator.SetTrigger("Casting");
+        if (Mana - 4  >= 0)
+        { 
+            Mana -= 4;
+            animator.SetTrigger("Casting2");
+            return true;
+        }
+        return false;
+
     }
     protected override void OnCantMove<T>(T comp)
     {
-        throw new System.NotImplementedException();
+        Enemy enemy  = comp as Enemy;
+        LoseHp(enemy.Damage);
     }
 }

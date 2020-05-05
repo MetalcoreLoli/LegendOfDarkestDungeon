@@ -7,13 +7,13 @@ using UnityEngine;
 public abstract class MovingObject : MonoBehaviour
 {
 	public float moveTime = 0.1f;          
-	public LayerMask blockingLayer;         
+	public LayerMask blockingLayer;
 
 
-	private BoxCollider2D boxCollider;      
+	protected BoxCollider2D boxCollider;      
 	protected Rigidbody2D rb2D;              
-	private float inverseMoveTime;          
-	private bool isMoving;                 
+	private float inverseMoveTime;
+	protected bool isMoving;                 
 
 	protected virtual void Start()
 	{
@@ -26,7 +26,7 @@ public abstract class MovingObject : MonoBehaviour
 
 
 
-	protected bool Move(int xDir, int yDir, out RaycastHit2D hit)
+	protected virtual bool Move(int xDir, int yDir, out RaycastHit2D hit)
 	{
 		Vector2 start = transform.position;
 

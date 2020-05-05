@@ -26,7 +26,7 @@ namespace Assets.Scripts.Dices
             return dicesArray;
         }
 
-        public static int RollUndSum(this IEnumerable<Dice> source) => source.Sum(dice => dice.RolledValue);
+        public static int RollUndSum(this IEnumerable<Dice> source) => source.Sum(dice => dice.Roll());
         public static int RollUndSumFromString(this string source) => CreateDicesFromString(source).RollUndSum();
     }
 }

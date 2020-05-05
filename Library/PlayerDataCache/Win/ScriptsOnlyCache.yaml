@@ -3,21 +3,32 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - BoardManager
     - CameraMove
+    - Casting
+    - Enemy
+    - FieldOfView
     - FireBall
     - GameManager
     - Loader
     - Player
     - SoundManager
     - Trap
-    - Weapon
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
+    - UnityEditor.Tilemaps.GridPaletteBrushes
+    - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.TileDragAndDropManager
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -76,6 +87,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 12820}
     - Class: 114
       Script: {instanceID: 14090}
+    - Class: 114
+      Script: {instanceID: 27326}
+    - Class: 114
+      Script: {instanceID: 27332}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -101,7 +116,7 @@ ScriptsOnlyBuild:
     className: TMP_SelectionCaret
   - hash:
       serializedVersion: 2
-      Hash: afc5b93a7b192de2dcb3832fe35a5c7e
+      Hash: 51b434dfff8ea2e081380382f6fb6969
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CameraMove
@@ -131,7 +146,7 @@ ScriptsOnlyBuild:
     className: TMP_ScrollbarEventHandler
   - hash:
       serializedVersion: 2
-      Hash: 92bd1cd980079e9ac7ee020c9a84167a
+      Hash: d03204e23f83518d9e96f0adda86b255
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -227,10 +242,10 @@ ScriptsOnlyBuild:
     className: PhysicsRaycaster
   - hash:
       serializedVersion: 2
-      Hash: c0b7668bb25115ed8e8b7b965413e0c6
+      Hash: cc5f08b67a4ae8c6007e041fa81be6cc
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: Weapon
+    className: Casting
   - hash:
       serializedVersion: 2
       Hash: bd3cf68c8964d3c66d1c43f4f98508c9
@@ -383,7 +398,7 @@ ScriptsOnlyBuild:
     className: RemoteTestResultSender
   - hash:
       serializedVersion: 2
-      Hash: b1bcd3b2c700fe5f46dd67fe80705837
+      Hash: 8732f763117ca27597f9452bb2aee9de
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: BoardManager
@@ -527,7 +542,7 @@ ScriptsOnlyBuild:
     className: TMP_StyleSheet
   - hash:
       serializedVersion: 2
-      Hash: 97d0b1e26b34fd6d0f337bec3f7e183e
+      Hash: d842f998ba65c7b18decac646493fa07
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -627,6 +642,18 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 26d7d86ea4bdec2866a83a10f9a90986
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: FieldOfView
+  - hash:
+      serializedVersion: 2
+      Hash: 1203f663e2dafa0790a66612efa3ab81
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Enemy
   platform: 5
   scenePathNames:
   - Assets/Scenes/SampleScene.unity

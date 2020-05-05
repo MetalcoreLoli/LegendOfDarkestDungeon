@@ -40,10 +40,9 @@ namespace Assets.Scripts.Dices
             return temp;
         }
 
-
         public int Roll()
         {
-            int randIndex   = new Random().Next(0, CountOfEdges);
+            int randIndex   = new Random((int)DateTime.Now.Ticks).Next(0, CountOfEdges);
             rolledValue     = Edges[randIndex].Value;
             rolledEdge      = Edges[randIndex];
             return rolledValue;

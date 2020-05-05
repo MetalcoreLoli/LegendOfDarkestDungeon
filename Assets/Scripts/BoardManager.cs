@@ -4,6 +4,7 @@ using System.Linq;
 using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using Assets.Scripts.Dices;
 
 [Serializable]
 public struct Size
@@ -52,15 +53,20 @@ public class BoardManager : MonoBehaviour
 
     public GameObject[] Traps;
 
+    public GameObject EnemyPrefab;
+
+
     public Size RoomsSize;
     public Size Tourches;
 
-    public int CountOfRooms;
+    public int CountOfRooms = 19;
     public int CountOfTraps;
 
     public int MapWidth = 70;
     public int MapHeight = 40;
-    
+
+    public int CountOfEnemies = DiceManager.RollUndSumFromString("3d12");
+
     public List<Room> Rooms;
 
     private List<GameObject> map;
@@ -71,6 +77,7 @@ public class BoardManager : MonoBehaviour
     {
         Debug.Log("Start board");
         BoardSetUp();
+        //CountOfRooms = (int)Mathf.Log(level) + 10;
         Generate(CountOfRooms);
         //Rooms.ForEach(r => DrawRoom(r));
     }
@@ -201,6 +208,7 @@ public class BoardManager : MonoBehaviour
         }
         PlaceTourches();
         PlaceTraps();
+        PlaceEnemies();
 
         var lastRoomCenter = Rooms.Last().GetCenter();
         Instantiate(Exit, lastRoomCenter, Quaternion.identity);
@@ -303,6 +311,17 @@ public class BoardManager : MonoBehaviour
         while (count-- > 0)
         {
             Instantiate(Traps[0], GetRandVectorFrom(InnerRoomCoords), Quaternion.identity).transform.SetParent(boardHolder);
+        }
+    }
+
+    private void PlaceEnemies()
+    {
+        int count = CountOfEnemies;
+
+        while (count-- > 0)
+        {
+            var enemy = Instantiate(EnemyPrefab, GetRandVectorFrom(InnerRoomCoords), Quaternion.identity);
+            enemy.transform.SetParent(boardHolder);
         }
     }
 }

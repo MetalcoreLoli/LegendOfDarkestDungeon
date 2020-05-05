@@ -12,13 +12,17 @@ public class GameManager : MonoBehaviour
 
     public GameObject Player;
 
+
+    public List<Enemy> Enemies;
     [HideInInspector]public bool playersTurn; 
 
     public BoardManager boardManager;
 
     public int playersHp    = 20;
     public int playersMaxHp = 20;
-    public int playersMp    = DiceManager.RollUndSumFromString("2d6");
+    public int playersMp    = DiceManager.RollUndSumFromString("2d6") * 55;
+
+    public int FloorNumber = 1;
     private void Awake()
     {
         if (_instance == null)
@@ -29,6 +33,7 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
         boardManager = GetComponent<BoardManager>();
+        Enemies = new List<Enemy>();
         Init();
       
     }
@@ -52,13 +57,15 @@ public class GameManager : MonoBehaviour
 
     private static void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
+        _instance.FloorNumber += 1;
         _instance.Init();
     }
 
     private void Init()
     {
+        Enemies.Clear();
         _instance.playersTurn = true;
-        boardManager.SetUpLevel(0);
+        boardManager.SetUpLevel(FloorNumber);
         var room = boardManager.Rooms.FirstOrDefault();
 
         var Player = GameObject.FindGameObjectWithTag("Player");
@@ -67,8 +74,32 @@ public class GameManager : MonoBehaviour
         var player_comp = Player.GetComponent<Player>();
         var players_light = GameObject.FindGameObjectWithTag("PlayersLight").GetComponent<Light>();
         players_light.intensity = player_comp.Hp = playersHp;
-        player_comp.MaxHp = playersMaxHp;
-        player_comp.Mana = playersMp;
+        player_comp.MaxHp = _instance.playersMaxHp;
+        player_comp.Mana = _instance.playersMp;
 
+    }
+
+    private void Update()
+    {
+        //if (playersTurn)
+        //    return;
+       // StartCoroutine(MoveEnemies());
+        
+    }
+
+    IEnumerator MoveEnemies()
+    {
+        Enemies.RemoveAll(i => i == null);
+        yield return new WaitForSeconds(.1f);
+        foreach (var enemy in Enemies)
+        {
+            if (enemy != null)
+            {
+                enemy.MoveEnemy();
+                yield return new WaitForSeconds(enemy.moveTime);
+            }
+        }
+
+        playersTurn = true;
     }
 }

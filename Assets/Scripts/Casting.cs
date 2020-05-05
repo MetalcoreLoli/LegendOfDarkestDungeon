@@ -8,6 +8,8 @@ public class Casting : MonoBehaviour
     public Transform FirePointUp;
     public GameObject SpellPrefab;
 
+    public GameObject[] SpellPrefabs;
+
     public float spellForce = 10f;
 
     private Player player;
@@ -18,8 +20,8 @@ public class Casting : MonoBehaviour
         player = GetComponent<Player>();
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            GetComponent<Player>().PlayerCastSpell();
-            Cast();
+            if (GetComponent<Player>().PlayerCastSpell())
+                Cast();
         }
     }
 
@@ -34,8 +36,9 @@ public class Casting : MonoBehaviour
             spell = Instantiate(SpellPrefab, FirePointUp.position, FirePointUp.rotation);
             firePointPos = FirePointUp.position;
         }
-
-
+        //var cast = SpellPrefabs[1].transform.position;
+        //cast = new Vector3(GetComponent<Player>().transform.localPosition.x - 1, GetComponent<Player>().transform.localPosition.y - 1);
+        //Instantiate(SpellPrefabs[1], cast, Quaternion.identity);
         Rigidbody2D rb = spell.GetComponent<Rigidbody2D>();
 
         rb.AddForce(firePointPos * spellForce, ForceMode2D.Impulse);

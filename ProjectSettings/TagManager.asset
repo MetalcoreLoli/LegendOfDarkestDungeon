@@ -10,6 +10,7 @@ TagManager:
   - PlayersFirePoint
   - Wall
   - PlayersFirePointUp
+  - Enemy
   layers:
   - Default
   - TransparentFX
