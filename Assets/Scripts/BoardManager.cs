@@ -306,7 +306,7 @@ public class BoardManager : MonoBehaviour
 
     private void PlaceTraps()
     {
-        InnerRoomCoords.AddRange(Rooms.SelectMany(room => room.InnerCoords));
+        InnerRoomCoords.AddRange(Rooms.Skip(1).SelectMany(room => room.InnerCoords));
         int count = CountOfTraps; 
         while (count-- > 0)
         {

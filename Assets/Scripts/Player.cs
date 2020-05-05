@@ -203,6 +203,7 @@ public class Player : MovingObject
     protected override void OnCantMove<T>(T comp)
     {
         Enemy enemy  = comp as Enemy;
-        LoseHp(enemy.Damage);
+		//if (DiceManager.TwentyEdges.Roll() > 15)
+  //          LoseHp(enemy.Damage);
     }
 }

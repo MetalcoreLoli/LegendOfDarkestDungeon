@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public int playersHp    = 20;
     public int playersMaxHp = 20;
     public int playersMp    = DiceManager.RollUndSumFromString("2d6") * 55;
+    public int playersMaxMp    = DiceManager.RollUndSumFromString("2d6") * 55;
 
     public int FloorNumber = 1;
     private void Awake()
@@ -75,7 +76,8 @@ public class GameManager : MonoBehaviour
         var players_light = GameObject.FindGameObjectWithTag("PlayersLight").GetComponent<Light>();
         players_light.intensity = player_comp.Hp = playersHp;
         player_comp.MaxHp = _instance.playersMaxHp;
-        player_comp.Mana = _instance.playersMp;
+        player_comp.Mana = _instance.playersMaxMp;
+        player_comp.MaxMana = _instance.playersMaxMp;
 
     }
 

@@ -15,15 +15,26 @@ public class Enemy : MovingObject
 	private Transform target;                           
 	private bool skipMove;
 
+	public float MaxDistanceToPlayer = 5f;
 
 	private void FixedUpdate()
 	{
-		MoveEnemy();
 		if (Hp <= 0)
 		{
 			GameManager._instance.Enemies.Remove(this);
 			Destroy(gameObject);
-		}	
+		}
+		else 
+		{
+			if (transform.position == GameObject.FindGameObjectWithTag("Player").transform.position)
+			{
+				GameManager._instance.Enemies.Remove(this);
+				Destroy(gameObject);
+			}
+			float dis = (GameObject.FindGameObjectWithTag("Player").transform.position - transform.position).sqrMagnitude;
+			if (dis <= MaxDistanceToPlayer)
+				MoveEnemy();
+		}
 	}
 
 	protected override void Start()
@@ -102,7 +113,7 @@ public class Enemy : MovingObject
 		Debug.Log($"Moving to {xDir}{yDir}");
 		AttemptMove<Player>(xDir, yDir);
 	}
-
+	
 	protected override void AttemptMove<T>(int xDir, int yDir)
 	{
 		if (skipMove)
@@ -122,8 +133,8 @@ public class Enemy : MovingObject
 	protected override void OnCantMove<T>(T component)
 	{
 		Player hitPlayer = component as Player;
-
-		hitPlayer.LoseHp(Damage);
+		if (DiceManager.TwentyEdges.Roll() > 14)
+			hitPlayer.LoseHp(Damage);
 
 	}
 }
