@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Dices;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,7 +34,16 @@ public class Enemy : MovingObject
 			}
 			float dis = (GameObject.FindGameObjectWithTag("Player").transform.position - transform.position).sqrMagnitude;
 			if (dis <= MaxDistanceToPlayer)
+			{ 
+				var end = (GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().position);
+
+				Debug.DrawLine(rb2D.position, end, Color.white);
 				MoveEnemy();
+			}
+			else
+			{
+				var end = transform.position + GameObject.FindGameObjectWithTag("Player").transform.position;
+			}
 		}
 	}
 
