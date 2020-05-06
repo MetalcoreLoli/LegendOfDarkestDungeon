@@ -15,6 +15,8 @@ namespace Assets.Scripts.Dices
         public static Dice TwelveEdges  = "1d12";
         public static Dice TwentyEdges  = "1d20";
 
+        public static Random Random     = new Random();
+
         public static Dice[] CreateDicesFromString(string dices) 
         {
             int countOfDices    = int.Parse(dices.Split('d')[0]);
@@ -26,7 +28,9 @@ namespace Assets.Scripts.Dices
             return dicesArray;
         }
 
-        public static int RollUndSum(this IEnumerable<Dice> source) => source.Sum(dice => dice.Roll());
+        public static int RollDice(Dice dice) => dice.Roll(Random);
+
+        public static int RollUndSum(this IEnumerable<Dice> source) => source.Sum(dice => dice.Roll(Random));
         public static int RollUndSumFromString(this string source) => CreateDicesFromString(source).RollUndSum();
     }
 }

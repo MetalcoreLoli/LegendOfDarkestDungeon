@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Dices;
+using Assets.Scripts.Stats;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +19,7 @@ public class GameManager : MonoBehaviour
 
     public BoardManager boardManager;
 
-    public int playersHp    = 20;
-    public int playersMaxHp = 20;
-    public int playersMp    = DiceManager.RollUndSumFromString("2d6") * 55;
-    public int playersMaxMp    = DiceManager.RollUndSumFromString("2d6") * 55;
+    public ActorCharacteristics playerCharacteristics;
 
     public int FloorNumber = 1;
     private void Awake()
@@ -31,19 +29,15 @@ public class GameManager : MonoBehaviour
         else if (_instance != this)
             Destroy(gameObject);
 
+       
 
         DontDestroyOnLoad(gameObject);
         boardManager = GetComponent<BoardManager>();
+        playerCharacteristics = new ActorCharacteristics(25, DiceManager.RollUndSumFromString("4d6") * 6);
         Enemies = new List<Enemy>();
         Init();
       
     }
-
-    //private void OnLevelWasLoaded(int level)
-    //{
-    //    SceneManager.sceneLoaded += SceneManager_sceneLoaded;
-
-    //}
 
     public void GameOver()
     {
@@ -72,34 +66,35 @@ public class GameManager : MonoBehaviour
         var Player = GameObject.FindGameObjectWithTag("Player");
         Player.transform.position = room.GetCenter();
 
-        var player_comp = Player.GetComponent<Player>();
-        var players_light = GameObject.FindGameObjectWithTag("PlayersLight").GetComponent<Light>();
-        players_light.intensity = player_comp.Hp = playersHp;
-        player_comp.MaxHp = _instance.playersMaxHp;
-        player_comp.Mana = _instance.playersMaxMp;
-        player_comp.MaxMana = _instance.playersMaxMp;
+        var player_comp             = Player.GetComponent<Player>();
+        var players_light           = GameObject.FindGameObjectWithTag("PlayersLight").GetComponent<Light>();
+        players_light.intensity     = playerCharacteristics.Hp;
+        playerCharacteristics.Mp    = playerCharacteristics.MaxMp;
+        player_comp.Characteristics = playerCharacteristics;
 
     }
 
-    private void Update()
+    public void RemoveEnemy(Enemy enemy)
+    {
+       // Enemies.Remove(enemy);
+    }
+
+    private void FixedUpdate()
     {
         //if (playersTurn)
         //    return;
-       // StartCoroutine(MoveEnemies());
-        
+        StartCoroutine(MoveEnemies());
+       
     }
 
     IEnumerator MoveEnemies()
     {
         Enemies.RemoveAll(i => i == null);
         yield return new WaitForSeconds(.1f);
-        foreach (var enemy in Enemies)
+        foreach (var enemy in Enemies.Where(e => e.isActiveAndEnabled))
         {
-            if (enemy != null)
-            {
-                enemy.MoveEnemy();
-                yield return new WaitForSeconds(enemy.moveTime);
-            }
+            yield return new WaitForSeconds(enemy.moveTime);
+            enemy.MoveEnemy();
         }
 
         playersTurn = true;

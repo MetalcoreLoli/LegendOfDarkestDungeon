@@ -7,7 +7,7 @@ using UnityEngine;
 using Random = System.Random;
 namespace Assets.Scripts.Dices
 {
-    public class Dice 
+    public class Dice
     {
         private int rolledValue = 0;
 
@@ -42,12 +42,19 @@ namespace Assets.Scripts.Dices
 
         public int Roll()
         {
-            int randIndex   = new Random().Next(0, CountOfEdges);
+            int randIndex   = new Random(DateTime.Now.Millisecond).Next(0, CountOfEdges);
             rolledValue     = Edges[randIndex].Value;
             rolledEdge      = Edges[randIndex];
             return rolledValue;
         }
 
+        public int Roll(Random rand)
+        {
+            int randIndex   = rand.Next(0, CountOfEdges);
+            rolledValue     = Edges[randIndex].Value;
+            rolledEdge      = Edges[randIndex];
+            return rolledValue;
+        }
 
         public static Dice Parser(string dice)
         {
@@ -55,6 +62,7 @@ namespace Assets.Scripts.Dices
             return new Dice(countOfEdges);
         }
 
-        public static implicit operator Dice(string dice) => Dice.Parser(dice);
+        public static implicit operator Dice(string dice) 
+            => Parser(dice);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Dices;
+using Assets.Scripts.Stats;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,10 +8,9 @@ using UnityEngine;
 public class Enemy : MovingObject
 {
 
+    public int Hp;
 
-    public int Hp = DiceManager.RollUndSumFromString("2d4");
-
-    public int Damage = DiceManager.SixEdges.Roll();
+    public int Damage = DiceManager.RollDice("2d6");
 
 	private Animator animator;                          
 	private Transform target;                           
@@ -18,31 +18,44 @@ public class Enemy : MovingObject
 
 	public float MaxDistanceToPlayer = 5f;
 
+	public ActorCharacteristics characteristics;
+
+	private void Awake()
+	{
+		characteristics = new ActorCharacteristics(DiceManager.RollUndSumFromString("2d4"), DiceManager.RollUndSumFromString("2d4"));
+		Hp				= characteristics.Hp;
+	}
+
 	private void FixedUpdate()
 	{
-		if (Hp <= 0)
-		{
-			GameManager._instance.Enemies.Remove(this);
-			Destroy(gameObject);
-		}
-		else 
-		{
-			if (transform.position == GameObject.FindGameObjectWithTag("Player").transform.position)
-			{
-				GameManager._instance.Enemies.Remove(this);
-				Destroy(gameObject);
-			}
-			float dis = (GameObject.FindGameObjectWithTag("Player").transform.position - transform.position).sqrMagnitude;
-			if (dis <= MaxDistanceToPlayer)
-			{ 
-				var end = (GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().position);
+		
+	}
 
-				Debug.DrawLine(rb2D.position, end, Color.white);
-				MoveEnemy();
-			}
-			else
+	private void Update()
+	{
+		Hp = characteristics.Hp;
+		if (characteristics.Hp <= 0)
+		{
+			GameManager._instance.RemoveEnemy(this);
+			gameObject.SetActive(false);	
+		}
+		else
+		{
+			var player = GameObject.FindGameObjectWithTag("Player");
+			float dis = (player.transform.position - transform.position).sqrMagnitude;
+			var end = (player.GetComponent<Rigidbody2D>().position - rb2D.position);
+			
+			if (transform.position == player.transform.position)
 			{
-				var end = transform.position + GameObject.FindGameObjectWithTag("Player").transform.position;
+				//GameManager._instance.Enemies.Remove(this);
+				//Destroy(gameObject);
+
+			}
+			
+			if (dis <= MaxDistanceToPlayer && player.GetComponent<Rigidbody2D>().position != rb2D.position)
+			{
+				Debug.DrawLine(rb2D.position, rb2D.position + end.normalized * end.magnitude, Color.white);
+				MoveEnemy();
 			}
 		}
 	}
@@ -50,77 +63,22 @@ public class Enemy : MovingObject
 	protected override void Start()
 	{
 		GameManager._instance.Enemies.Add(this);
-
-		animator = GetComponent<Animator>();
-
-		target = GameObject.FindGameObjectWithTag("Player").transform;
-
+		animator	= GetComponent<Animator>();
+		target		= GameObject.FindGameObjectWithTag("Player").transform;
 		base.Start();
 	}
-
-	//protected override bool Move(int xDir, int yDir, out RaycastHit2D hit)
-	//{
-	//	Vector2 start = transform.position;
-
-	//	Vector2 end = start + new Vector2(xDir, yDir);
-
-	//	boxCollider.enabled = false;
-
-	//	hit = Physics2D.Linecast(start, end, blockingLayer);
-
-	//	boxCollider.enabled = true;
-
-	//	if (hit.transform == null && !isMoving)
-	//	{
-	//		//StartCoroutine(SmoothMovement(end));
-	//		rb2D.MovePosition(end);
-	//		return true;
-	//	}
-
-	//	return false;
-	//}
-
-	//protected override void AttemptMove<T>(int xDir, int yDir)
-	//{
-	//	if (skipMove)
-	//	{
-	//		skipMove = false;
-	//		return;
-
-	//	}
-
-	//	RaycastHit2D hit;
-
-	//	bool canMove = Move(xDir, yDir, out hit);
-
-	//	if (hit.transform == null)
-	//		return;
-
-	//	T hitComponent = hit.transform.GetComponent<T>();
-
-	//	if (!canMove && hitComponent != null)
-	//		OnCantMove(hitComponent);
-	//	skipMove = true;
-	//}
-
+	
 	public void MoveEnemy()
 	{
 		int xDir = 0;
 		int yDir = 0;
 
-		//if (Mathf.Abs(target.position.x - (transform.position.x)) < float.Epsilon)
-		//	yDir = 1;
-		//else
-		//	xDir = 0;
-		//var dir = (target.position - transform.position).normalized;
-		//AttemptMove<Player>(Mathf.RoundToInt(dir.x), Mathf.RoundToInt(dir.y));
-
 		if (Mathf.Abs(target.position.x - transform.position.x) < float.Epsilon)
 			yDir = target.position.y > transform.position.y ? 1 : -1;
 		else
 			xDir = target.position.x > transform.position.x ? 1 : -1;
-		//rb2D.MovePosition()
-		Debug.Log($"Moving to {xDir}{yDir}");
+		
+		//Debug.Log($"Moving to {xDir}{yDir}");
 		AttemptMove<Player>(xDir, yDir);
 	}
 	
@@ -130,10 +88,7 @@ public class Enemy : MovingObject
 		{
 			skipMove = false;
 			return;
-
 		}
-
-		//Call the AttemptMove function from MovingObject.
 		base.AttemptMove<T>(xDir, yDir);
 
 		//Now that Enemy has moved, set skipMove to true to skip next move.
@@ -143,8 +98,14 @@ public class Enemy : MovingObject
 	protected override void OnCantMove<T>(T component)
 	{
 		Player hitPlayer = component as Player;
-		if (DiceManager.TwentyEdges.Roll() > 14)
+		if (DiceManager.RollDice("1d20") > 10 + hitPlayer.Characteristics.DexterityMod)
 			hitPlayer.LoseHp(Damage);
 
+	}
+
+	public void TakeDamage(int damage)
+	{
+		animator.SetTrigger("TakeDamage");
+		characteristics.Hp -= damage;
 	}
 }

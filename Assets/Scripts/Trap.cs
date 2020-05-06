@@ -23,14 +23,24 @@ public class Trap : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == ("Player"))
+        if (collision.CompareTag("Player"))
         {
+            Debug.Log("Player In trap");
             animator.SetTrigger("playerStand");
             var player = collision.GetComponent<Player>();
-            if (DiceManager.TwentyEdges.Roll() > 5 && isActive)
-                player.LoseHp(Dice.Parser("1d4").Roll());
+            if (DiceManager.RollDice("1d20") > 5 && isActive)
+                player.LoseHp(DiceManager.RollDice("1d4"));
 
             isActive = false;
+        }
+        if (collision.CompareTag("Enemy"))
+        {
+            Debug.Log("Enemy In trap");
+            var enemy = collision.GetComponent<Enemy>();
+            animator.SetTrigger("playerStand");
+            if (DiceManager.RollDice("1d20") > 10 && isActive)
+                enemy.TakeDamage(DiceManager.RollDice("1d4"));
+            //isActive = false;
         }
     }
 }

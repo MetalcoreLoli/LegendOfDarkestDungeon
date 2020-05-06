@@ -167,7 +167,6 @@ GameObject:
   - component: {fileID: -3190608310180739944}
   - component: {fileID: 3826068478554792207}
   - component: {fileID: 1425725383}
-  - component: {fileID: 1425725384}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -285,6 +284,12 @@ MonoBehaviour:
   MaxMana: 0
   Camera: {fileID: 0}
   lookDir: 2
+  Characteristics:
+    intell: 0
+    charisma: 0
+    dexterity: 0
+    strength: 0
+    lucky: 0
 --- !u!50 &-3190608310180739944
 Rigidbody2D:
   serializedVersion: 4
@@ -354,24 +359,3 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   spellForce: 10
---- !u!114 &1425725384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5130027051594658352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ed6ff63dff84f74c9ead74fd7a7c41a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ViewRadius: 2.62
-  ViewAngle: 360
-  targets:
-    serializedVersion: 2
-    m_Bits: 256
-  blockingMask:
-    serializedVersion: 2
-    m_Bits: 0
-  visibleTargets: []

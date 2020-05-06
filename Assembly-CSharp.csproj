@@ -81,10 +81,14 @@
     <Compile Include="Assets\Scripts\MovingObject.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
+    <Compile Include="Assets\Scripts\Spells\ISpell.cs" />
+    <Compile Include="Assets\Scripts\Spells\SpelInfo.cs" />
+    <Compile Include="Assets\Scripts\Spells\Spell.cs" />
     <Compile Include="Assets\Scripts\Stats\ActorCharacteristics.cs" />
     <Compile Include="Assets\Scripts\Stats\ICharcteristicsMod.cs" />
     <Compile Include="Assets\Scripts\Stats\IChracteristics.cs" />
     <Compile Include="Assets\Scripts\Trap.cs" />
+    <Compile Include="Assets\VoidSpell.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/danie/LegendOfDarkestDungeon/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

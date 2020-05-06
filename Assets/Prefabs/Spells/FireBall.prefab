@@ -155,8 +155,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f29cd3808a62d054f94b1ad6c9f4b7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Info:
+    Name: FireBall
+    Cost: 4
+    Prefab: {fileID: 576122911487092457}
+  FirePoint: {fileID: 0}
+  FirePointUp: {fileID: 0}
+  rb2D: {fileID: 3063216085136426767}
   speed: 5
-  rb: {fileID: 3063216085136426767}
 --- !u!1 &965235038226883659
 GameObject:
   m_ObjectHideFlags: 0

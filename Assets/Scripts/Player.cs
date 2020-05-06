@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Dices;
+using Assets.Scripts.Stats;
 using Microsoft.Win32.SafeHandles;
 using System;
 using System.Collections;
@@ -43,9 +44,25 @@ public class Player : MovingObject
 
     Vector2 mousePosition;
 
+    public ActorCharacteristics Characteristics;
+
+    private void Awake()
+    {
+            //if (GameManager._instance.playerCharacteristics != null)
+            //    Characteristics = GameManager._instance.playerCharacteristics;
+            //else
+            //{
+            //    GameManager._instance.playerCharacteristics = Characteristics = new ActorCharacteristics();
+            //}
+    }
+
     protected override void Start()
     {
         animator = GetComponent<Animator>();
+        Hp      = Characteristics.Hp;
+        MaxHp   = Characteristics.MaxHp;
+        Mana    = Characteristics.Mp;
+        MaxMana = Characteristics.MaxMp;
 
         base.Start();
     }
@@ -155,6 +172,7 @@ public class Player : MovingObject
             //}
             //IsMoving = false;
         }
+       // GameManager._instance.playersTurn = false;
     }
 
 
@@ -175,7 +193,7 @@ public class Player : MovingObject
     public void LoseHp(int damage)
     {
         Hp -= damage;
-        GameManager._instance.playersHp = Hp;
+        GameManager._instance.playerCharacteristics.Hp = Hp;
         animator.SetTrigger("Hit");
 
 
@@ -189,11 +207,12 @@ public class Player : MovingObject
             GameManager._instance.GameOver();
     }
 
-    public bool PlayerCastSpell()
+    public bool PlayerCastSpell(int cost)
     { 
-        if (Mana - 4  >= 0)
-        { 
-            Mana -= 4;
+        if (Characteristics.Mp - cost >= 0)
+        {
+            Characteristics.Mp -= cost;
+            Mana = Characteristics.Mp;
             animator.SetTrigger("Casting2");
             return true;
         }

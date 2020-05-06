@@ -40,8 +40,8 @@ public abstract class MovingObject : MonoBehaviour
 
 		if (hit.transform == null && !isMoving)
 		{
-			StartCoroutine(SmoothMovement(end));
-
+			if (isActiveAndEnabled)
+				StartCoroutine(SmoothMovement(end));
 			return true;
 		}
 

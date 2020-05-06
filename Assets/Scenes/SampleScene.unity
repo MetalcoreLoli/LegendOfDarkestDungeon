@@ -128,6 +128,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3190608310180739944, guid: b34513db1fdb1084da9c00fbc66002bc,
+        type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3190608310180739944, guid: b34513db1fdb1084da9c00fbc66002bc,
+        type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1425725383, guid: b34513db1fdb1084da9c00fbc66002bc, type: 3}
+      propertyPath: SpellPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 2830494459419614571, guid: 2921b5830511cf04fac11553a1b2840f,
+        type: 3}
     - target: {fileID: 934100411617660454, guid: b34513db1fdb1084da9c00fbc66002bc,
         type: 3}
       propertyPath: Camera
@@ -193,7 +208,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1425725384, guid: b34513db1fdb1084da9c00fbc66002bc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b34513db1fdb1084da9c00fbc66002bc, type: 3}
 --- !u!1 &395167177
 GameObject:
