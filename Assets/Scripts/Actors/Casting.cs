@@ -46,18 +46,18 @@ public class Casting : MonoBehaviour
 
     public void CastSpellWithIndex(int index)
     {
-        var spell = SpellPrefabs[index].GetComponent<Spell>();
-        spell.FirePoint = FirePoint;
-        spell.FirePointUp = FirePointUp;
+        var spell           = SpellPrefabs[index].GetComponent<Spell>();
+        spell.FirePoint     = FirePoint;
+        spell.FirePointUp   = FirePointUp;
         
         spell.Cast();
     }
 
     public void CastSpellWithName(string name)
     {
-        var spell = SpellPrefabs.First(s => s.name == name).GetComponent<Spell>();
-        spell.FirePoint = FirePoint;
-        spell.FirePointUp = FirePointUp;
+        var spell           = SpellPrefabs.First(s => s.name == name).GetComponent<Spell>();
+        spell.FirePoint     = FirePoint;
+        spell.FirePointUp   = FirePointUp;
         spell.Cast();
     }
 }

@@ -143,6 +143,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2830494459419614571, guid: 2921b5830511cf04fac11553a1b2840f,
         type: 3}
+    - target: {fileID: 1425725383, guid: b34513db1fdb1084da9c00fbc66002bc, type: 3}
+      propertyPath: SpellPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 3660896762601296697, guid: 7383cf11b2b33154fa8b6d8392c4831f,
+        type: 3}
     - target: {fileID: 934100411617660454, guid: b34513db1fdb1084da9c00fbc66002bc,
         type: 3}
       propertyPath: Camera

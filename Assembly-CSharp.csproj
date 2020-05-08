@@ -90,6 +90,7 @@
     <Compile Include="Assets\Scripts\Items\Item.cs" />
     <Compile Include="Assets\Scripts\Items\Potions\Potion.cs" />
     <Compile Include="Assets\Scripts\Spells\FireBall.cs" />
+    <Compile Include="Assets\Scripts\Spells\HealingSpell.cs" />
     <Compile Include="Assets\Scripts\Spells\ISpell.cs" />
     <Compile Include="Assets\Scripts\Spells\SpelInfo.cs" />
     <Compile Include="Assets\Scripts\Spells\Spell.cs" />

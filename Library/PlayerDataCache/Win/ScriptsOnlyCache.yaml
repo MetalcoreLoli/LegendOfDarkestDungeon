@@ -21,8 +21,6 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
-    - UnityEditor.Tilemaps.GridPaletteBrushes
-    - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.TileDragAndDropManager
     Unity.Rider.Editor.dll:
@@ -30,10 +28,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -121,11 +117,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14152}
     - Class: 114
-      Script: {instanceID: 14186}
+      Script: {instanceID: 14188}
     - Class: 114
-      Script: {instanceID: 14304}
+      Script: {instanceID: 14306}
     - Class: 114
-      Script: {instanceID: 14346}
+      Script: {instanceID: 14348}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -193,7 +189,7 @@ ScriptsOnlyBuild:
     className: Player
   - hash:
       serializedVersion: 2
-      Hash: 27ba431fb4419523c4df6d9d85e199a0
+      Hash: 2622a91f19200f58fd23a86931fe6c8d
     assemblyName: Assembly-CSharp.dll
     namespaceName: Assets.Scripts.Core
     className: ShortcutMenu
@@ -641,6 +637,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: Assets.Scripts.UI
     className: BarController
+  - hash:
+      serializedVersion: 2
+      Hash: 938ed3f4b968615831f89bfab4d706bc
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Assets.Scripts.Actors
+    className: Inventory
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
