@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Actors\Casting.cs" />
     <Compile Include="Assets\Scripts\Actors\Enemy.cs" />
+    <Compile Include="Assets\Scripts\Actors\Inventory.cs" />
     <Compile Include="Assets\Scripts\Actors\MovingObject.cs" />
     <Compile Include="Assets\Scripts\Actors\Player.cs" />
     <Compile Include="Assets\Scripts\CameraMove.cs" />

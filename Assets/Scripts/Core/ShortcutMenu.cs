@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.UI;
+﻿using Assets.Scripts.Items;
+using Assets.Scripts.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace Assets.Scripts.Core
         public GameObject[] Objects;
         public GameObject[] Cells;
         private UIController uIController;
+        public Int32 CurrentCell = 0;
         private void Awake()
         {
            
@@ -39,35 +41,57 @@ namespace Assets.Scripts.Core
             Cells[3] = GameObject.Find("CellFour");
             Cells[4] = GameObject.Find("CellFive");
         }
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 uIController.SelectShortcutBarCell(0);
+                CurrentCell = 0;
             }
+            
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 uIController.SelectShortcutBarCell(1);
+                CurrentCell = 1;
             }
+
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 uIController.SelectShortcutBarCell(2);
-
+                CurrentCell = 2;
             }
+
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
                 uIController.SelectShortcutBarCell(3);
-
+                CurrentCell = 3;
             }
+
             if (Input.GetKeyDown(KeyCode.Alpha5))
             {
                 uIController.SelectShortcutBarCell(4);
+                CurrentCell = 4;
+            }
+        }
+
+        public void ActivateCell()
+        {
+            var player = GameObject.Find("Player");
+            var casting = player.GetComponent<Casting>();
+            if (Objects[CurrentCell] != null)
+            {
+                if (Objects[CurrentCell].tag == "Spell")
+                {
+                    casting.CastSpellWithName(Objects[CurrentCell].name);
+                }
             }
         }
 
         public void AddToShortcutMenu(GameObject @object, int numberOfCell)
         {
             Cells[numberOfCell].GetComponent<Image>().sprite = @object.GetComponent<SpriteRenderer>().sprite;
+            Objects[numberOfCell] = @object;
         }
     }
 }

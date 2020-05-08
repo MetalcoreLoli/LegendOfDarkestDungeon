@@ -120,7 +120,10 @@ public class Player : MovingObject
             horizontal = 0;
         }
 
-        
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            GameManager._instance.shortcutMenu.ActivateCell();
+        }
 
         //animator.SetFloat("Horizontal", horizontal);
         //animator.SetFloat("Vertical", vertical);

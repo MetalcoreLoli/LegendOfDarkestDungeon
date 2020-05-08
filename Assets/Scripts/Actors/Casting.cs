@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Spells;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Casting : MonoBehaviour
@@ -27,28 +28,36 @@ public class Casting : MonoBehaviour
     void Update()
     {
         player = GetComponent<Player>();
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            spellNumber = 0;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            spellNumber = 1;
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    spellNumber = 0;
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    spellNumber = 1;
+        //}
 
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            Cast();
-        }
+        //if (Input.GetKeyDown(KeyCode.LeftControl))
+        //{
+        //    Cast();
+        //}
     }
 
-    private void Cast()
+    public void CastSpellWithIndex(int index)
     {
-        var spell = SpellPrefabs[spellNumber].GetComponent<Spell>();
+        var spell = SpellPrefabs[index].GetComponent<Spell>();
         spell.FirePoint = FirePoint;
         spell.FirePointUp = FirePointUp;
         
+        spell.Cast();
+    }
+
+    public void CastSpellWithName(string name)
+    {
+        var spell = SpellPrefabs.First(s => s.name == name).GetComponent<Spell>();
+        spell.FirePoint = FirePoint;
+        spell.FirePointUp = FirePointUp;
         spell.Cast();
     }
 }

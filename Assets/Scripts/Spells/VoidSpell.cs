@@ -49,15 +49,16 @@ public class VoidSpell : Spell
             if (DiceManager.RollDice("1d20") > 10)
                 enemy.TakeDamage(DiceManager.RollDice("2d4"));
 
+            StartCoroutine(DestoryAfter(1.5f));
             Destroy(gameObject);
         }
 
-        StartCoroutine(DestoryAfter());
+        StartCoroutine(DestoryAfter(4.5f));
     }
 
-    IEnumerator DestoryAfter()
+    IEnumerator DestoryAfter(float seconds)
     {
-        yield return new WaitForSecondsRealtime(5.0f);
+        yield return new WaitForSecondsRealtime(seconds);
         Destroy(gameObject);
     }
 }

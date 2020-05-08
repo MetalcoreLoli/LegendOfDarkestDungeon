@@ -13,6 +13,8 @@ TagManager:
   - Enemy
   - HpBar
   - MpBar
+  - Spell
+  - Item
   layers:
   - Default
   - TransparentFX
