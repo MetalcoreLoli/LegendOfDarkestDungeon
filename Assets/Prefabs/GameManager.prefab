@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4220840591195260696}
   - component: {fileID: 3373917942655960510}
   - component: {fileID: 1756431322895555176}
+  - component: {fileID: -6724495332495692363}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -48,9 +49,7 @@ MonoBehaviour:
   Enemies: []
   playersTurn: 0
   boardManager: {fileID: 0}
-  playersHp: 20
-  playersMaxHp: 20
-  playersMp: 110
+  shortcutMenu: {fileID: 0}
   FloorNumber: 1
 --- !u!114 &1756431322895555176
 MonoBehaviour:
@@ -107,6 +106,10 @@ MonoBehaviour:
     type: 3}
   FloorTileDownLeftCorner: {fileID: 8637285423835633910, guid: 1ce53902f42db39479a44af17254fafd,
     type: 3}
+  ClosedDoorVertical: {fileID: 2626164225247765529, guid: d76b1d13cf010954e8801c95d1bd37fb,
+    type: 3}
+  ClosedDoorHorizontal: {fileID: 2628248733754246426, guid: 2c65f83f93f21fd4f805e3759484e67f,
+    type: 3}
   TourchTile: {fileID: 9143279058621068323, guid: c97c4fe975c32a54baf56502484859de,
     type: 3}
   Traps:
@@ -124,3 +127,27 @@ MonoBehaviour:
   MapWidth: 70
   MapHeight: 40
   CountOfEnemies: 30
+--- !u!114 &-6724495332495692363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4481500595553085020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec498d419f4640c4aa8e45197c1aec09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Objects:
+  - {fileID: 576122911487092457, guid: dcbdd2606664ebc43a8ec8273dd9e530, type: 3}
+  - {fileID: 2830494459419614571, guid: 2921b5830511cf04fac11553a1b2840f, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 7646737463396547637, guid: d3cf9a26f01400742b80b3001f999dcf, type: 3}
+  Cells:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

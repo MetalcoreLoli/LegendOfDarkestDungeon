@@ -25,7 +25,7 @@ public class Trap : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Player In trap");
+           // Debug.Log("Player In trap");
             animator.SetTrigger("playerStand");
             var player = collision.GetComponent<Player>();
             if (DiceManager.RollDice("1d20") > 5 && isActive)
@@ -35,9 +35,9 @@ public class Trap : MonoBehaviour
         }
         if (collision.CompareTag("Enemy"))
         {
-            Debug.Log("Enemy In trap");
+            //Debug.Log("Enemy In trap");
             var enemy = collision.GetComponent<Enemy>();
-            animator.SetTrigger("playerStand");
+            //animator.SetTrigger("playerStand");
             if (DiceManager.RollDice("1d20") > 10 && isActive)
                 enemy.TakeDamage(DiceManager.RollDice("1d4"));
             //isActive = false;

@@ -12,7 +12,7 @@ namespace Assets.Scripts.Spells
 
         public Transform FirePoint;
         public Transform FirePointUp;
-
+        public SpriteRenderer Icon;
         public Rigidbody2D rb2D;
         public abstract void Cast();
     }

@@ -1,9 +1,14 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - Assets.Scripts.Core.ShortcutMenu
+    - Assets.Scripts.Items.Potion
+    - Assets.Scripts.UI.BarController
+    - Assets.Scripts.UI.UIController
     - BoardManager
     - CameraMove
     - Casting
+    - Door
     - Enemy
     - FireBall
     - GameManager
@@ -22,17 +27,17 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.TileDragAndDropManager
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
-    UnityEditor.Graphs.dll:
-    - UnityEditor.Graphs.AnimationBlendTree.Graph
-    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
-    - UnityEditor.Graphs.AnimationStateMachine.Graph
-    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
+    UnityEngine.UI.dll:
+    - UnityEngine.EventSystems.EventSystem
+    - UnityEngine.EventSystems.StandaloneInputModule
+    - UnityEngine.UI.CanvasScaler
+    - UnityEngine.UI.GraphicRaycaster
+    - UnityEngine.UI.Image
+    - UnityEngine.UI.Slider
   sceneClasses:
     Assets/Scenes/SampleScene.unity:
     - Class: 1
@@ -70,27 +75,49 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
+      Script: {instanceID: 11172}
+    - Class: 114
       Script: {instanceID: 11226}
     - Class: 114
       Script: {instanceID: 11256}
     - Class: 114
       Script: {instanceID: 11394}
     - Class: 114
+      Script: {instanceID: 11522}
+    - Class: 114
       Script: {instanceID: 11774}
     - Class: 114
-      Script: {instanceID: 11976}
+      Script: {instanceID: 11978}
     - Class: 114
-      Script: {instanceID: 12478}
+      Script: {instanceID: 12194}
     - Class: 114
-      Script: {instanceID: 12664}
+      Script: {instanceID: 12278}
     - Class: 114
-      Script: {instanceID: 12786}
+      Script: {instanceID: 12484}
     - Class: 114
-      Script: {instanceID: 12832}
+      Script: {instanceID: 12670}
     - Class: 114
-      Script: {instanceID: 14102}
+      Script: {instanceID: 12792}
     - Class: 114
-      Script: {instanceID: 28458}
+      Script: {instanceID: 12838}
+    - Class: 114
+      Script: {instanceID: 13624}
+    - Class: 114
+      Script: {instanceID: 13678}
+    - Class: 114
+      Script: {instanceID: 14116}
+    - Class: 114
+      Script: {instanceID: 14180}
+    - Class: 114
+      Script: {instanceID: 14298}
+    - Class: 114
+      Script: {instanceID: 14340}
+    - Class: 114
+      Script: {instanceID: 21218}
+    - Class: 114
+      Script: {instanceID: 29896}
+    - Class: 114
+      Script: {instanceID: 34928}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -100,6 +127,12 @@ ScriptsOnlyBuild:
     - Class: 212
       Script: {instanceID: 0}
     - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
       Script: {instanceID: 0}
   scriptHashData:
   - hash:
@@ -134,7 +167,7 @@ ScriptsOnlyBuild:
     className: TMP_Dropdown
   - hash:
       serializedVersion: 2
-      Hash: 7b8062de8c49f7efc76e35b9a2bc2a72
+      Hash: e67cfb23103a1d2ecf08e4586cd781fd
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: FireBall
@@ -356,6 +389,12 @@ ScriptsOnlyBuild:
     className: ControlTrack
   - hash:
       serializedVersion: 2
+      Hash: 252318c99a9e0f41746c2d2e562ff22b
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Assets.Scripts.Items
+    className: Potion
+  - hash:
+      serializedVersion: 2
       Hash: 8dc90e648ac06f43bdd31ac9fa8f4579
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -410,7 +449,7 @@ ScriptsOnlyBuild:
     className: RemoteTestResultSender
   - hash:
       serializedVersion: 2
-      Hash: 8732f763117ca27597f9452bb2aee9de
+      Hash: 33b0c76f0e0cfbee368d375c78a57643
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: BoardManager
@@ -524,6 +563,12 @@ ScriptsOnlyBuild:
     className: TextMeshProUGUI
   - hash:
       serializedVersion: 2
+      Hash: e18865e0257b2cc2021981963a5f977f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: VoidSpell
+  - hash:
+      serializedVersion: 2
       Hash: f336e086360abe49a3323e5f1583c35a
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -554,7 +599,7 @@ ScriptsOnlyBuild:
     className: TMP_StyleSheet
   - hash:
       serializedVersion: 2
-      Hash: 1885716129912d2138090b0b7a6a3261
+      Hash: fe9ed9c4ba659ca5332846a2c385113c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -582,6 +627,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: BaseInput
+  - hash:
+      serializedVersion: 2
+      Hash: 6f77c7cf9ca919fe78cae83af73453d3
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Door
   - hash:
       serializedVersion: 2
       Hash: caa533b001ae39b864ba8425019e2268
@@ -656,10 +707,22 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   - hash:
       serializedVersion: 2
-      Hash: 75d776a527913b2a761652c5cbeaad41
+      Hash: 55f3f0301c4c3639364bb82f514e2f26
     assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: VoidSpell
+    namespaceName: Assets.Scripts.UI
+    className: UIController
+  - hash:
+      serializedVersion: 2
+      Hash: 9c848a07ac7d2d1ca57673c0ca0dca8c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Assets.Scripts.UI
+    className: BarController
+  - hash:
+      serializedVersion: 2
+      Hash: 27ba431fb4419523c4df6d9d85e199a0
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Assets.Scripts.Core
+    className: ShortcutMenu
   platform: 5
   scenePathNames:
   - Assets/Scenes/SampleScene.unity

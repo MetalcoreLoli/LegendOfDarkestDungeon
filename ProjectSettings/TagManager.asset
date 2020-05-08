@@ -11,6 +11,8 @@ TagManager:
   - Wall
   - PlayersFirePointUp
   - Enemy
+  - HpBar
+  - MpBar
   layers:
   - Default
   - TransparentFX
