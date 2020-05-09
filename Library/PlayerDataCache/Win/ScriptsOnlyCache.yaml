@@ -3,6 +3,7 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - Assets.Scripts.Core.ShortcutMenu
     - Assets.Scripts.Items.Potion
+    - Assets.Scripts.Spells.HealingSpell
     - Assets.Scripts.UI.BarController
     - Assets.Scripts.UI.UIController
     - BoardManager
@@ -21,6 +22,8 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
+    - UnityEditor.Tilemaps.GridPaletteBrushes
+    - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.TileDragAndDropManager
     Unity.Rider.Editor.dll:
@@ -28,8 +31,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -42,6 +47,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
     - UnityEngine.UI.Slider
+    - UnityEngine.UI.Text
   sceneClasses:
     Assets/Scenes/SampleScene.unity:
     - Class: 1
@@ -89,40 +95,46 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11396}
     - Class: 114
+      Script: {instanceID: 11470}
+    - Class: 114
       Script: {instanceID: 11524}
     - Class: 114
-      Script: {instanceID: 11776}
+      Script: {instanceID: 11700}
     - Class: 114
-      Script: {instanceID: 11980}
+      Script: {instanceID: 11778}
     - Class: 114
-      Script: {instanceID: 12196}
+      Script: {instanceID: 11982}
     - Class: 114
-      Script: {instanceID: 12280}
+      Script: {instanceID: 12198}
     - Class: 114
-      Script: {instanceID: 12486}
+      Script: {instanceID: 12282}
     - Class: 114
-      Script: {instanceID: 12672}
+      Script: {instanceID: 12488}
     - Class: 114
-      Script: {instanceID: 12794}
+      Script: {instanceID: 12674}
     - Class: 114
-      Script: {instanceID: 12840}
+      Script: {instanceID: 12796}
     - Class: 114
-      Script: {instanceID: 13626}
+      Script: {instanceID: 12842}
     - Class: 114
-      Script: {instanceID: 13680}
+      Script: {instanceID: 13628}
     - Class: 114
-      Script: {instanceID: 14118}
+      Script: {instanceID: 13682}
     - Class: 114
-      Script: {instanceID: 14148}
+      Script: {instanceID: 14120}
     - Class: 114
-      Script: {instanceID: 14152}
+      Script: {instanceID: 14150}
     - Class: 114
-      Script: {instanceID: 14188}
+      Script: {instanceID: 14154}
     - Class: 114
-      Script: {instanceID: 14306}
+      Script: {instanceID: 14190}
     - Class: 114
-      Script: {instanceID: 14348}
+      Script: {instanceID: 14308}
+    - Class: 114
+      Script: {instanceID: 14350}
     - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
@@ -271,6 +283,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: SignalAsset
+  - hash:
+      serializedVersion: 2
+      Hash: e18865e0257b2cc2021981963a5f977f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Assets.Scripts.Spells
+    className: HealingSpell
   - hash:
       serializedVersion: 2
       Hash: 0dbc3be398b4869a5c8d0d8481ee402c
@@ -627,7 +645,7 @@ ScriptsOnlyBuild:
     className: TMP_ColorGradient
   - hash:
       serializedVersion: 2
-      Hash: 3e9b01a2f77843513f5abedc4753e201
+      Hash: dc995c8ded69ae751c4ce50d00afc61f
     assemblyName: Assembly-CSharp.dll
     namespaceName: Assets.Scripts.UI
     className: UIController

@@ -12,7 +12,14 @@ namespace Assets.Scripts.UI
     {
         BarController hpContoroller;
         BarController mpContoroller;
+        
         public GameObject selectedSpell;
+
+        [SerializeField]
+        private Text hpText;
+        [SerializeField]
+        private Text mpText;
+
         private Vector3[] spellsPositions;
         private void Awake()
         {
@@ -34,11 +41,15 @@ namespace Assets.Scripts.UI
             mpContoroller.SetMax(GameManager._instance.playerCharacteristics.MaxMp);
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             selectedSpell = GameObject.Find("SelectedSpell");
+
             hpContoroller.SetValue(GameManager._instance.playerCharacteristics.Hp);
-            mpContoroller.SetValue(GameManager._instance.playerCharacteristics.Mp); 
+            mpContoroller.SetValue(GameManager._instance.playerCharacteristics.Mp);
+
+            hpText.text = $"{GameManager._instance.playerCharacteristics.Hp} / {GameManager._instance.playerCharacteristics.MaxHp}";
+            mpText.text = $"{GameManager._instance.playerCharacteristics.Mp} / {GameManager._instance.playerCharacteristics.MaxMp}";
         }
 
         public void SelectShortcutBarCell(int numberOfCell)

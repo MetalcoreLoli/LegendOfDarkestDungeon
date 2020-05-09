@@ -64,6 +64,7 @@ public class Player : MovingObject
         Mana    = Characteristics.Mp;
         MaxMana = Characteristics.MaxMp;
 
+
         GameManager._instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[0], 0);
         GameManager._instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[1], 1);
         GameManager._instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[2], 2);
