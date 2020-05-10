@@ -19,11 +19,6 @@ namespace Assets.Scripts.Core
         private void Awake()
         {
            
-            for (int i = 0; i < Cells.Length; i++)
-            {
-                Debug.Log(Cells[i].name);
-            }
-
             var playerCasting = GameObject.Find("Player").GetComponent<Casting>();
             //Cells[0].GetComponent<Image>().sprite = playerCasting.SpellPrefabs[0].GetComponent<SpriteRenderer>().sprite;
             //Cells[1].GetComponent<Image>().sprite = playerCasting.SpellPrefabs[1].GetComponent<SpriteRenderer>().sprite;

@@ -13,13 +13,14 @@ public class GameManager : MonoBehaviour
 
     public static GameManager _instance = null;
 
-    public GameObject Player;
+    public Player Player;
 
 
     public List<Enemy> Enemies;
     [HideInInspector]public bool playersTurn; 
 
     public BoardManager boardManager;
+    public DataManager  dataManager;
     public ShortcutMenu shortcutMenu;
 
     public ActorCharacteristics playerCharacteristics;
@@ -37,12 +38,22 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         boardManager            = GetComponent<BoardManager>();
         shortcutMenu            = GetComponent<ShortcutMenu>();
-        playerCharacteristics   = new ActorCharacteristics(25, DiceManager.RollUndSumFromString("4d6") * 6);
+        dataManager             = GetComponent<DataManager>();
+        Player = GameObject.Find("Player").GetComponent<Player>();
+        if (SaveLoader.Instance().IsNeedToLoad)
+        {
+            dataManager.LoadSavedData();
+        }
+        else
+        {
+            playerCharacteristics = new ActorCharacteristics(25, DiceManager.RollUndSumFromString("4d6") * 6);
+        }
+
         Enemies = new List<Enemy>();
         
 
 
-        Init();
+        //Init();
       
     }
 
@@ -59,8 +70,10 @@ public class GameManager : MonoBehaviour
 
     private static void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
-        _instance.FloorNumber += 1;
-        _instance.Init();
+       
+            _instance.FloorNumber += 1;
+            _instance.Init();
+
     }
 
     private void Init()

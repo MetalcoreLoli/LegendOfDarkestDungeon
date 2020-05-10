@@ -70,9 +70,12 @@
     <Compile Include="Assets\Scripts\Actors\Player.cs" />
     <Compile Include="Assets\Scripts\CameraMove.cs" />
     <Compile Include="Assets\Scripts\Core\BoardManager.cs" />
+    <Compile Include="Assets\Scripts\Core\Data\IData.cs" />
+    <Compile Include="Assets\Scripts\Core\DataManager.cs" />
     <Compile Include="Assets\Scripts\Core\FieldOfView.cs" />
     <Compile Include="Assets\Scripts\Core\GameManager.cs" />
     <Compile Include="Assets\Scripts\Core\Loader.cs" />
+    <Compile Include="Assets\Scripts\Core\SaveLoader.cs" />
     <Compile Include="Assets\Scripts\Core\ShortcutMenu.cs" />
     <Compile Include="Assets\Scripts\Core\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Dices\Dice.cs" />
@@ -100,6 +103,8 @@
     <Compile Include="Assets\Scripts\Stats\IChracteristics.cs" />
     <Compile Include="Assets\Scripts\Trap.cs" />
     <Compile Include="Assets\Scripts\UI\BarController.cs" />
+    <Compile Include="Assets\Scripts\UI\GameMenuSettings.cs" />
+    <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
     <Compile Include="Assets\Scripts\UI\UIController.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/danie/LegendOfDarkestDungeon/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

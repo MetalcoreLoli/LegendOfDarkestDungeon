@@ -15,10 +15,9 @@ namespace Assets.Scripts.UI
         
         public GameObject selectedSpell;
 
-        [SerializeField]
-        private Text hpText;
-        [SerializeField]
-        private Text mpText;
+        [SerializeField] private GameMenuSettings gameMenu;
+        [SerializeField] private Text hpText;
+        [SerializeField] private Text mpText;
 
         private Vector3[] spellsPositions;
         private void Awake()
@@ -39,6 +38,13 @@ namespace Assets.Scripts.UI
             mpContoroller = GameObject.FindGameObjectWithTag("MpBar").GetComponent<BarController>();
             hpContoroller.SetMax(GameManager._instance.playerCharacteristics.MaxHp);
             mpContoroller.SetMax(GameManager._instance.playerCharacteristics.MaxMp);
+            gameMenu.Close();
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+                gameMenu.Open();
         }
 
         private void FixedUpdate()

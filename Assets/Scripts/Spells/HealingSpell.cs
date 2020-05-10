@@ -16,7 +16,7 @@ namespace Assets.Scripts.Spells
 
             if (player.PlayerCastSpell(2))
             { 
-                player.Characteristics.Hp += DiceManager.RollDice("1d4");
+                player.UpdateHealth(DiceManager.RollDice("1d4"));
                 var light = GameObject.FindGameObjectWithTag("PlayersLight").GetComponent<Light>();
                 light.intensity = player.Characteristics.Hp;
             }

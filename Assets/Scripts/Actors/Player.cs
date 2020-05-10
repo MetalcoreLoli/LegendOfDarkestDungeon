@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Dices;
+﻿using Assets.Scripts.Core.Data;
+using Assets.Scripts.Dices;
 using Assets.Scripts.Stats;
 using Microsoft.Win32.SafeHandles;
 using System;
@@ -19,7 +20,7 @@ public enum LookDir
     Right   = 3
 }
 
-public class Player : MovingObject
+public class Player : MovingObject, IData
 {
     public float speed = 5f;
 
@@ -197,10 +198,23 @@ public class Player : MovingObject
         }
     }
 
+    public void UpdateHealth(int value)
+    {
+        Characteristics.Hp += value;
+        if (Characteristics.Hp > Characteristics.MaxHp)
+        {
+            Characteristics.Hp = Characteristics.MaxHp;
+        }
+        else if (Characteristics.Hp < 0)
+        {
+            Characteristics.Hp = 0;
+        }
+    }
+
     public void LoseHp(int damage)
     {
-        Hp -= damage;
-        GameManager._instance.playerCharacteristics.Hp = Hp;
+        UpdateHealth(-damage);
+        //GameManager._instance.playerCharacteristics.Hp = Hp;
         animator.SetTrigger("Hit");
 
 
@@ -231,5 +245,42 @@ public class Player : MovingObject
         Enemy enemy  = comp as Enemy;
 		//if (DiceManager.TwentyEdges.Roll() > 15)
   //          LoseHp(enemy.Damage);
+    }
+
+    public Dictionary<string, int> GetData()
+    {
+
+        Dictionary<string, int> temp = new Dictionary<string, int>();
+
+        temp.Add("Hp",      Characteristics.Hp);
+        temp.Add("MaxHp",   Characteristics.MaxHp);
+
+        temp.Add("Mp",      Characteristics.Mp);
+        temp.Add("MaxMp",   Characteristics.MaxMp);
+
+        temp.Add("Lucky",           Characteristics.Lucky);
+        temp.Add("Dexterity",       Characteristics.Dexterity);
+        temp.Add("Strength",        Characteristics.Strength);
+        temp.Add("Charisma",        Characteristics.Charisma);
+        temp.Add("Intelligence",    Characteristics.Intelligence);
+
+        return temp;
+    }
+
+    public void LoadData(Dictionary<string, int> data)
+    {
+        Characteristics.Hp      = data["Hp"];
+        Characteristics.MaxHp   = data["MaxHp"];
+        Characteristics.Mp      = data["Mp"];
+        Characteristics.MaxMp   = data["MaxMp"];
+
+        Characteristics.Lucky           = data["Lucky"];
+        Characteristics.Dexterity       = data["Dexterity"];
+        Characteristics.Strength        = data["Strength"];
+        Characteristics.Intelligence    = data["Intelligence"];
+        Characteristics.Charisma        = data["Charisma"];
+
+        GameManager._instance.playerCharacteristics = Characteristics;
+        //GameManager._instance.Player = this;
     }
 }
