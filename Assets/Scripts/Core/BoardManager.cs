@@ -6,6 +6,7 @@ using UnityEngine;
 
 using Random = UnityEngine.Random;
 using Assets.Scripts.Dices;
+using System.Security.Cryptography;
 
 [Serializable]
 public struct Size
@@ -75,11 +76,13 @@ public class BoardManager : MonoBehaviour
 
     public List<Room> Rooms;
 
-    private List<GameObject> map;
+    public List<GameObject> map;
     private List<Vector3> UpWallCoords;
     private List<Vector3> InnerRoomCoords;
     private List<Vector3> HRoomDoorsCoords;
     private List<Vector3> VRoomDoorsCoords;
+
+    private List<GameObject> enemis;
 
     public void SetUpLevel(int level) 
     {
@@ -95,6 +98,7 @@ public class BoardManager : MonoBehaviour
         boardHolder         = new GameObject("Board").transform;
         Rooms               = new List<Room>();
         map                 = new List<GameObject>();
+        enemis              = new List<GameObject>();
         UpWallCoords        = new List<Vector3>();
         InnerRoomCoords     = new List<Vector3>();
         HRoomDoorsCoords    = new List<Vector3>();
@@ -400,5 +404,14 @@ public class BoardManager : MonoBehaviour
 
             }
         }
+    }
+    private void OnDestroy()
+    {
+        Debug.Log("Was Destroied");
+        //Destroy(boardHolder);
+        //foreach (var item in map)
+        //{
+        //    Destroy(item);
+        //}
     }
 }

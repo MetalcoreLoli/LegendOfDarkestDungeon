@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -26,10 +27,19 @@ namespace Assets.Scripts.UI
 
         public void Exit()
         {
-            Destroy(GameObject.Find("GameManager(Clone)"));
             Destroy(GameObject.Find("SoundManager"));
+            Destroy(GameObject.Find("GameManager(Clone)")); 
+            var board = GameObject.Find("Board");
+            GameObject.Destroy(board);
+            var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            
+            foreach (var enem in enemies)
+                Destroy(enem);
+
+
+  
             SceneManager.LoadScene(0, LoadSceneMode.Single);
-           // Application.Quit();
+            //Application.Quit();
         }
     }
 }

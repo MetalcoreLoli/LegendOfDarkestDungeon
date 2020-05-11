@@ -108,4 +108,9 @@ public class Enemy : MovingObject
 		animator.SetTrigger("TakeDamage");
 		characteristics.Hp -= damage;
 	}
+
+	private void OnDestroy()
+	{
+		Destroy(this);
+	}
 }

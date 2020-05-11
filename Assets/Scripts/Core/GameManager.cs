@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         
 
 
-        //Init();
+        Init();
       
     }
 
@@ -70,10 +70,11 @@ public class GameManager : MonoBehaviour
 
     private static void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
-       
+        if (_instance != null)
+        {
             _instance.FloorNumber += 1;
             _instance.Init();
-
+        }
     }
 
     private void Init()
@@ -120,5 +121,12 @@ public class GameManager : MonoBehaviour
         }
 
         playersTurn = true;
+    }
+    private void OnDestroy()
+    {
+        foreach (var item in Enemies)
+        {
+            Destroy(item);
+        }
     }
 }
