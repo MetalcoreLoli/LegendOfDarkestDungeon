@@ -15,6 +15,7 @@ namespace Assets.Scripts.Core
         public GameObject[] Objects;
         public GameObject[] Cells;
         private UIController uIController;
+        public GameObject SelectedObject;
         public Int32 CurrentCell = 0;
         private void Awake()
         {
@@ -68,6 +69,23 @@ namespace Assets.Scripts.Core
                 uIController.SelectShortcutBarCell(4);
                 CurrentCell = 4;
             }
+            SelectedObject = Objects[CurrentCell];
+        }
+
+        private void OnGUI()
+        {
+            if (SelectedObject != null)
+            {
+                if (SelectedObject.tag == "Item")
+                {
+                    if (SelectedObject.GetComponent<Item>() is IUseable item)
+                    {
+                        GUI.skin.font = Resources.Load<Font>("Sprites/GUI/SDS_6x6");
+                        var vector = uIController.SpellsPositions[CurrentCell];
+                       // GUI.Label(new Rect(-vector, new Vector2(16, 16)), "0");
+                    }
+                }
+            }
         }
 
         public void ActivateCell()
@@ -76,9 +94,16 @@ namespace Assets.Scripts.Core
             var casting = player.GetComponent<Casting>();
             if (Objects[CurrentCell] != null)
             {
-                if (Objects[CurrentCell].tag == "Spell")
+                if (Objects[CurrentCell].CompareTag("Spell"))
                 {
                     casting.CastSpellWithName(Objects[CurrentCell].name);
+                }
+                if (Objects[CurrentCell].CompareTag("Item"))
+                {
+                    if (Objects[CurrentCell].GetComponent<Item>() is IUseable item)
+                    {
+                        GameManager._instance.inventoryManager.UseItem(Objects[CurrentCell].GetComponent<Item>().Info.Name);
+                    }
                 }
             }
         }

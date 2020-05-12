@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Core;
+﻿using Assets.Scripts.Actors;
+using Assets.Scripts.Core;
 using Assets.Scripts.Dices;
 using Assets.Scripts.Stats;
 using Assets.Scripts.UI;
@@ -22,7 +23,9 @@ public class GameManager : MonoBehaviour
     public BoardManager boardManager;
     public DataManager  dataManager;
     public ShortcutMenu shortcutMenu;
-
+    public InventoryManager inventoryManager;
+    public ItemManager itemManager;
+    public GameObject potion;
     public ActorCharacteristics playerCharacteristics;
 
     public int FloorNumber = 1;
@@ -36,9 +39,13 @@ public class GameManager : MonoBehaviour
        
 
         DontDestroyOnLoad(gameObject);
+
+        itemManager             = GetComponent<ItemManager>();
         boardManager            = GetComponent<BoardManager>();
         shortcutMenu            = GetComponent<ShortcutMenu>();
         dataManager             = GetComponent<DataManager>();
+        inventoryManager        = GetComponent<InventoryManager>();
+
         Player = GameObject.Find("Player").GetComponent<Player>();
         if (SaveLoader.Instance().IsNeedToLoad)
         {
@@ -50,7 +57,6 @@ public class GameManager : MonoBehaviour
         }
 
         Enemies = new List<Enemy>();
-        
 
 
         Init();

@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 1756431322895555176}
   - component: {fileID: -6724495332495692363}
   - component: {fileID: -5601789461139589930}
+  - component: {fileID: 4796070145714128131}
+  - component: {fileID: -8995383404787782042}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -52,6 +54,9 @@ MonoBehaviour:
   boardManager: {fileID: 0}
   dataManager: {fileID: 0}
   shortcutMenu: {fileID: 0}
+  inventoryManager: {fileID: 0}
+  itemManager: {fileID: 0}
+  potion: {fileID: 7646737463396547637, guid: d3cf9a26f01400742b80b3001f999dcf, type: 3}
   FloorNumber: 1
 --- !u!114 &1756431322895555176
 MonoBehaviour:
@@ -114,6 +119,8 @@ MonoBehaviour:
     type: 3}
   TourchTile: {fileID: 9143279058621068323, guid: c97c4fe975c32a54baf56502484859de,
     type: 3}
+  BloodFountain: {fileID: 6581752387913811905, guid: 46431fff166a5fd4d95273eb9c6920d2,
+    type: 3}
   Traps:
   - {fileID: 3177136674332636102, guid: a2a9c844d2508614c802d3ec0287ae5c, type: 3}
   EnemyPrefab: {fileID: 616915655446757402, guid: 19948f187e647ea40ae53723dbd046b6,
@@ -129,6 +136,7 @@ MonoBehaviour:
   MapWidth: 70
   MapHeight: 40
   CountOfEnemies: 30
+  map: []
 --- !u!114 &-6724495332495692363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +161,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  SelectedObject: {fileID: 0}
   CurrentCell: 0
 --- !u!114 &-5601789461139589930
 MonoBehaviour:
@@ -166,3 +175,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03af6b74c903d334ab915662d63d17c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4796070145714128131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4481500595553085020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9109e99ebe276c34c9a5b38610736c87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 6
+  height: 5
+--- !u!114 &-8995383404787782042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4481500595553085020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ebeda95ca777c49b67902d6085451c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealingPotion: {fileID: 7646737463396547637, guid: d3cf9a26f01400742b80b3001f999dcf,
+    type: 3}

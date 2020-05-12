@@ -19,15 +19,15 @@ namespace Assets.Scripts.UI
         [SerializeField] private Text hpText;
         [SerializeField] private Text mpText;
 
-        private Vector3[] spellsPositions;
+        public Vector3[] SpellsPositions { get; private set; }
         private void Awake()
         {
             selectedSpell = GameObject.Find("SelectedSpell");
-            spellsPositions = new Vector3[5];
+            SpellsPositions = new Vector3[5];
             var spellTransform = selectedSpell.transform;
-            for (int i = 0; i < spellsPositions.Length; i++)
+            for (int i = 0; i < SpellsPositions.Length; i++)
             {
-                spellsPositions[i] 
+                SpellsPositions[i] 
                     = new Vector3(spellTransform.position.x + (16 * spellTransform.localScale.x) * i, spellTransform.position.y);
             }
         }
@@ -61,7 +61,7 @@ namespace Assets.Scripts.UI
         public void SelectShortcutBarCell(int numberOfCell)
         {
             //if (SelectedSpell != null)
-            selectedSpell.transform.position = spellsPositions[numberOfCell];
+            selectedSpell.transform.position = SpellsPositions[numberOfCell];
         }
     }
 }

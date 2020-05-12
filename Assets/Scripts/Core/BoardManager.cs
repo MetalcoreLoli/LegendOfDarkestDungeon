@@ -56,6 +56,7 @@ public class BoardManager : MonoBehaviour
     public GameObject ClosedDoorHorizontal;
 
     public GameObject TourchTile;
+    public GameObject BloodFountain;
 
     public GameObject[] Traps;
 
@@ -246,6 +247,8 @@ public class BoardManager : MonoBehaviour
         PlaceTraps();
         PlaceEnemies();
 
+        //PlaceFountains();
+
         var lastRoomCenter = Rooms.Last().GetCenter();
         Instantiate(Exit, lastRoomCenter, Quaternion.identity);
     }
@@ -357,6 +360,11 @@ public class BoardManager : MonoBehaviour
             var enemy = Instantiate(EnemyPrefab, GetRandVectorFrom(InnerRoomCoords), Quaternion.identity);
             enemy.transform.SetParent(boardHolder);
         }
+    }
+
+    private void PlaceFountains()
+    {
+        AddGameObjectToMap(Instantiate(BloodFountain, GetRandVectorFrom(InnerRoomCoords), Quaternion.identity));    
     }
 
     private void PlaceDoors()
