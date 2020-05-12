@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Scripts.Items
+namespace Assets.Scripts.Items.Potions
 {
-    public class Potion : Item, IUseable
+    public class Potion : Item, IPotion 
     {
         public override void Drop()
         {

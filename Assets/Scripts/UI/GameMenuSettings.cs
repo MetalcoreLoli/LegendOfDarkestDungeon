@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.UI
@@ -14,10 +8,14 @@ namespace Assets.Scripts.UI
         public void Open()
         {
             gameObject.SetActive(true);
+            SoundManager.instance.musicSource.Stop();
+            SoundManager.instance.menuMusicSource.Play();
         }
         public void Close()
         {
             gameObject.SetActive(false);
+            SoundManager.instance.musicSource.Play();
+            SoundManager.instance.menuMusicSource.Stop();
         }
 
         public void Save()

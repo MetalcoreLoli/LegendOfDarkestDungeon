@@ -7,6 +7,7 @@ public class SoundManager : MonoBehaviour
 
     public AudioSource efxSource;
     public AudioSource musicSource;
+    public AudioSource menuMusicSource;
 
     public float lowPitchRange = .95f;
     public float highPitchRange = 1.05f;
@@ -21,7 +22,6 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         DontDestroyOnLoad(gameObject);
     }
-
 
     public void PlaySinlge(AudioClip clip)
     {
