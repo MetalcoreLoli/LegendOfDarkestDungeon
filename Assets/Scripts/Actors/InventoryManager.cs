@@ -60,11 +60,17 @@ namespace Assets.Scripts.Actors
 
             if (IsOpen)
             {
-                if (Input.GetKeyDown(KeyCode.Tab))
-                    MoveNext();
+                if (Input.GetKeyDown(KeyCode.L))
+                    MoveRight();
 
-                if (Input.GetKeyDown(KeyCode.LeftShift))
-                    MoveBack();
+                if (Input.GetKeyDown(KeyCode.H))
+                    MoveLeft();
+
+                if (Input.GetKeyDown(KeyCode.J))
+                    MoveUp();
+
+                if (Input.GetKeyDown(KeyCode.K))
+                    MoveDown();
 
                 SelectedCellPosition = CellsPositions[selectedCellNumber];
                 Item[] keies = Items.Keys.Where(k => Items[k] == 0).ToArray();
@@ -163,8 +169,7 @@ namespace Assets.Scripts.Actors
                     "Use item: LCtrl;\n\n" +
                     "Add to shotcut menu: Alt + [number of free slot];\n\n" +
                     "Drop: G;\n\n" +
-                    "Next Item: Tab;\n\n" +
-                    "Previous Item: Shift;");
+                    "Move: h(left), j(up), k(down), l(right);\n\n");
 
                 SelecteCell(SelectedCellPosition);
             }
@@ -180,16 +185,33 @@ namespace Assets.Scripts.Actors
                     Resources.Load<Texture2D>("Sprites/GUI/GUISelectedCell"));
         }
 
-        void MoveNext()
+        void MoveRight()
         {
             if (selectedCellNumber + 1 < width * height)
                 selectedCellNumber++;
         }
 
-        void MoveBack()
+        void MoveLeft()
         {
             if (selectedCellNumber - 1 >= 0)
                 selectedCellNumber--;
+        }
+
+        void MoveUp()
+        {
+            int _selectedCellNumber = (int)(selectedCellNumber - width);
+            if (_selectedCellNumber >= 0) 
+            {
+                Debug.Log(_selectedCellNumber);
+                selectedCellNumber = _selectedCellNumber;
+            }
+        }
+
+        void MoveDown()
+        {
+            int _selectedCellNumber = (int)(selectedCellNumber + width);
+            if (_selectedCellNumber < width * height)
+                selectedCellNumber = _selectedCellNumber;
         }
     }
 }
