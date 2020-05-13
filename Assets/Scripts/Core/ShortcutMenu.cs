@@ -19,7 +19,6 @@ namespace Assets.Scripts.Core
         public Int32 CurrentCell = 0;
         private void Awake()
         {
-           
             var playerCasting = GameObject.Find("Player").GetComponent<Casting>();
             //Cells[0].GetComponent<Image>().sprite = playerCasting.SpellPrefabs[0].GetComponent<SpriteRenderer>().sprite;
             //Cells[1].GetComponent<Image>().sprite = playerCasting.SpellPrefabs[1].GetComponent<SpriteRenderer>().sprite;
@@ -70,6 +69,21 @@ namespace Assets.Scripts.Core
                 CurrentCell = 4;
             }
             SelectedObject = Objects[CurrentCell];
+            if (SelectedObject != null)
+            {
+                if (SelectedObject.tag == "Item")
+                {
+                    var inv = GameManager._instance.inventoryManager;
+                    if (inv.GetItem(SelectedObject.GetComponent<Item>().name) == null)
+                    {
+                        Objects[CurrentCell] = null;
+                    }
+                }
+            }
+            else
+            {
+                Cells[CurrentCell].GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/GUI/GUIEmptySpellCell");
+            }
         }
 
         private void OnGUI()
@@ -92,7 +106,7 @@ namespace Assets.Scripts.Core
         {
             var player = GameObject.Find("Player");
             var casting = player.GetComponent<Casting>();
-            if (Objects[CurrentCell] != null)
+            if (Objects[CurrentCell] != null && !GameManager._instance.inventoryManager.IsOpen)
             {
                 if (Objects[CurrentCell].CompareTag("Spell"))
                 {
@@ -102,7 +116,9 @@ namespace Assets.Scripts.Core
                 {
                     if (Objects[CurrentCell].GetComponent<Item>() is IUseable item)
                     {
-                        GameManager._instance.inventoryManager.UseItem(Objects[CurrentCell].GetComponent<Item>().Info.Name);
+                        var inv = GameManager._instance.inventoryManager;
+                        if (inv.GetItem(Objects[CurrentCell].GetComponent<Item>().name) != null)
+                            inv.UseItem(Objects[CurrentCell].GetComponent<Item>().name);
                     }
                 }
             }

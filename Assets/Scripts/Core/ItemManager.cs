@@ -10,7 +10,12 @@ namespace Assets.Scripts.Core
     public class ItemManager : MonoBehaviour
     {
         public GameObject HealingPotion;
+        public GameObject ManaPotion;
 
-       
+
+        public void Drop(string name)
+        { 
+            
+        }
     }
 }

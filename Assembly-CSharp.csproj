@@ -94,6 +94,7 @@
     <Compile Include="Assets\Scripts\Items\Item.cs" />
     <Compile Include="Assets\Scripts\Items\Potions\HealingPotion.cs" />
     <Compile Include="Assets\Scripts\Items\Potions\IPotion.cs" />
+    <Compile Include="Assets\Scripts\Items\Potions\ManaPotion.cs" />
     <Compile Include="Assets\Scripts\Spells\FireBall.cs" />
     <Compile Include="Assets\Scripts\Spells\HealingSpell.cs" />
     <Compile Include="Assets\Scripts\Spells\ISpell.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Assets\Scripts\Stats\ActorCharacteristics.cs" />
     <Compile Include="Assets\Scripts\Stats\ICharcteristicsMod.cs" />
     <Compile Include="Assets\Scripts\Stats\IChracteristics.cs" />
+    <Compile Include="Assets\Scripts\TextureHelper.cs" />
     <Compile Include="Assets\Scripts\Trap.cs" />
     <Compile Include="Assets\Scripts\UI\BarController.cs" />
     <Compile Include="Assets\Scripts\UI\GameMenuSettings.cs" />

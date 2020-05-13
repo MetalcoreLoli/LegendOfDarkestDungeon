@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Items;
+using Assets.Scripts.Items.Potions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,28 +21,52 @@ namespace Assets.Scripts.Actors
         [SerializeField] private int width;
         [SerializeField] private int height;
 
+        public Vector3[] CellsPositions { get; private set; }
+        public Vector3 SelectedCellPosition { get; private set; }
+
+        private int selectedCellNumber = 0;
         private void Awake()
         {
             //if (instance == null)
             //    instance = this;
             //else if (instance != this)
             //    Destroy(gameObject);
-
-            Items = new Dictionary<Item, int>()
-            {
-                [GameManager._instance.itemManager.HealingPotion.GetComponent<Item>()] = 5
-            };
+            CellsPositions = new Vector3[width * height];
+            Items = new Dictionary<Item, int>();
+            AddItem(GameManager._instance.itemManager.ManaPotion.GetComponent<ManaPotion>(), 5);
+            AddItem(GameManager._instance.itemManager.HealingPotion.GetComponent<HealingPotion>(), 5);
 
         }
         private void Start()
         {
-            GameManager._instance.shortcutMenu.AddToShortcutMenu(GetItem("HealingPotion").gameObject, 4);    
+            GameManager._instance.shortcutMenu.AddToShortcutMenu(GetItem("HealingPotion").gameObject, 4);
+            GameManager._instance.shortcutMenu.AddToShortcutMenu(GetItem("ManaPotion").gameObject, 3);
+        }
+
+        public void AddItem(Item item, int count = 1)
+        {
+            Debug.Log(item.Name + " was add to inventory");
+            Items.Add(item, count);
         }
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.I))
                 IsOpen = !IsOpen;
+
+            if (IsOpen)
+            {
+                if (Input.GetKeyDown(KeyCode.Tab))
+                    MoveNext();
+
+                if (Input.GetKeyDown(KeyCode.LeftShift))
+                    MoveBack();
+
+                SelectedCellPosition = CellsPositions[selectedCellNumber];
+                Item[] keies = Items.Keys.Where(k => Items[k] == 0).ToArray();
+                for (int i = 0; i < keies.Count(); i++)
+                    Items.Remove(keies[i]);
+            }
         }
         
         internal void RemoveOne(string name)
@@ -67,7 +92,7 @@ namespace Assets.Scripts.Actors
 
             return false;
         }
-        public Item GetItem(string name) => Items.Keys.First(k => k.Name == "HealingPotion");
+        public Item GetItem(string name) => Items.Keys.FirstOrDefault(k => k.Name == name);
         private void OnGUI()
         {
             if (IsOpen)
@@ -83,38 +108,67 @@ namespace Assets.Scripts.Actors
                 {
                     for (int y = 0; y < height; y++)
                     {
-                        GUI.DrawTexture(new Rect(x * t_width + t_width, y * t_height + t_height, t_width, t_width), guiCell, ScaleMode.StretchToFill);
+                        Vector3 position    = new Vector3(x * t_width + t_width, y * t_height + t_height);
+                        Vector3 size        = new Vector3(t_width, t_height);
+                        
+                        CellsPositions[x + width * y] = position;
+
+                        GUI.DrawTexture(new Rect(position, size), guiCell, ScaleMode.StretchToFill);
                     }
                 }
                 for (int i = 0; i < Items.Count; i++)
                 {
                     var t = Items.Keys.ToArray()[i].gameObject.GetComponent<SpriteRenderer>();
-                    GUI.DrawTexture(new Rect(i * t_width + t_width, t_height, t_width, t_width), t.sprite.texture, ScaleMode.StretchToFill);
+                    GUI.DrawTexture(new Rect(i * t_width + t_width, t_height, t_width, t_width), t.sprite.FromSprite(), ScaleMode.StretchToFill);
                 }
 
 
                 GUI.Box(
                     new Rect(t_width * 6 + t_width, t_height, t_width * 2, t_height),
-                    new GUIContent($"Int: {player.Characteristics.Intelligence}({player.Characteristics.IntelligenceMod})"));
+                    ($"Int: {player.Characteristics.Intelligence}({player.Characteristics.IntelligenceMod})"));
                 
                 GUI.Box(
                     new Rect(t_width * 6 + t_width, t_height * 2 + 1, t_width * 2, t_height),
-                    new GUIContent($"Str: {player.Characteristics.Strength}({player.Characteristics.StrengthMod})"));
+                    ($"Str: {player.Characteristics.Strength}({player.Characteristics.StrengthMod})"));
 
                 GUI.Box(
                     new Rect(t_width * 6 + t_width, t_height * 3 + 1, t_width * 2, t_height),
-                    new GUIContent($"Dex: {player.Characteristics.Dexterity}({player.Characteristics.DexterityMod})"));
+                    ($"Dex: {player.Characteristics.Dexterity}({player.Characteristics.DexterityMod})"));
                 GUI.Box(
                     new Rect(t_width * 6 + t_width, t_height * 4 + 1, t_width * 2, t_height),
-                    new GUIContent($"Chr: {player.Characteristics.Charisma}({player.Characteristics.CharismaMod})"));
+                    ($"Chr: {player.Characteristics.Charisma}({player.Characteristics.CharismaMod})"));
                 GUI.Box(
                     new Rect(t_width * 6 + t_width, t_height * 5 + 1, t_width * 2, t_height),
-                    new GUIContent($"Lck: {player.Characteristics.Lucky}({player.Characteristics.LuckyMod})"));
-                
+                    ($"Lck: {player.Characteristics.Lucky}({player.Characteristics.LuckyMod})"));
 
+                GUI.Box(
+                    new Rect(t_width, t_height * 6, t_width * 8, t_height * 2),
+                    "Use item: LCtrl;\n\nAdd to shotcut menu: Alt + [number of free slot];\n\nDrop: G");
 
+                SelecteCell(SelectedCellPosition);
             }
         }
 
+        void SelecteCell(Vector3 selectedCellPosition)
+        {
+            Vector3 position    = selectedCellPosition;
+            Vector3 size        = new Vector3(64, 64);
+            if (position != null)
+                GUI.DrawTexture(
+                    new Rect(position, size),
+                    Resources.Load<Texture2D>("Sprites/GUI/GUISelectedCell"));
+        }
+
+        void MoveNext()
+        {
+            if (selectedCellNumber + 1 < width * height)
+                selectedCellNumber++;
+        }
+
+        void MoveBack()
+        {
+            if (selectedCellNumber - 1 >= 0)
+                selectedCellNumber--;
+        }
     }
 }

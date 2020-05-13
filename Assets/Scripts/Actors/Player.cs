@@ -212,6 +212,19 @@ public class Player : MovingObject, IData
         }
     }
 
+    public void UpdateMana(int value)
+    {
+        Characteristics.Mp += value;
+        if (Characteristics.Mp > Characteristics.MaxMp)
+        {
+            Characteristics.Mp = Characteristics.MaxMp;
+        }
+        else if (Characteristics.Mp < 0)
+        {
+            Characteristics.Mp = 0;
+        }
+    }
+
     public void LoseHp(int damage)
     {
         UpdateHealth(-damage);

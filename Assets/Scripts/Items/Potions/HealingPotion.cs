@@ -21,6 +21,7 @@ namespace Assets.Scripts.Items.Potions
 
         public void Use()
         {
+            Debug.Log(nameof(HealingPotion));
             GameManager._instance.Player.UpdateHealth(DiceManager.RollDice("1d4"));
         }
     }

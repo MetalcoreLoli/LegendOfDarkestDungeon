@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Actors;
+﻿#define TEST
+using Assets.Scripts.Actors;
 using Assets.Scripts.Core;
 using Assets.Scripts.Dices;
 using Assets.Scripts.Stats;
@@ -58,8 +59,9 @@ public class GameManager : MonoBehaviour
 
         Enemies = new List<Enemy>();
 
-
+#if TEST
         Init();
+#endif
       
     }
 

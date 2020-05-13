@@ -7,6 +7,9 @@ namespace Assets.Scripts.UI
     {
         public void Open()
         {
+            if (GameManager._instance.inventoryManager.IsOpen)
+                GameManager._instance.inventoryManager.IsOpen = !GameManager._instance.inventoryManager.IsOpen;
+
             gameObject.SetActive(true);
             SoundManager.instance.musicSource.Stop();
             SoundManager.instance.menuMusicSource.Play();
