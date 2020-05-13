@@ -24,21 +24,25 @@ namespace Assets.Scripts.Actors
         public Vector3[] CellsPositions { get; private set; }
         public Vector3 SelectedCellPosition { get; private set; }
 
+
         private int selectedCellNumber = 0;
         private void Awake()
         {
+            
             //if (instance == null)
             //    instance = this;
             //else if (instance != this)
             //    Destroy(gameObject);
             CellsPositions = new Vector3[width * height];
             Items = new Dictionary<Item, int>();
+
             AddItem(GameManager._instance.itemManager.ManaPotion.GetComponent<ManaPotion>(), 5);
             AddItem(GameManager._instance.itemManager.HealingPotion.GetComponent<HealingPotion>(), 5);
 
         }
         private void Start()
         {
+            //style.font = Resources.Load<Font>("Sprites/GUI/SDS_6x6");
             GameManager._instance.shortcutMenu.AddToShortcutMenu(GetItem("HealingPotion").gameObject, 4);
             GameManager._instance.shortcutMenu.AddToShortcutMenu(GetItem("ManaPotion").gameObject, 3);
         }
@@ -97,13 +101,23 @@ namespace Assets.Scripts.Actors
         {
             if (IsOpen)
             {
+                GUIStyle style = new GUIStyle();
+                
+                
                 var guiCell = Resources.Load<Texture2D>("Sprites/GUI/GUIEmptyInventoryCell");
-                var font = Resources.Load<Font>("Sprites/GUI/SDS_6x6");
+                var font = Resources.Load<Font>("Sprites/GUI/SDS_8x8");
+                
                 int t_width = guiCell.width * 4;
                 int t_height = guiCell.height * 4;
 
                 var player = GameManager._instance.Player;
                 GUI.skin.font = font;
+                GUI.skin.font.material.SetColor("white", Color.white);
+                GUI.skin.box.normal.textColor = Color.white;
+                GUI.skin.box.wordWrap = true;
+                GUI.skin.box.alignment = TextAnchor.MiddleCenter;
+
+
                 for (int x = 0; x < width; x++)
                 {
                     for (int y = 0; y < height; y++)
@@ -122,28 +136,35 @@ namespace Assets.Scripts.Actors
                     GUI.DrawTexture(new Rect(i * t_width + t_width, t_height, t_width, t_width), t.sprite.FromSprite(), ScaleMode.StretchToFill);
                 }
 
+                string modToStr(int mod) => (mod > 0) ? $"+{mod}" : mod.ToString();
 
                 GUI.Box(
-                    new Rect(t_width * 6 + t_width, t_height, t_width * 2, t_height),
-                    ($"Int: {player.Characteristics.Intelligence}({player.Characteristics.IntelligenceMod})"));
+                    new Rect(t_width * 6 + t_width, t_height, t_width * 3, t_height),
+                    ($"Int: {player.Characteristics.Intelligence}({modToStr(player.Characteristics.IntelligenceMod)})"));
                 
                 GUI.Box(
-                    new Rect(t_width * 6 + t_width, t_height * 2 + 1, t_width * 2, t_height),
-                    ($"Str: {player.Characteristics.Strength}({player.Characteristics.StrengthMod})"));
+                    new Rect(t_width * 6 + t_width, t_height * 2 + 1, t_width * 3, t_height),
+                    ($"Str: {player.Characteristics.Strength}({modToStr(player.Characteristics.StrengthMod)})"));
 
                 GUI.Box(
-                    new Rect(t_width * 6 + t_width, t_height * 3 + 1, t_width * 2, t_height),
-                    ($"Dex: {player.Characteristics.Dexterity}({player.Characteristics.DexterityMod})"));
+                    new Rect(t_width * 6 + t_width, t_height * 3 + 1, t_width * 3, t_height),
+                    ($"Dex: {player.Characteristics.Dexterity}({modToStr(player.Characteristics.DexterityMod)})"));
                 GUI.Box(
-                    new Rect(t_width * 6 + t_width, t_height * 4 + 1, t_width * 2, t_height),
-                    ($"Chr: {player.Characteristics.Charisma}({player.Characteristics.CharismaMod})"));
+                    new Rect(t_width * 6 + t_width, t_height * 4 + 1, t_width * 3, t_height),
+                    ($"Chr: {player.Characteristics.Charisma}({modToStr(player.Characteristics.CharismaMod)})"));
                 GUI.Box(
-                    new Rect(t_width * 6 + t_width, t_height * 5 + 1, t_width * 2, t_height),
-                    ($"Lck: {player.Characteristics.Lucky}({player.Characteristics.LuckyMod})"));
+                    new Rect(t_width * 6 + t_width, t_height * 5 + 1, t_width * 3, t_height),
+                    ($"Lck: {player.Characteristics.Lucky}({modToStr(player.Characteristics.LuckyMod)})"));
 
+                GUI.skin.box.alignment = TextAnchor.MiddleLeft;
+                
                 GUI.Box(
-                    new Rect(t_width, t_height * 6, t_width * 8, t_height * 2),
-                    "Use item: LCtrl;\n\nAdd to shotcut menu: Alt + [number of free slot];\n\nDrop: G");
+                    new Rect(t_width, t_height * 6, t_width * 9, t_height * 3),
+                    "Use item: LCtrl;\n\n" +
+                    "Add to shotcut menu: Alt + [number of free slot];\n\n" +
+                    "Drop: G;\n\n" +
+                    "Next Item: Tab;\n\n" +
+                    "Previous Item: Shift;");
 
                 SelecteCell(SelectedCellPosition);
             }
