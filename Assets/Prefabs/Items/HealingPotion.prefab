@@ -96,4 +96,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 0}
-  Name: HealingPotion
+  Name: Healing Potion
+  Description: Restore healht points(1d4)

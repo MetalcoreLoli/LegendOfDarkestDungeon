@@ -5,18 +5,21 @@ namespace Assets.Scripts.UI
 {
     public class GameMenuSettings : MonoBehaviour
     {
+        public bool IsOpen { get; private set; }
         public void Open()
         {
             if (GameManager._instance.inventoryManager.IsOpen)
                 GameManager._instance.inventoryManager.IsOpen = !GameManager._instance.inventoryManager.IsOpen;
 
             gameObject.SetActive(true);
+            IsOpen = true;
             SoundManager.instance.musicSource.Stop();
             SoundManager.instance.menuMusicSource.Play();
         }
         public void Close()
         {
             gameObject.SetActive(false);
+            IsOpen = false;
             SoundManager.instance.musicSource.Play();
             SoundManager.instance.menuMusicSource.Stop();
         }

@@ -23,7 +23,7 @@ namespace Assets.Scripts.Items
         public ItemInfo Info;
         public GameObject Prefab;
         public string Name = "Item";
-
+        public string Description;
         protected virtual void Awake()
         {
             Info = new ItemInfo(Prefab, Name);

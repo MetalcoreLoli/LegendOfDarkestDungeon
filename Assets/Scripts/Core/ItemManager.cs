@@ -13,7 +13,7 @@ namespace Assets.Scripts.Core
         public GameObject ManaPotion;
 
 
-        public void Drop(string name)
+        public void DropAt(string name)
         { 
             
         }

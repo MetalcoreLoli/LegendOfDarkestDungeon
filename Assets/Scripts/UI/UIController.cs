@@ -44,7 +44,11 @@ namespace Assets.Scripts.UI
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
-                gameMenu.Open();
+            {
+                if (!gameMenu.IsOpen)
+                    gameMenu.Open();
+            }
+            
         }
 
         private void FixedUpdate()

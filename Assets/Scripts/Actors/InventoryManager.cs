@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,7 +21,8 @@ namespace Assets.Scripts.Actors
         public Dictionary<Item, int> Items;
         [SerializeField] private int width;
         [SerializeField] private int height;
-
+        private int cellWidth = 64;
+        private int cellHeight = 64;
         public Vector3[] CellsPositions { get; private set; }
         public Vector3 SelectedCellPosition { get; private set; }
 
@@ -102,7 +104,7 @@ namespace Assets.Scripts.Actors
 
             return false;
         }
-        public Item GetItem(string name) => Items.Keys.FirstOrDefault(k => k.Name == name);
+        public Item GetItem(string name) => Items.Keys.FirstOrDefault(k => k.name == name);
         private void OnGUI()
         {
             if (IsOpen)
@@ -163,7 +165,7 @@ namespace Assets.Scripts.Actors
                     ($"Lck: {player.Characteristics.Lucky}({modToStr(player.Characteristics.LuckyMod)})"));
 
                 GUI.skin.box.alignment = TextAnchor.MiddleLeft;
-                
+
                 GUI.Box(
                     new Rect(t_width, t_height * 6, t_width * 9, t_height * 3),
                     "Use item: LCtrl;\n\n" +
@@ -172,9 +174,23 @@ namespace Assets.Scripts.Actors
                     "Move: h(left), j(up), k(down), l(right);\n\n");
 
                 SelecteCell(SelectedCellPosition);
+                if (Items.Keys.Count-1 >= selectedCellNumber)
+                {
+                    DrawItemDescription(Items.Keys.ToArray()[selectedCellNumber]);
+                }
             }
         }
 
+        void DrawItemDescription(Item item)
+        {
+            var position = new Vector3(cellWidth * 10, cellHeight);
+            var size = new Vector3(cellWidth * 6, cellHeight * 4);
+            GUI.Box(
+                new Rect(position, size),
+                $"Name: {item.Name}\n\n" +
+                $"Count:{Items[item]}\n\n" +
+                $"Description:\n\n"+item.Description);
+        }
         void SelecteCell(Vector3 selectedCellPosition)
         {
             Vector3 position    = selectedCellPosition;

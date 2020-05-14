@@ -96,4 +96,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 0}
-  Name: ManaPotion
+  Name: Mana Potion
+  Description: Restore mana points(1d4)
