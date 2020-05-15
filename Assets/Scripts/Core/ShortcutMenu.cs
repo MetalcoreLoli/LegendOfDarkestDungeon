@@ -74,6 +74,9 @@ namespace Assets.Scripts.Core
                     uIController.SelectShortcutBarCell(4);
                     CurrentCell = 4;
                 }
+
+                if (Input.GetKeyDown(KeyCode.X))
+                    Objects[CurrentCell] = null;
             }
             SelectedObject = Objects[CurrentCell];
             if (SelectedObject != null)

@@ -76,15 +76,43 @@ namespace Assets.Scripts.Actors
 
                 if (Input.GetKeyDown(KeyCode.K))
                     MoveDown();
-                
+
+#if UNITY_EDITOR
+                if (Input.GetKeyDown(KeyCode.Alpha1))
+                {
+                    if (Items.Keys.Count() - 1 >= selectedCellNumber)
+                    {
+                        var item = Items.Keys.ToArray()[selectedCellNumber];
+                        PlaceItemIntoShortcut(item, 0);
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.Alpha2))
+                {
+                    if (Items.Keys.Count() - 1 >= selectedCellNumber)
+                    {
+                        var item = Items.Keys.ToArray()[selectedCellNumber];
+                        PlaceItemIntoShortcut(item, 1);
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.Alpha3))
+                {
+                    Debug.Log("Placing at 5");
+                    if (Items.Keys.Count() - 1 >= selectedCellNumber)
+                    {
+                        var item = Items.Keys.ToArray()[selectedCellNumber];
+                        PlaceItemIntoShortcut(item, 2);
+                    }
+                }
+
                 if (Input.GetKeyDown(KeyCode.Alpha4))
                 {
-                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
+                    if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
                         var item = Items.Keys.ToArray()[selectedCellNumber];
                         PlaceItemIntoShortcut(item, 3);
                     }
-
                 }
 
                 if (Input.GetKeyDown(KeyCode.Alpha5))
@@ -95,10 +123,56 @@ namespace Assets.Scripts.Actors
                         var item = Items.Keys.ToArray()[selectedCellNumber];
                         PlaceItemIntoShortcut(item, 4);
                     }
+                }
+#else
 
-
+                if (Input.GetKeyDown(KeyCode.Alpha1) && Input.GetKeyDown(KeyCode.LeftAlt))
+                {
+                    if (Items.Keys.Count() - 1 >= selectedCellNumber)
+                    {
+                        var item = Items.Keys.ToArray()[selectedCellNumber];
+                        PlaceItemIntoShortcut(item, 0);
+                    }
                 }
 
+                if (Input.GetKeyDown(KeyCode.Alpha2) && Input.GetKeyDown(KeyCode.LeftAlt))
+                {
+                    if (Items.Keys.Count() - 1 >= selectedCellNumber)
+                    {
+                        var item = Items.Keys.ToArray()[selectedCellNumber];
+                        PlaceItemIntoShortcut(item, 1);
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.Alpha3) && Input.GetKeyDown(KeyCode.LeftAlt))
+                {
+                    Debug.Log("Placing at 5");
+                    if (Items.Keys.Count() - 1 >= selectedCellNumber)
+                    {
+                        var item = Items.Keys.ToArray()[selectedCellNumber];
+                        PlaceItemIntoShortcut(item, 2);
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.Alpha4) && Input.GetKeyDown(KeyCode.LeftAlt))
+                {
+                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
+                    {
+                        var item = Items.Keys.ToArray()[selectedCellNumber];
+                        PlaceItemIntoShortcut(item, 3);
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.Alpha5) && Input.GetKeyDown(KeyCode.LeftAlt))
+                {
+                    Debug.Log("Placing at 5");
+                    if (Items.Keys.Count() - 1 >= selectedCellNumber)
+                    {
+                        var item = Items.Keys.ToArray()[selectedCellNumber];
+                        PlaceItemIntoShortcut(item, 4);
+                    }
+                }
+#endif
                 SelectedCellPosition = CellsPositions[selectedCellNumber];
                 Item[] keies = Items.Keys.Where(k => Items[k] == 0).ToArray();
                 for (int i = 0; i < keies.Count(); i++)
@@ -109,10 +183,11 @@ namespace Assets.Scripts.Actors
 
         private void PlaceItemIntoShortcut(Item item, int number)
         {
-            Debug.Log(item.name + " was placed");
             var shortcutMenu  = GameManager._instance.shortcutMenu;
             if (shortcutMenu.CanPlaceAt(number))
                 shortcutMenu.AddToShortcutMenu(item.gameObject, number);
+            else
+                Debug.Log($"You cannot place {item.name} in this slot");
         }
 
         internal void RemoveOne(string name)
