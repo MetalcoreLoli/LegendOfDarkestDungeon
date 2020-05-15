@@ -22,9 +22,13 @@ namespace Assets.Scripts.Items
     public abstract class Item : MonoBehaviour, ITakable, IDropable
     {
         public ItemInfo Info;
+        
         public GameObject Prefab;
+        
         public string Name          = "Item";
-        public string Description   = "";
+
+        [Multiline] public string Description   = "";
+        
         protected virtual void Awake()
         {
             Info = new ItemInfo(Prefab, Name);
@@ -48,6 +52,7 @@ namespace Assets.Scripts.Items
         public virtual void Take()
         {
             GameManager._instance.inventoryManager.AddItem(this, DiceManager.RollDice("1d4"));
+            gameObject.SetActive(false);
         }
     }
 }

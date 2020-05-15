@@ -37,7 +37,7 @@ public class Enemy : MovingObject
 		if (characteristics.Hp <= 0)
 		{
 			GameManager._instance.RemoveEnemy(this);
-            if (DiceManager.RollDice("1d20") < 6)
+            if (DiceManager.RollDice("1d20") > 6)
             {
                 if (DiceManager.RollDice("1d20") > 10)
                     GameManager._instance.itemManager.DropAt(transform.position, "ManaPotion");
