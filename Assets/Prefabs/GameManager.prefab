@@ -205,3 +205,9 @@ MonoBehaviour:
     type: 3}
   ManaPotion: {fileID: 1466610433232390525, guid: 1f63bd6a7491644429445cc9d9b39772,
     type: 3}
+  Items:
+  - {fileID: 7646737463396547637, guid: d3cf9a26f01400742b80b3001f999dcf, type: 3}
+  - {fileID: 1466610433232390525, guid: 1f63bd6a7491644429445cc9d9b39772, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

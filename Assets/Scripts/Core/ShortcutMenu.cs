@@ -36,37 +36,44 @@ namespace Assets.Scripts.Core
             Cells[3] = GameObject.Find("CellFour");
             Cells[4] = GameObject.Find("CellFive");
         }
+        public bool CanPlaceAt(int number)
+        {
+            return Objects[number] == null;
+        }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (!GameManager._instance.inventoryManager.IsOpen)
             {
-                uIController.SelectShortcutBarCell(0);
-                CurrentCell = 0;
-            }
-            
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                uIController.SelectShortcutBarCell(1);
-                CurrentCell = 1;
-            }
+                if (Input.GetKeyDown(KeyCode.Alpha1))
+                {
+                    uIController.SelectShortcutBarCell(0);
+                    CurrentCell = 0;
+                }
 
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                uIController.SelectShortcutBarCell(2);
-                CurrentCell = 2;
-            }
+                if (Input.GetKeyDown(KeyCode.Alpha2))
+                {
+                    uIController.SelectShortcutBarCell(1);
+                    CurrentCell = 1;
+                }
 
-            if (Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                uIController.SelectShortcutBarCell(3);
-                CurrentCell = 3;
-            }
+                if (Input.GetKeyDown(KeyCode.Alpha3))
+                {
+                    uIController.SelectShortcutBarCell(2);
+                    CurrentCell = 2;
+                }
 
-            if (Input.GetKeyDown(KeyCode.Alpha5))
-            {
-                uIController.SelectShortcutBarCell(4);
-                CurrentCell = 4;
+                if (Input.GetKeyDown(KeyCode.Alpha4))
+                {
+                    uIController.SelectShortcutBarCell(3);
+                    CurrentCell = 3;
+                }
+
+                if (Input.GetKeyDown(KeyCode.Alpha5))
+                {
+                    uIController.SelectShortcutBarCell(4);
+                    CurrentCell = 4;
+                }
             }
             SelectedObject = Objects[CurrentCell];
             if (SelectedObject != null)
@@ -96,7 +103,7 @@ namespace Assets.Scripts.Core
                     {
                         GUI.skin.font = Resources.Load<Font>("Sprites/GUI/SDS_6x6");
                         var vector = uIController.SpellsPositions[CurrentCell];
-                       // GUI.Label(new Rect(-vector, new Vector2(16, 16)), "0");
+                        // GUI.Label(new Rect(-vector, new Vector2(16, 16)), "0");
                     }
                 }
             }

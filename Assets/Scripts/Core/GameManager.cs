@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
 
         Enemies = new List<Enemy>();
 
-#if TEST
+#if UNITY_EDITOR 
         Init();
 #endif
       

@@ -30,7 +30,7 @@ namespace Assets.Scripts.Actors
         private int selectedCellNumber = 0;
         private void Awake()
         {
-            
+
             //if (instance == null)
             //    instance = this;
             //else if (instance != this)
@@ -38,21 +38,24 @@ namespace Assets.Scripts.Actors
             CellsPositions = new Vector3[width * height];
             Items = new Dictionary<Item, int>();
 
-            AddItem(GameManager._instance.itemManager.ManaPotion.GetComponent<ManaPotion>(), 5);
-            AddItem(GameManager._instance.itemManager.HealingPotion.GetComponent<HealingPotion>(), 5);
+            AddItem(GameManager._instance.itemManager.GetItem("ManaPotion").GetComponent<ManaPotion>(), 5);
+            //AddItem(GameManager._instance.itemManager.ManaPotion.GetComponent<ManaPotion>(), 5);
+            AddItem(GameManager._instance.itemManager.GetItem("HealingPotion").GetComponent<HealingPotion>(), 5);
 
         }
         private void Start()
         {
             //style.font = Resources.Load<Font>("Sprites/GUI/SDS_6x6");
-            GameManager._instance.shortcutMenu.AddToShortcutMenu(GetItem("HealingPotion").gameObject, 4);
-            GameManager._instance.shortcutMenu.AddToShortcutMenu(GetItem("ManaPotion").gameObject, 3);
+            //GameManager._instance.shortcutMenu.AddToShortcutMenu(GetItem("HealingPotion").gameObject, 4);
+            //GameManager._instance.shortcutMenu.AddToShortcutMenu(GetItem("ManaPotion").gameObject, 3);
         }
 
         public void AddItem(Item item, int count = 1)
         {
-            Debug.Log(item.Name + " was add to inventory");
-            Items.Add(item, count);
+            if (Items.ContainsKey(item))
+                Items[item] += count;
+            else
+                Items.Add(item, count);
         }
 
         private void Update()
@@ -73,6 +76,28 @@ namespace Assets.Scripts.Actors
 
                 if (Input.GetKeyDown(KeyCode.K))
                     MoveDown();
+                
+                if (Input.GetKeyDown(KeyCode.Alpha4))
+                {
+                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
+                    {
+                        var item = Items.Keys.ToArray()[selectedCellNumber];
+                        PlaceItemIntoShortcut(item, 3);
+                    }
+
+                }
+
+                if (Input.GetKeyDown(KeyCode.Alpha5))
+                {
+                    Debug.Log("Placing at 5");
+                    if (Items.Keys.Count() - 1 >= selectedCellNumber)
+                    {
+                        var item = Items.Keys.ToArray()[selectedCellNumber];
+                        PlaceItemIntoShortcut(item, 4);
+                    }
+
+
+                }
 
                 SelectedCellPosition = CellsPositions[selectedCellNumber];
                 Item[] keies = Items.Keys.Where(k => Items[k] == 0).ToArray();
@@ -80,7 +105,16 @@ namespace Assets.Scripts.Actors
                     Items.Remove(keies[i]);
             }
         }
-        
+
+
+        private void PlaceItemIntoShortcut(Item item, int number)
+        {
+            Debug.Log(item.name + " was placed");
+            var shortcutMenu  = GameManager._instance.shortcutMenu;
+            if (shortcutMenu.CanPlaceAt(number))
+                shortcutMenu.AddToShortcutMenu(item.gameObject, number);
+        }
+
         internal void RemoveOne(string name)
         {
             var item = GetItem(name);
@@ -104,17 +138,17 @@ namespace Assets.Scripts.Actors
 
             return false;
         }
-        public Item GetItem(string name) => Items.Keys.FirstOrDefault(k => k.name == name);
+        public Item GetItem(string name) => Items.Keys.FirstOrDefault(k => k.name == name || k.name == name + "(Clone)");
         private void OnGUI()
         {
             if (IsOpen)
             {
                 GUIStyle style = new GUIStyle();
-                
-                
+
+
                 var guiCell = Resources.Load<Texture2D>("Sprites/GUI/GUIEmptyInventoryCell");
                 var font = Resources.Load<Font>("Sprites/GUI/SDS_8x8");
-                
+
                 int t_width = guiCell.width * 4;
                 int t_height = guiCell.height * 4;
 
@@ -130,9 +164,9 @@ namespace Assets.Scripts.Actors
                 {
                     for (int y = 0; y < height; y++)
                     {
-                        Vector3 position    = new Vector3(x * t_width + t_width, y * t_height + t_height);
-                        Vector3 size        = new Vector3(t_width, t_height);
-                        
+                        Vector3 position = new Vector3(x * t_width + t_width, y * t_height + t_height);
+                        Vector3 size = new Vector3(t_width, t_height);
+
                         CellsPositions[x + width * y] = position;
 
                         GUI.DrawTexture(new Rect(position, size), guiCell, ScaleMode.StretchToFill);
@@ -149,7 +183,7 @@ namespace Assets.Scripts.Actors
                 GUI.Box(
                     new Rect(t_width * 6 + t_width, t_height, t_width * 3, t_height),
                     ($"Int: {player.Characteristics.Intelligence}({modToStr(player.Characteristics.IntelligenceMod)})"));
-                
+
                 GUI.Box(
                     new Rect(t_width * 6 + t_width, t_height * 2 + 1, t_width * 3, t_height),
                     ($"Str: {player.Characteristics.Strength}({modToStr(player.Characteristics.StrengthMod)})"));
@@ -174,7 +208,7 @@ namespace Assets.Scripts.Actors
                     "Move: h(left), j(up), k(down), l(right);\n\n");
 
                 SelecteCell(SelectedCellPosition);
-                if (Items.Keys.Count-1 >= selectedCellNumber)
+                if (Items.Keys.Count - 1 >= selectedCellNumber)
                 {
                     DrawItemDescription(Items.Keys.ToArray()[selectedCellNumber]);
                 }
@@ -189,12 +223,12 @@ namespace Assets.Scripts.Actors
                 new Rect(position, size),
                 $"Name: {item.Name}\n\n" +
                 $"Count:{Items[item]}\n\n" +
-                $"Description:\n\n"+item.Description);
+                $"Description:\n\n" + item.Description);
         }
         void SelecteCell(Vector3 selectedCellPosition)
         {
-            Vector3 position    = selectedCellPosition;
-            Vector3 size        = new Vector3(64, 64);
+            Vector3 position = selectedCellPosition;
+            Vector3 size = new Vector3(64, 64);
             if (position != null)
                 GUI.DrawTexture(
                     new Rect(position, size),
@@ -216,7 +250,7 @@ namespace Assets.Scripts.Actors
         void MoveUp()
         {
             int _selectedCellNumber = (int)(selectedCellNumber - width);
-            if (_selectedCellNumber >= 0) 
+            if (_selectedCellNumber >= 0)
             {
                 Debug.Log(_selectedCellNumber);
                 selectedCellNumber = _selectedCellNumber;

@@ -73,7 +73,8 @@ public class Player : MovingObject, IData
         base.Start();
     }
 
-    
+   
+
     // Update is called once per frame
     void Update()
     {
@@ -84,6 +85,8 @@ public class Player : MovingObject, IData
         vertical    = (Input.GetAxisRaw("Vertical"));
 
         mousePosition = Camera.ScreenToWorldPoint(Input.mousePosition);
+
+
 
         if (horizontal != 0)
         {

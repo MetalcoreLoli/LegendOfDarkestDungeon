@@ -16,7 +16,7 @@ namespace Assets.Scripts.Items.Potions
         }
         public override void Take()
         {
-            throw new NotImplementedException();
+            base.Take();
         }
 
         public void Use()

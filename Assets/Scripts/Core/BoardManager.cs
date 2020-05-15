@@ -413,6 +413,13 @@ public class BoardManager : MonoBehaviour
             }
         }
     }
+
+
+    public void SpawnObject(Vector3 pos, GameObject obj)
+    {
+        AddGameObjectToMap(Instantiate(obj, pos, Quaternion.identity));
+    }
+    
     private void OnDestroy()
     {
         Debug.Log("Was Destroied");
