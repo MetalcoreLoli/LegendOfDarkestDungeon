@@ -21,8 +21,12 @@ namespace Assets.Scripts.Items.Potions
 
         public void Use()
         {
-            Debug.Log(nameof(HealingPotion));
-            GameManager._instance.Player.UpdateHealth(DiceManager.RollDice("1d4"));
+            var light = GameObject.FindGameObjectWithTag("PlayersLight").GetComponent<Light>();
+            int value = DiceManager.RollDice("1d4");
+
+            GameManager._instance.Player.UpdateHealth(value);
+            
+            light.intensity += value;
         }
     }
 }

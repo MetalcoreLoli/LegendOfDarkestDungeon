@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Core;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.UI
@@ -39,9 +40,10 @@ namespace Assets.Scripts.UI
             
             foreach (var enem in enemies)
                 Destroy(enem);
+            SaveLoader.Instance().IsNeedToLoad = false;
 
 
-  
+
             SceneManager.LoadScene(0, LoadSceneMode.Single);
             //Application.Quit();
         }

@@ -217,7 +217,9 @@ public class Player : MovingObject, IData
 
     public void UpdateMana(int value)
     {
-        Characteristics.Mp += value;
+        
+        Characteristics.Mp  += value;
+        
         if (Characteristics.Mp > Characteristics.MaxMp)
         {
             Characteristics.Mp = Characteristics.MaxMp;
@@ -233,14 +235,9 @@ public class Player : MovingObject, IData
         UpdateHealth(-damage);
         //GameManager._instance.playerCharacteristics.Hp = Hp;
         animator.SetTrigger("Hit");
-
-
         var light = GameObject.FindGameObjectWithTag("PlayersLight").GetComponent<Light>();
+        light.intensity     -= damage;
 
-        //float percent = (float)Hp / (float)MaxHp;
-
-        light.intensity -= damage /*light.intensity * percent*/;
-        
         if (Hp <= 0)
             GameManager._instance.GameOver();
     }

@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Items;
+﻿using Assets.Scripts.Core;
+using Assets.Scripts.Core.Data;
+using Assets.Scripts.Items;
 using Assets.Scripts.Items.Potions;
 using System;
 using System.Collections.Generic;
@@ -12,7 +14,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Actors
 {
-    public class InventoryManager : MonoBehaviour
+    public class InventoryManager : MonoBehaviour, IData
     {
 
         public static InventoryManager instance = null;
@@ -36,26 +38,40 @@ namespace Assets.Scripts.Actors
             //else if (instance != this)
             //    Destroy(gameObject);
             CellsPositions = new Vector3[width * height];
-            Items = new Dictionary<Item, int>();
-
-            AddItem(GameManager._instance.itemManager.GetItem("ManaPotion").GetComponent<ManaPotion>(), 5);
-            //AddItem(GameManager._instance.itemManager.ManaPotion.GetComponent<ManaPotion>(), 5);
-            AddItem(GameManager._instance.itemManager.GetItem("HealingPotion").GetComponent<HealingPotion>(), 5);
+            if (Items == null)
+                Items = new Dictionary<Item, int>();
+            if (!SaveLoader.Instance().IsNeedToLoad)
+            {
+                AddItem(GameManager._instance.itemManager.GetItem("ManaPotion").GetComponent<ManaPotion>(), 5);
+                //AddItem(GameManager._instance.itemManager.ManaPotion.GetComponent<ManaPotion>(), 5);
+                AddItem(GameManager._instance.itemManager.GetItem("HealingPotion").GetComponent<HealingPotion>(), 5);
+            }
 
         }
         private void Start()
         {
-            //style.font = Resources.Load<Font>("Sprites/GUI/SDS_6x6");
-            //GameManager._instance.shortcutMenu.AddToShortcutMenu(GetItem("HealingPotion").gameObject, 4);
-            //GameManager._instance.shortcutMenu.AddToShortcutMenu(GetItem("ManaPotion").gameObject, 3);
+            ////style.font = Resources.Load<Font>("Sprites/GUI/SDS_6x6");
+            //if (!SaveLoader.Instance().IsNeedToLoad)
+            //{
+            //    GameManager._instance.shortcutMenu.AddToShortcutMenu(GetItem("HealingPotion").gameObject, 4);
+            //    GameManager._instance.shortcutMenu.AddToShortcutMenu(GetItem("ManaPotion").gameObject, 3);
+            //}
+
         }
 
         public void AddItem(Item item, int count = 1)
         {
-            if (Items.ContainsKey(item))
-                Items[item] += count;
-            else
-                Items.Add(item, count);
+            if (item != null)
+            {
+                if (Items == null)
+                    Items = new Dictionary<Item, int>();
+
+                if (Items.ContainsKey(item))
+                    Items[item] += count;
+                else
+                    Items.Add(item, count);
+
+            }
         }
 
         private void Update()
@@ -126,7 +142,7 @@ namespace Assets.Scripts.Actors
                 }
 #else
 
-                if (Input.GetKeyDown(KeyCode.Alpha1) && Input.GetKeyDown(KeyCode.LeftAlt))
+                if (Input.GetKeyDown(KeyCode.Alpha1) && Input.GetKey(KeyCode.LeftAlt))
                 {
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
@@ -135,7 +151,7 @@ namespace Assets.Scripts.Actors
                     }
                 }
 
-                if (Input.GetKeyDown(KeyCode.Alpha2) && Input.GetKeyDown(KeyCode.LeftAlt))
+                if (Input.GetKeyDown(KeyCode.Alpha2) && Input.GetKey(KeyCode.LeftAlt))
                 {
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
@@ -144,7 +160,7 @@ namespace Assets.Scripts.Actors
                     }
                 }
 
-                if (Input.GetKeyDown(KeyCode.Alpha3) && Input.GetKeyDown(KeyCode.LeftAlt))
+                if (Input.GetKeyDown(KeyCode.Alpha3) && Input.GetKey(KeyCode.LeftAlt))
                 {
                     Debug.Log("Placing at 5");
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
@@ -154,7 +170,7 @@ namespace Assets.Scripts.Actors
                     }
                 }
 
-                if (Input.GetKeyDown(KeyCode.Alpha4) && Input.GetKeyDown(KeyCode.LeftAlt))
+                if (Input.GetKeyDown(KeyCode.Alpha4) && Input.GetKey(KeyCode.LeftAlt))
                 {
                      if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
@@ -163,7 +179,7 @@ namespace Assets.Scripts.Actors
                     }
                 }
 
-                if (Input.GetKeyDown(KeyCode.Alpha5) && Input.GetKeyDown(KeyCode.LeftAlt))
+                if (Input.GetKeyDown(KeyCode.Alpha5) && Input.GetKey(KeyCode.LeftAlt))
                 {
                     Debug.Log("Placing at 5");
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
@@ -173,10 +189,23 @@ namespace Assets.Scripts.Actors
                     }
                 }
 #endif
+                if (Input.GetKeyDown(KeyCode.LeftControl))
+                {
+                    if (Items.Keys.Count() - 1 >= selectedCellNumber)
+                    {
+                        var item = Items.Keys.ToArray()[selectedCellNumber];
+                        if (item is IUseable)
+                        {
+                            UseItem(item.name);
+                        }
+                    }
+                }
+                
                 SelectedCellPosition = CellsPositions[selectedCellNumber];
                 Item[] keies = Items.Keys.Where(k => Items[k] == 0).ToArray();
                 for (int i = 0; i < keies.Count(); i++)
                     Items.Remove(keies[i]);
+
             }
         }
 
@@ -337,6 +366,25 @@ namespace Assets.Scripts.Actors
             int _selectedCellNumber = (int)(selectedCellNumber + width);
             if (_selectedCellNumber < width * height)
                 selectedCellNumber = _selectedCellNumber;
+        }
+
+        public Dictionary<string, int> GetData()
+        {
+            var data = new Dictionary<string, int>();
+            foreach (var item in Items.Keys)
+                data.Add(item.name, Items[item]);
+
+            return data;
+        }
+
+        public void LoadData(Dictionary<string, int> data)
+        {
+            var itemManager = GameManager._instance.itemManager;
+            foreach (var item in data)
+            {
+                var itm = itemManager.GetItem(item.Key);
+                AddItem(itm, item.Value);
+            }
         }
     }
 }

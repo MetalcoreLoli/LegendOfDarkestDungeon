@@ -14,10 +14,12 @@ namespace Assets.Scripts.Core
         {
             Debug.Log("Saving...");
             string filePath = @"C:\Users\Public\Documents\" + name + "data";
+            //if (!File.Exists(filePath)) return;
 
             Dictionary<string, object> gameData = new Dictionary<string, object>
             {
-                { "Player", GameManager._instance.Player.GetData() }
+                { "Player",     GameManager._instance.Player.GetData() },
+                { "Inverntory", GameManager._instance.inventoryManager.GetData() }
             };
 
             using (var fileStream = File.Create(filePath))
@@ -46,6 +48,7 @@ namespace Assets.Scripts.Core
                 gameData = formatter.Deserialize(stream) as Dictionary<string, object>;
             }
             GameManager._instance.Player.LoadData((Dictionary<string, int>)gameData["Player"]);
+            GameManager._instance.inventoryManager.LoadData((Dictionary<string, int>)gameData["Inverntory"]);
         }
     }
 }
