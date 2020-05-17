@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using UnityEngine;
-
 using Random = UnityEngine.Random;
 using Assets.Scripts.Dices;
-using System.Security.Cryptography;
 
 [Serializable]
 public struct Size
@@ -62,8 +60,6 @@ public class BoardManager : MonoBehaviour
 
     public GameObject EnemyPrefab;
 
-
-
     public Size RoomsSize;
     public Size Tourches;
 
@@ -78,6 +74,7 @@ public class BoardManager : MonoBehaviour
     public List<Room> Rooms;
 
     public List<GameObject> map;
+
     private List<Vector3> UpWallCoords;
     private List<Vector3> InnerRoomCoords;
     private List<Vector3> HRoomDoorsCoords;
@@ -89,9 +86,7 @@ public class BoardManager : MonoBehaviour
     {
         Debug.Log("Start board");
         BoardSetUp();
-        //CountOfRooms = (int)Mathf.Log(level) + 10;
         Generate(CountOfRooms);
-        //Rooms.ForEach(r => DrawRoom(r));
     }
 
     private void BoardSetUp()

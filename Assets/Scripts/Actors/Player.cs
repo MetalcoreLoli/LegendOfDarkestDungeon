@@ -87,7 +87,7 @@ public class Player : MovingObject, IData
             horizontal = (Input.GetAxisRaw("Horizontal"));
             vertical    = (Input.GetAxisRaw("Vertical"));
 
-            if (Input.GetKeyDown(KeyCode.LeftControl))
+            if (Input.GetButtonDown("Use"))
             {
                 GameManager._instance.shortcutMenu.ActivateCell();
             }

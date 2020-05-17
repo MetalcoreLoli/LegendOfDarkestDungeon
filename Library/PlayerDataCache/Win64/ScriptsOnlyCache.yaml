@@ -9,7 +9,9 @@ ScriptsOnlyBuild:
     - Assets.Scripts.Items.Potions.ManaPotion
     - Assets.Scripts.Spells.HealingSpell
     - Assets.Scripts.UI.BarController
+    - Assets.Scripts.UI.CreatingMenu
     - Assets.Scripts.UI.GameMenuSettings
+    - Assets.Scripts.UI.MessageBox
     - Assets.Scripts.UI.StatsMenu
     - Assets.Scripts.UI.UIController
     - BoardManager
@@ -52,6 +54,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
+    - UnityEngine.UI.InputField
     - UnityEngine.UI.Slider
     - UnityEngine.UI.Text
   sceneClasses:
@@ -91,51 +94,55 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11174}
+      Script: {instanceID: 11172}
     - Class: 114
-      Script: {instanceID: 11228}
+      Script: {instanceID: 11226}
     - Class: 114
-      Script: {instanceID: 11258}
+      Script: {instanceID: 11256}
+    - Class: 114
+      Script: {instanceID: 11394}
     - Class: 114
       Script: {instanceID: 11396}
     - Class: 114
-      Script: {instanceID: 11398}
+      Script: {instanceID: 11458}
     - Class: 114
-      Script: {instanceID: 11460}
+      Script: {instanceID: 11472}
     - Class: 114
-      Script: {instanceID: 11474}
+      Script: {instanceID: 11526}
     - Class: 114
-      Script: {instanceID: 11528}
+      Script: {instanceID: 11702}
     - Class: 114
-      Script: {instanceID: 11704}
+      Script: {instanceID: 11780}
     - Class: 114
-      Script: {instanceID: 11782}
+      Script: {instanceID: 11984}
     - Class: 114
-      Script: {instanceID: 11986}
+      Script: {instanceID: 12116}
     - Class: 114
-      Script: {instanceID: 12118}
+      Script: {instanceID: 12202}
     - Class: 114
-      Script: {instanceID: 12204}
+      Script: {instanceID: 12286}
     - Class: 114
-      Script: {instanceID: 12288}
+      Script: {instanceID: 12494}
     - Class: 114
-      Script: {instanceID: 12496}
+      Script: {instanceID: 12680}
     - Class: 114
-      Script: {instanceID: 12682}
+      Script: {instanceID: 12802}
     - Class: 114
-      Script: {instanceID: 12804}
+      Script: {instanceID: 12848}
     - Class: 114
-      Script: {instanceID: 12850}
+      Script: {instanceID: 12922}
     - Class: 114
-      Script: {instanceID: 12924}
+      Script: {instanceID: 13144}
     - Class: 114
-      Script: {instanceID: 13146}
+      Script: {instanceID: 13214}
     - Class: 114
-      Script: {instanceID: 13478}
+      Script: {instanceID: 13476}
     - Class: 114
-      Script: {instanceID: 13516}
+      Script: {instanceID: 13514}
     - Class: 114
-      Script: {instanceID: 13644}
+      Script: {instanceID: 13642}
+    - Class: 114
+      Script: {instanceID: 13662}
     - Class: 114
       Script: {instanceID: 13700}
     - Class: 114
@@ -152,6 +159,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 14330}
     - Class: 114
       Script: {instanceID: 14372}
+    - Class: 114
+      Script: {instanceID: 21504}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -183,30 +192,80 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 50
+      Script: {instanceID: 0}
+    - Class: 58
+      Script: {instanceID: 0}
+    - Class: 61
+      Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
     - Class: 82
       Script: {instanceID: 0}
     - Class: 83
       Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
+      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
+    - Class: 108
+      Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11174}
+      Script: {instanceID: 11172}
     - Class: 114
-      Script: {instanceID: 11474}
+      Script: {instanceID: 11256}
     - Class: 114
-      Script: {instanceID: 11528}
+      Script: {instanceID: 11394}
     - Class: 114
-      Script: {instanceID: 12204}
+      Script: {instanceID: 11396}
     - Class: 114
-      Script: {instanceID: 12924}
+      Script: {instanceID: 11472}
+    - Class: 114
+      Script: {instanceID: 11526}
+    - Class: 114
+      Script: {instanceID: 11702}
+    - Class: 114
+      Script: {instanceID: 11780}
+    - Class: 114
+      Script: {instanceID: 11984}
+    - Class: 114
+      Script: {instanceID: 12116}
+    - Class: 114
+      Script: {instanceID: 12202}
+    - Class: 114
+      Script: {instanceID: 12286}
+    - Class: 114
+      Script: {instanceID: 12680}
+    - Class: 114
+      Script: {instanceID: 12802}
+    - Class: 114
+      Script: {instanceID: 12848}
+    - Class: 114
+      Script: {instanceID: 12922}
+    - Class: 114
+      Script: {instanceID: 13144}
+    - Class: 114
+      Script: {instanceID: 13514}
+    - Class: 114
+      Script: {instanceID: 13642}
     - Class: 114
       Script: {instanceID: 13700}
     - Class: 114
       Script: {instanceID: 13830}
     - Class: 114
+      Script: {instanceID: 14140}
+    - Class: 114
+      Script: {instanceID: 14176}
+    - Class: 114
+      Script: {instanceID: 14210}
+    - Class: 114
       Script: {instanceID: 14330}
+    - Class: 114
+      Script: {instanceID: 21504}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -214,6 +273,8 @@ ScriptsOnlyBuild:
     - Class: 157
       Script: {instanceID: 0}
     - Class: 196
+      Script: {instanceID: 0}
+    - Class: 212
       Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}
@@ -700,6 +761,12 @@ ScriptsOnlyBuild:
     className: VoidSpell
   - hash:
       serializedVersion: 2
+      Hash: e8144a728161a8777293843371004698
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Assets.Scripts.UI
+    className: CreatingMenu
+  - hash:
+      serializedVersion: 2
       Hash: f336e086360abe49a3323e5f1583c35a
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -736,7 +803,7 @@ ScriptsOnlyBuild:
     className: TMP_StyleSheet
   - hash:
       serializedVersion: 2
-      Hash: 9533b447aa28388b5b9c8d91c01a8a18
+      Hash: 7c5b3b39b8a9d8490c7af8fc1a2c49b9
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -754,7 +821,7 @@ ScriptsOnlyBuild:
     className: TMP_ColorGradient
   - hash:
       serializedVersion: 2
-      Hash: 34b1c11cd53c49f6ca6b3d17563c91cb
+      Hash: a1f4c2a45f8271a41601290e3fb6c72a
     assemblyName: Assembly-CSharp.dll
     namespaceName: Assets.Scripts.UI
     className: UIController
@@ -860,6 +927,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 7adf4483aff4a65dfb44958c09e26228
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Assets.Scripts.UI
+    className: MessageBox
   platform: 19
   scenePathNames:
   - Assets/Scenes/MainMenu.unity

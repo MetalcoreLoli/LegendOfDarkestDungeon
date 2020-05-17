@@ -50,6 +50,10 @@ namespace Assets.Scripts.UI
         {
             if (!string.IsNullOrEmpty(NameText.textComponent.text))
                 Close();
+            else
+            {
+                GameManager.MessageBox.Show("Error", "Enter your character name !!!");
+            }
         }
 
         public void Roll()

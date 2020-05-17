@@ -1,0 +1,226 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4481500595553085020
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4220840591195260696}
+  - component: {fileID: 3373917942655960510}
+  - component: {fileID: 1756431322895555176}
+  - component: {fileID: -6724495332495692363}
+  - component: {fileID: -5601789461139589930}
+  - component: {fileID: 4796070145714128131}
+  - component: {fileID: -8995383404787782042}
+  - component: {fileID: 608388129487151528}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4220840591195260696
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4481500595553085020}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.8500375, y: 0.77819705, z: -1.606191}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3373917942655960510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4481500595553085020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a454276e07717944b854db8ca318a850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messageBox: {fileID: 8215454618644874083, guid: d9fc5bfeae5899948855b555d9aa6e60,
+    type: 3}
+  Player: {fileID: 0}
+  Enemies: []
+  playersTurn: 0
+  boardManager: {fileID: 0}
+  dataManager: {fileID: 0}
+  shortcutMenu: {fileID: 0}
+  inventoryManager: {fileID: 0}
+  itemManager: {fileID: 0}
+  potion: {fileID: 7646737463396547637, guid: d3cf9a26f01400742b80b3001f999dcf, type: 3}
+  FloorNumber: 1
+--- !u!114 &1756431322895555176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4481500595553085020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc0e4e18f32ebdc4b99935fa6a7264b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Exit: {fileID: 6867529305742489804, guid: b25c22c5f968d2f45bf324e85101a086, type: 3}
+  WallTileHorizontal: {fileID: 518794676057521395, guid: 17ae809ae6da48340992da83a6ddc769,
+    type: 3}
+  WallTileVertical: {fileID: 5172456881007598874, guid: d942d33424ecf1049a20d1cfed667dd0,
+    type: 3}
+  WallUpLeftCornerTile: {fileID: 7922070559763322170, guid: 23bd851a675e51841a5fc1b4a702bf2e,
+    type: 3}
+  WallUpRightCornerTile: {fileID: 8222186699196059234, guid: b0b9f2bde394814459891caf9d10b0b6,
+    type: 3}
+  WallDownLeftCornerTile: {fileID: 7850157240829866998, guid: e090ed397cce620408e82caba18841d7,
+    type: 3}
+  WallDownRightCornerTile: {fileID: 8648176560744591594, guid: 9470536c8c311fa499c055b9839f0e7d,
+    type: 3}
+  FloorPathHorizontalTile: {fileID: 6757643643406466162, guid: 308ce4cdb648b354b94ddf6a0e154b5a,
+    type: 3}
+  FloorPathRightTile: {fileID: 4580545220665052199, guid: 4cc1a39c176230b4194815b042aa5f47,
+    type: 3}
+  FloorPathLeftTile: {fileID: 7369779817621125368, guid: 001efa6e5e4551c4bba90710e6a2fdd0,
+    type: 3}
+  FloorPathVerticalTile: {fileID: 4876461352793863976, guid: 65cad83cf96578a48b3420df1ccb2ffb,
+    type: 3}
+  FloorPathUpTile: {fileID: 6142322994865348205, guid: 2ba62c65a6d43f144b3aabd994812417,
+    type: 3}
+  FloorPathDownTile: {fileID: 6087315562498246820, guid: 5acc08b0818d13146be190a8d4bcbd2a,
+    type: 3}
+  FloorTile: {fileID: 2390172011050364666, guid: 519c746d12a51f247b983341b15f999d,
+    type: 3}
+  FloorLeftTile: {fileID: 3738952486384166212, guid: 7c04aa8a1f0809d43b074f9171829467,
+    type: 3}
+  FloorRightTile: {fileID: 3906916921538154420, guid: 3db0dc38a4f31694da0fbecf8e63347e,
+    type: 3}
+  FloorTileUp: {fileID: 7666100743567828796, guid: 2e897d446e3de384cbb2e4acfdbe5717,
+    type: 3}
+  FloorTileUpRightCorner: {fileID: 2710289245169168977, guid: f5ed06253782e374d8ffd3ccab6e833b,
+    type: 3}
+  FloorTileUpLeftCorner: {fileID: 4146956672366260219, guid: e947808afbbbca54d90429ed692fbf0f,
+    type: 3}
+  FloorTileDown: {fileID: 5962775688127269644, guid: d204bc9873fa5584abaea4d290c53335,
+    type: 3}
+  FloorTileDownRightCorner: {fileID: 1315194120774771301, guid: 15a61a4e0c132894289e0eb560d2d296,
+    type: 3}
+  FloorTileDownLeftCorner: {fileID: 8637285423835633910, guid: 1ce53902f42db39479a44af17254fafd,
+    type: 3}
+  ClosedDoorVertical: {fileID: 2626164225247765529, guid: d76b1d13cf010954e8801c95d1bd37fb,
+    type: 3}
+  ClosedDoorHorizontal: {fileID: 2628248733754246426, guid: 2c65f83f93f21fd4f805e3759484e67f,
+    type: 3}
+  TourchTile: {fileID: 9143279058621068323, guid: c97c4fe975c32a54baf56502484859de,
+    type: 3}
+  BloodFountain: {fileID: 6581752387913811905, guid: 46431fff166a5fd4d95273eb9c6920d2,
+    type: 3}
+  Traps:
+  - {fileID: 3177136674332636102, guid: a2a9c844d2508614c802d3ec0287ae5c, type: 3}
+  EnemyPrefab: {fileID: 616915655446757402, guid: 19948f187e647ea40ae53723dbd046b6,
+    type: 3}
+  RoomsSize:
+    Min: 5
+    Max: 7
+  Tourches:
+    Min: 9
+    Max: 20
+  CountOfRooms: 18
+  CountOfTraps: 25
+  MapWidth: 70
+  MapHeight: 40
+  CountOfEnemies: 30
+  map: []
+--- !u!114 &-6724495332495692363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4481500595553085020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec498d419f4640c4aa8e45197c1aec09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Objects:
+  - {fileID: 576122911487092457, guid: dcbdd2606664ebc43a8ec8273dd9e530, type: 3}
+  - {fileID: 2830494459419614571, guid: 2921b5830511cf04fac11553a1b2840f, type: 3}
+  - {fileID: 3660896762601296697, guid: 7383cf11b2b33154fa8b6d8392c4831f, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  Cells:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  SelectedObject: {fileID: 0}
+  CurrentCell: 0
+--- !u!114 &-5601789461139589930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4481500595553085020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03af6b74c903d334ab915662d63d17c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4796070145714128131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4481500595553085020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9109e99ebe276c34c9a5b38610736c87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 6
+  height: 5
+--- !u!114 &-8995383404787782042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4481500595553085020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ebeda95ca777c49b67902d6085451c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Items:
+  - {fileID: 7646737463396547637, guid: d3cf9a26f01400742b80b3001f999dcf, type: 3}
+  - {fileID: 1466610433232390525, guid: 1f63bd6a7491644429445cc9d9b39772, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &608388129487151528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4481500595553085020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1180ba1a07905442a8bf111ff116223, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tile: {fileID: 0}
+  Message: {fileID: 0}

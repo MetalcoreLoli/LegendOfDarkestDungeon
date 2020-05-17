@@ -4,6 +4,7 @@ using Assets.Scripts.Core;
 using Assets.Scripts.Dices;
 using Assets.Scripts.Stats;
 using Assets.Scripts.UI;
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager _instance = null;
-
+    public GameObject messageBox;
     public Player Player;
 
 
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]public bool playersTurn; 
 
     public BoardManager boardManager;
+    public static MessageBox MessageBox;
     public DataManager  dataManager;
     public ShortcutMenu shortcutMenu;
     public InventoryManager inventoryManager;
@@ -40,6 +42,10 @@ public class GameManager : MonoBehaviour
        
 
         DontDestroyOnLoad(gameObject);
+        messageBox.SetActive(false);
+        var msg = Instantiate(messageBox);
+
+        MessageBox              = msg.GetComponent<MessageBox>();
 
         itemManager             = GetComponent<ItemManager>();
         boardManager            = GetComponent<BoardManager>();
@@ -47,7 +53,8 @@ public class GameManager : MonoBehaviour
         dataManager             = GetComponent<DataManager>();
         inventoryManager        = GetComponent<InventoryManager>();
 
-        Player = GameObject.Find("Player").GetComponent<Player>();
+        Player                  = GameObject.Find("Player").GetComponent<Player>();
+
         if (SaveLoader.Instance().IsNeedToLoad)
         {
             dataManager.LoadSavedData();

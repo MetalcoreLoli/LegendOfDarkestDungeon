@@ -191,7 +191,7 @@ namespace Assets.Scripts.Actors
                     }
                 }
 #endif
-                if (Input.GetKeyDown(KeyCode.LeftControl))
+                if (Input.GetButtonDown("Use"))
                 {
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {

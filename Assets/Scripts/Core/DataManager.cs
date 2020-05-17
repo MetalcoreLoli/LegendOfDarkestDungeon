@@ -27,8 +27,8 @@ namespace Assets.Scripts.Core
                 BinaryFormatter formatter = new BinaryFormatter();
                 formatter.Serialize(fileStream, gameData);
             }
+         
             Debug.Log("Saving... "+filePath);
-
         }
 
         public void LoadSavedData(string filePath = @"C:\Users\Public\Documents", string name = "savedata")
