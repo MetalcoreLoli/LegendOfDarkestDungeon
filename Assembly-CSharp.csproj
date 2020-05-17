@@ -107,6 +107,7 @@
     <Compile Include="Assets\Scripts\TextureHelper.cs" />
     <Compile Include="Assets\Scripts\Trap.cs" />
     <Compile Include="Assets\Scripts\UI\BarController.cs" />
+    <Compile Include="Assets\Scripts\UI\CreatingMenu.cs" />
     <Compile Include="Assets\Scripts\UI\GameMenuSettings.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
     <Compile Include="Assets\Scripts\UI\StatsMenu.cs" />

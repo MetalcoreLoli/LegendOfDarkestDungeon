@@ -2,6 +2,7 @@
 using Assets.Scripts.Core.Data;
 using Assets.Scripts.Items;
 using Assets.Scripts.Items.Potions;
+using Assets.Scripts.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,7 +77,8 @@ namespace Assets.Scripts.Actors
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.I))
+            var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
+            if (Input.GetKeyDown(KeyCode.I) && !ui.crtMenu.IsOpen)
                 IsOpen = !IsOpen;
 
             if (IsOpen)

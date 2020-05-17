@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Core.Data;
 using Assets.Scripts.Dices;
 using Assets.Scripts.Stats;
+using Assets.Scripts.UI;
 using Microsoft.Win32.SafeHandles;
 using System;
 using System.Collections;
@@ -80,9 +81,17 @@ public class Player : MovingObject, IData
     {
 
         if (GameManager._instance.playersTurn == false) return;
+        var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
+        if (!ui.crtMenu.IsOpen)
+        { 
+            horizontal = (Input.GetAxisRaw("Horizontal"));
+            vertical    = (Input.GetAxisRaw("Vertical"));
 
-        horizontal  = (Input.GetAxisRaw("Horizontal"));
-        vertical    = (Input.GetAxisRaw("Vertical"));
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                GameManager._instance.shortcutMenu.ActivateCell();
+            }
+        }
 
         mousePosition = Camera.ScreenToWorldPoint(Input.mousePosition);
 
@@ -127,10 +136,7 @@ public class Player : MovingObject, IData
             horizontal = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            GameManager._instance.shortcutMenu.ActivateCell();
-        }
+       
 
         //animator.SetFloat("Horizontal", horizontal);
         //animator.SetFloat("Vertical", vertical);

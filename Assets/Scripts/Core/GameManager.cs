@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
         else
         {
             playerCharacteristics = new ActorCharacteristics(25, DiceManager.RollUndSumFromString("4d6") * 6);
+            
         }
 
         Enemies = new List<Enemy>();
@@ -64,10 +65,26 @@ public class GameManager : MonoBehaviour
 #endif
       
     }
+    private void Start()
+    {
+        var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
+        if (!SaveLoader.Instance().IsNeedToLoad)
+        {
+            ui.crtMenu.Open();
+        }
+
+    }
 
     public void GameOver()
     {
         enabled = false;
+    }
+    
+    public void UpdatePlayersCharacteristics(ActorCharacteristics actorCharacteristics)
+    {
+        if (Player == null) return;
+        Player.Characteristics = actorCharacteristics;
+        playerCharacteristics = actorCharacteristics;
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]

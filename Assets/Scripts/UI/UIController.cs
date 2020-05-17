@@ -15,7 +15,8 @@ namespace Assets.Scripts.UI
         
         public GameObject selectedSpell;
 
-        [SerializeField] private GameMenuSettings gameMenu;
+        [SerializeField] private GameMenuSettings   gameMenu;
+        [SerializeField] public CreatingMenu       crtMenu;
         [SerializeField] private Text hpText;
         [SerializeField] private Text mpText;
 
@@ -43,9 +44,9 @@ namespace Assets.Scripts.UI
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) )
             {
-                if (!gameMenu.IsOpen)
+                if (!gameMenu.IsOpen && !crtMenu.IsOpen)
                     gameMenu.Open();
             }
             
