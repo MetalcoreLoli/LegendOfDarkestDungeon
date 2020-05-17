@@ -45,31 +45,36 @@ namespace Assets.Scripts.Core
         {
             if (!GameManager._instance.inventoryManager.IsOpen)
             {
-                if (Input.GetKeyDown(KeyCode.Alpha1))
+                if (Input.GetButtonDown("Slot1"))
+                //if (Input.GetKeyDown(KeyCode.Alpha1))
                 {
                     uIController.SelectShortcutBarCell(0);
                     CurrentCell = 0;
                 }
 
-                if (Input.GetKeyDown(KeyCode.Alpha2))
+                if (Input.GetButtonDown("Slot2"))
+                //if (Input.GetKeyDown(KeyCode.Alpha2))
                 {
                     uIController.SelectShortcutBarCell(1);
                     CurrentCell = 1;
                 }
 
-                if (Input.GetKeyDown(KeyCode.Alpha3))
+                if (Input.GetButtonDown("Slot3"))
+                //if (Input.GetKeyDown(KeyCode.Alpha3))
                 {
                     uIController.SelectShortcutBarCell(2);
                     CurrentCell = 2;
                 }
 
-                if (Input.GetKeyDown(KeyCode.Alpha4))
+                if (Input.GetButtonDown("Slot4"))
+                //if (Input.GetKeyDown(KeyCode.Alpha4))
                 {
                     uIController.SelectShortcutBarCell(3);
                     CurrentCell = 3;
                 }
 
-                if (Input.GetKeyDown(KeyCode.Alpha5))
+                if (Input.GetButtonDown("Slot5"))
+                //if (Input.GetKeyDown(KeyCode.Alpha5))
                 {
                     uIController.SelectShortcutBarCell(4);
                     CurrentCell = 4;

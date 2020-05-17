@@ -78,7 +78,7 @@ namespace Assets.Scripts.Actors
         private void Update()
         {
             var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
-            if (Input.GetKeyDown(KeyCode.I) && !ui.crtMenu.IsOpen)
+            if (Input.GetButtonDown("Inventory") && !ui.crtMenu.IsOpen)
                 IsOpen = !IsOpen;
 
             if (IsOpen)
@@ -96,7 +96,7 @@ namespace Assets.Scripts.Actors
                     MoveDown();
 
 #if UNITY_EDITOR
-                if (Input.GetKeyDown(KeyCode.Alpha1))
+                if (Input.GetButtonDown("Slot1"))
                 {
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
@@ -105,7 +105,7 @@ namespace Assets.Scripts.Actors
                     }
                 }
 
-                if (Input.GetKeyDown(KeyCode.Alpha2))
+                if (Input.GetButtonDown("Slot2"))
                 {
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
@@ -114,9 +114,8 @@ namespace Assets.Scripts.Actors
                     }
                 }
 
-                if (Input.GetKeyDown(KeyCode.Alpha3))
+                if (Input.GetButtonDown("Slot3"))
                 {
-                    Debug.Log("Placing at 5");
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
                         var item = Items.Keys.ToArray()[selectedCellNumber];
@@ -124,7 +123,7 @@ namespace Assets.Scripts.Actors
                     }
                 }
 
-                if (Input.GetKeyDown(KeyCode.Alpha4))
+                if (Input.GetButtonDown("Slot4"))
                 {
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
@@ -133,9 +132,8 @@ namespace Assets.Scripts.Actors
                     }
                 }
 
-                if (Input.GetKeyDown(KeyCode.Alpha5))
+                if (Input.GetButtonDown("Slot5"))
                 {
-                    Debug.Log("Placing at 5");
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
                         var item = Items.Keys.ToArray()[selectedCellNumber];
@@ -144,7 +142,7 @@ namespace Assets.Scripts.Actors
                 }
 #else
 
-                if (Input.GetKeyDown(KeyCode.Alpha1) && Input.GetKey(KeyCode.LeftAlt))
+                if (Input.GetButtonDown("Slot1") && Input.GetKey(KeyCode.LeftAlt))
                 {
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
@@ -153,7 +151,7 @@ namespace Assets.Scripts.Actors
                     }
                 }
 
-                if (Input.GetKeyDown(KeyCode.Alpha2) && Input.GetKey(KeyCode.LeftAlt))
+                if (Input.GetButtonDown("Slot2") && Input.GetKey(KeyCode.LeftAlt))
                 {
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
@@ -162,9 +160,8 @@ namespace Assets.Scripts.Actors
                     }
                 }
 
-                if (Input.GetKeyDown(KeyCode.Alpha3) && Input.GetKey(KeyCode.LeftAlt))
+                if (Input.GetButtonDown("Slot3") && Input.GetKey(KeyCode.LeftAlt))
                 {
-                    Debug.Log("Placing at 5");
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
                         var item = Items.Keys.ToArray()[selectedCellNumber];
@@ -172,7 +169,7 @@ namespace Assets.Scripts.Actors
                     }
                 }
 
-                if (Input.GetKeyDown(KeyCode.Alpha4) && Input.GetKey(KeyCode.LeftAlt))
+                if (Input.GetButtonDown("Slot4") && Input.GetKey(KeyCode.LeftAlt))
                 {
                      if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
@@ -181,9 +178,8 @@ namespace Assets.Scripts.Actors
                     }
                 }
 
-                if (Input.GetKeyDown(KeyCode.Alpha5) && Input.GetKey(KeyCode.LeftAlt))
+                if (Input.GetButtonDown("Slot5") && Input.GetKey(KeyCode.LeftAlt))
                 {
-                    Debug.Log("Placing at 5");
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
                         var item = Items.Keys.ToArray()[selectedCellNumber];

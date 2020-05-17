@@ -30,6 +30,12 @@ namespace Assets.Scripts.UI
             GameManager._instance.dataManager.SaveData();
         }
 
+        public void OpenInventory()
+        {
+            GameManager._instance.inventoryManager.IsOpen = !GameManager._instance.inventoryManager.IsOpen;
+            Close();
+        }
+
         public void Exit()
         {
             Destroy(GameObject.Find("SoundManager"));
