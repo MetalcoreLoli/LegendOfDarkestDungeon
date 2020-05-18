@@ -78,25 +78,25 @@ namespace Assets.Scripts.Actors
         private void Update()
         {
             var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
-            if (Input.GetButtonDown("Inventory") && !ui.crtMenu.IsOpen)
+            if (GameInput.GetKeyDown("Inventory") && !ui.crtMenu.IsOpen)
                 IsOpen = !IsOpen;
 
             if (IsOpen)
             {
-                if (Input.GetKeyDown(KeyCode.L))
+                if (GameInput.GetKeyDown("InventoryMoveRight"))
                     MoveRight();
 
-                if (Input.GetKeyDown(KeyCode.H))
+                if (GameInput.GetKeyDown("InventoryMoveLeft"))
                     MoveLeft();
 
-                if (Input.GetKeyDown(KeyCode.J))
+                if (GameInput.GetKeyDown("InventoryMoveUp"))
                     MoveUp();
 
-                if (Input.GetKeyDown(KeyCode.K))
+                if (GameInput.GetKeyDown("InventoryMoveDown"))
                     MoveDown();
 
 #if UNITY_EDITOR
-                if (Input.GetButtonDown("Slot1"))
+                if (GameInput.GetKeyDown("Slot1"))
                 {
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
@@ -105,7 +105,7 @@ namespace Assets.Scripts.Actors
                     }
                 }
 
-                if (Input.GetButtonDown("Slot2"))
+                if (GameInput.GetKeyDown("Slot2"))
                 {
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
@@ -114,7 +114,7 @@ namespace Assets.Scripts.Actors
                     }
                 }
 
-                if (Input.GetButtonDown("Slot3"))
+                if (GameInput.GetKeyDown("Slot3"))
                 {
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
@@ -123,7 +123,7 @@ namespace Assets.Scripts.Actors
                     }
                 }
 
-                if (Input.GetButtonDown("Slot4"))
+                if (GameInput.GetKeyDown("Slot4"))
                 {
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
@@ -132,7 +132,7 @@ namespace Assets.Scripts.Actors
                     }
                 }
 
-                if (Input.GetButtonDown("Slot5"))
+                if (GameInput.GetKeyDown("Slot5"))
                 {
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
@@ -142,7 +142,7 @@ namespace Assets.Scripts.Actors
                 }
 #else
 
-                if (Input.GetButtonDown("Slot1") && Input.GetKey(KeyCode.LeftAlt))
+                if (GameInput.GetKeyDown("Slot1") && Input.GetKey(KeyCode.LeftAlt))
                 {
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
@@ -151,7 +151,7 @@ namespace Assets.Scripts.Actors
                     }
                 }
 
-                if (Input.GetButtonDown("Slot2") && Input.GetKey(KeyCode.LeftAlt))
+                if (GameInput.GetKeyDown("Slot2") && Input.GetKey(KeyCode.LeftAlt))
                 {
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
@@ -160,7 +160,7 @@ namespace Assets.Scripts.Actors
                     }
                 }
 
-                if (Input.GetButtonDown("Slot3") && Input.GetKey(KeyCode.LeftAlt))
+                if (GameInput.GetKeyDown("Slot3") && Input.GetKey(KeyCode.LeftAlt))
                 {
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
@@ -169,7 +169,7 @@ namespace Assets.Scripts.Actors
                     }
                 }
 
-                if (Input.GetButtonDown("Slot4") && Input.GetKey(KeyCode.LeftAlt))
+                if (GameInput.GetKeyDown("Slot4") && Input.GetKey(KeyCode.LeftAlt))
                 {
                      if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
@@ -178,7 +178,7 @@ namespace Assets.Scripts.Actors
                     }
                 }
 
-                if (Input.GetButtonDown("Slot5") && Input.GetKey(KeyCode.LeftAlt))
+                if (GameInput.GetKeyDown("Slot5") && Input.GetKey(KeyCode.LeftAlt))
                 {
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
@@ -187,7 +187,7 @@ namespace Assets.Scripts.Actors
                     }
                 }
 #endif
-                if (Input.GetButtonDown("Use"))
+                if (GameInput.GetKeyDown("Use"))
                 {
                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {

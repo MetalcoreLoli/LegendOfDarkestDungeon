@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Core.Data;
+﻿using Assets.Scripts.Core;
+using Assets.Scripts.Core.Data;
 using Assets.Scripts.Dices;
 using Assets.Scripts.Stats;
 using Assets.Scripts.UI;
@@ -87,7 +88,7 @@ public class Player : MovingObject, IData
             horizontal = (Input.GetAxisRaw("Horizontal"));
             vertical    = (Input.GetAxisRaw("Vertical"));
 
-            if (Input.GetButtonDown("Use"))
+            if (GameInput.GetKeyDown("Use"))
             {
                 GameManager._instance.shortcutMenu.ActivateCell();
             }
