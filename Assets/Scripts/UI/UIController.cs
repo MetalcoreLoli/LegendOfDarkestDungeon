@@ -41,7 +41,6 @@ namespace Assets.Scripts.UI
             hpContoroller.SetMax(GameManager._instance.playerCharacteristics.MaxHp);
             mpContoroller.SetMax(GameManager._instance.playerCharacteristics.MaxMp);
             gameMenu.Close();
-            optionMenu.Close();
         }
 
         private void Update()

@@ -160,10 +160,13 @@ public class GameManager : MonoBehaviour
         if (!ui.crtMenu.IsOpen)
             StartCoroutine(MoveEnemies());
 
+        
     }
 
+    
     IEnumerator MoveEnemies()
     {
+        yield return new WaitForSeconds(0.5f);
         if (Enemies.Count > 0)
             foreach (var enemy in Enemies)
             {

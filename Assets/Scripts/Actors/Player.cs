@@ -3,14 +3,10 @@ using Assets.Scripts.Core.Data;
 using Assets.Scripts.Dices;
 using Assets.Scripts.Stats;
 using Assets.Scripts.UI;
-using Microsoft.Win32.SafeHandles;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Security.Cryptography;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -27,6 +23,7 @@ public class Player : MovingObject, IData
     public float speed = 5f;
 
     private float restartLevelDelay = 1f;
+    private float manaRegenarationTime = 30.0f;
     private Animator animator;
 
     private float horizontal  = 0;
@@ -72,6 +69,9 @@ public class Player : MovingObject, IData
         GameManager._instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[1], 1);
         GameManager._instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[2], 2);
         //GameManager._instance.shortcutMenu.AddToShortcutMenu(GameManager._instance.potion, 4);
+
+        StartCoroutine(RegenerateMana(manaRegenarationTime));
+
         base.Start();
     }
 
@@ -137,11 +137,20 @@ public class Player : MovingObject, IData
             horizontal = 0;
         }
 
-       
 
         //animator.SetFloat("Horizontal", horizontal);
         //animator.SetFloat("Vertical", vertical);
         //animator.SetFloat("speed", new Vector2(horizontal, vertical).sqrMagnitude);
+    }
+
+    private IEnumerator RegenerateMana(float time)
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(time);
+            Debug.Log("Mp was restored " + Time.time);
+            UpdateMana(DiceManager.RollDice("1d4"));
+        }
     }
 
     private void FlipLeftRight()

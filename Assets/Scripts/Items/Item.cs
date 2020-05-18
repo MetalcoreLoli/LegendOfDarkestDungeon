@@ -61,6 +61,12 @@ namespace Assets.Scripts.Items
             if (GameInput.GetKeyDown("Take"))
                 Take();
         }
+
+        private void OnTriggerEnter2D(Collider2D collision) 
+        {
+            if (GameInput.GetKeyDown("Take"))
+                Take();
+        }
       
 
     }
