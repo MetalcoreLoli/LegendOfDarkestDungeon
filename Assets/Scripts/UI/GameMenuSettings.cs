@@ -14,6 +14,7 @@ namespace Assets.Scripts.UI
 
             gameObject.SetActive(true);
             IsOpen = true;
+            GameManager._instance.enabled = false;
             SoundManager.instance.musicSource.Stop();
             SoundManager.instance.menuMusicSource.Play();
         }
@@ -23,6 +24,7 @@ namespace Assets.Scripts.UI
             IsOpen = false;
             SoundManager.instance.musicSource.Play();
             SoundManager.instance.menuMusicSource.Stop();
+            GameManager._instance.enabled = true;
         }
 
         public void Save()
@@ -35,7 +37,14 @@ namespace Assets.Scripts.UI
             GameManager._instance.inventoryManager.IsOpen = !GameManager._instance.inventoryManager.IsOpen;
             Close();
         }
-
+        public void OpenOptions()
+        {
+           
+            var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
+            ui.optionMenu.Open();
+            Close();
+        }
+        
         public void Exit()
         {
             Destroy(GameObject.Find("SoundManager"));

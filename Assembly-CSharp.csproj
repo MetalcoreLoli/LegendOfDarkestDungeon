@@ -110,8 +110,10 @@
     <Compile Include="Assets\Scripts\UI\BarController.cs" />
     <Compile Include="Assets\Scripts\UI\CreatingMenu.cs" />
     <Compile Include="Assets\Scripts\UI\GameMenuSettings.cs" />
+    <Compile Include="Assets\Scripts\UI\InputFiledInfo.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
     <Compile Include="Assets\Scripts\UI\MessageBox.cs" />
+    <Compile Include="Assets\Scripts\UI\OptionMenu.cs" />
     <Compile Include="Assets\Scripts\UI\StatsMenu.cs" />
     <Compile Include="Assets\Scripts\UI\UIController.cs" />
     <Reference Include="Unity.Timeline.Editor">

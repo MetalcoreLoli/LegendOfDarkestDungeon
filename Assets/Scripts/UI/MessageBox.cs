@@ -30,12 +30,18 @@ namespace Assets.Scripts.UI
             return DialogResult;
         }
 
+        public void ResetResult()
+        {
+            DialogResult = DialogResult.None;
+        }
+
         public void OkClick()
         {
             DialogResult = DialogResult.OK;
             Debug.Log("OK");
             gameObject.SetActive(false);
         }
+
 
         public void CancelClick()
         { 

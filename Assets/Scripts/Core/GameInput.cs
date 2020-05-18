@@ -30,6 +30,7 @@ namespace Assets.Scripts.Core
             else
                 throw new Exception("Something wrong");
         }
+        public static KeyCode GetKeyCode(string name) => keyValuePairs[name];
 
         public static bool GetKeyDown(string name) => Input.GetKeyDown(keyValuePairs[name]);
     }
