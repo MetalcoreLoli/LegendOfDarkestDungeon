@@ -56,10 +56,11 @@ public class Enemy : MovingObject
 			if (transform.position == player.transform.position)
 			{
 				//GameManager._instance.Enemies.Remove(this);
-				//Destroy(gameObject);
+				gameObject.SetActive(false);
+				//transform.position = (end.normalized * 2);
 
 			}
-			
+
 			if (dis <= MaxDistanceToPlayer && player.GetComponent<Rigidbody2D>().position != rb2D.position)
 			{
 				Debug.DrawLine(rb2D.position, rb2D.position + end.normalized * end.magnitude, Color.white);
@@ -70,7 +71,7 @@ public class Enemy : MovingObject
 
 	protected override void Start()
 	{
-		GameManager._instance.Enemies.Add(this);
+		///GameManager._instance.Enemies.Add(this);
 		animator	= GetComponent<Animator>();
 		target		= GameObject.FindGameObjectWithTag("Player").transform;
 		base.Start();
@@ -106,6 +107,7 @@ public class Enemy : MovingObject
 	protected override void OnCantMove<T>(T component)
 	{
 		Player hitPlayer = component as Player;
+		if (isActiveAndEnabled)
 		if (DiceManager.RollDice("1d20") > 10 + hitPlayer.Characteristics.DexterityMod)
 			hitPlayer.LoseHp(Damage);
 

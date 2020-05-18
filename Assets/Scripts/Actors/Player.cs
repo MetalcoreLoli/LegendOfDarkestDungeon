@@ -205,7 +205,6 @@ public class Player : MovingObject, IData
         if (collision.tag == ("Exit"))
         {
             Invoke("Restart", restartLevelDelay);
-            GameManager._instance.enabled = false;
         }
     }
 
@@ -219,6 +218,8 @@ public class Player : MovingObject, IData
         else if (Characteristics.Hp < 0)
         {
             Characteristics.Hp = 0;
+            //enabled = false;
+            //GameManager._instance.GameOver();
         }
     }
 
@@ -242,11 +243,10 @@ public class Player : MovingObject, IData
         UpdateHealth(-damage);
         //GameManager._instance.playerCharacteristics.Hp = Hp;
         animator.SetTrigger("Hit");
+#if UNITY_EDITOR == false
         var light = GameObject.FindGameObjectWithTag("PlayersLight").GetComponent<Light>();
         light.intensity     -= damage;
-
-        if (Hp <= 0)
-            GameManager._instance.GameOver();
+#endif
     }
 
     public bool PlayerCastSpell(int cost)

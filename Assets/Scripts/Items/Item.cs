@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Assets.Scripts.Dices;
+using Assets.Scripts.Core;
 
 namespace Assets.Scripts.Items
 {
@@ -28,16 +29,16 @@ namespace Assets.Scripts.Items
         public string Name          = "Item";
 
         [Multiline] public string Description   = "";
+        protected BoxCollider2D BoxCollider2D;
         
         protected virtual void Awake()
         {
             Info = new ItemInfo(Prefab, Name);
+            BoxCollider2D = GetComponent<BoxCollider2D>();
         }
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.F) && IsPlayerStay())
-                Take();
         }
         
         public virtual void Drop()
@@ -54,5 +55,13 @@ namespace Assets.Scripts.Items
             GameManager._instance.inventoryManager.AddItem(this, DiceManager.RollDice("1d4"));
             gameObject.SetActive(false);
         }
+
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            if (GameInput.GetKeyDown("Take"))
+                Take();
+        }
+      
+
     }
 }

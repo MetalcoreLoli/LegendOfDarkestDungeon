@@ -354,6 +354,7 @@ public class BoardManager : MonoBehaviour
         {
             var enemy = Instantiate(EnemyPrefab, GetRandVectorFrom(InnerRoomCoords), Quaternion.identity);
             enemy.transform.SetParent(boardHolder);
+            GameManager._instance.Enemies.Add(enemy.GetComponent<Enemy>());
         }
     }
 

@@ -20,11 +20,11 @@ public class GameManager : MonoBehaviour
 
 
     public List<Enemy> Enemies;
-    [HideInInspector]public bool playersTurn; 
+    [HideInInspector] public bool playersTurn;
 
     public BoardManager boardManager;
     public static MessageBox MessageBox;
-    public DataManager  dataManager;
+    public DataManager dataManager;
     public ShortcutMenu shortcutMenu;
     public InventoryManager inventoryManager;
     public ItemManager itemManager;
@@ -39,21 +39,21 @@ public class GameManager : MonoBehaviour
         else if (_instance != this)
             Destroy(gameObject);
 
-       
+
 
         DontDestroyOnLoad(gameObject);
         messageBox.SetActive(false);
         var msg = Instantiate(messageBox);
 
-        MessageBox              = msg.GetComponent<MessageBox>();
+        MessageBox = msg.GetComponent<MessageBox>();
 
-        itemManager             = GetComponent<ItemManager>();
-        boardManager            = GetComponent<BoardManager>();
-        shortcutMenu            = GetComponent<ShortcutMenu>();
-        dataManager             = GetComponent<DataManager>();
-        inventoryManager        = GetComponent<InventoryManager>();
+        itemManager = GetComponent<ItemManager>();
+        boardManager = GetComponent<BoardManager>();
+        shortcutMenu = GetComponent<ShortcutMenu>();
+        dataManager = GetComponent<DataManager>();
+        inventoryManager = GetComponent<InventoryManager>();
 
-        Player                  = GameObject.Find("Player").GetComponent<Player>();
+        Player = GameObject.Find("Player").GetComponent<Player>();
 
         if (SaveLoader.Instance().IsNeedToLoad)
         {
@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         else
         {
             playerCharacteristics = new ActorCharacteristics(25, DiceManager.RollUndSumFromString("4d6") * 6);
-            
+
         }
 
         Enemies = new List<Enemy>();
@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
 #if UNITY_EDITOR 
         Init();
 #endif
-      
+
     }
     private void Start()
     {
@@ -82,11 +82,27 @@ public class GameManager : MonoBehaviour
 
     }
 
+
+    public bool CanShowMessageBox()
+    {
+        return GameObject.Find("MessageBoxCanvas(Clone)") == null;
+    }
+
     public void GameOver()
     {
-        enabled = false;
+        //if (CanShowMessageBox())
+        //    MessageBox = Instantiate(messageBox).GetComponent<MessageBox>();
+        
+        //var dialogResult = MessageBox.Show(":CCCCC", "You DEAD");
+        
+        //if (dialogResult == DialogResult.OK || dialogResult == DialogResult.Cancel) 
+        //{
+        //    //SceneManager.LoadScene(0, LoadSceneMode.Single);
+        //    Debug.Log(dialogResult+ "on gameover");
+        //}
+
     }
-    
+
     public void UpdatePlayersCharacteristics(ActorCharacteristics actorCharacteristics)
     {
         if (Player == null) return;
@@ -111,7 +127,9 @@ public class GameManager : MonoBehaviour
 
     private void Init()
     {
-        Enemies.Clear();
+        if (enabled == false)
+            enabled = true;
+        Enemies = new List<Enemy>();
         _instance.playersTurn = true;
         boardManager.SetUpLevel(FloorNumber);
         var room = boardManager.Rooms.FirstOrDefault();
@@ -119,10 +137,10 @@ public class GameManager : MonoBehaviour
         var Player = GameObject.FindGameObjectWithTag("Player");
         Player.transform.position = room.GetCenter();
 
-        var player_comp             = Player.GetComponent<Player>();
-        var players_light           = GameObject.FindGameObjectWithTag("PlayersLight").GetComponent<Light>();
-        players_light.intensity     = playerCharacteristics.Hp;
-        playerCharacteristics.Mp    = playerCharacteristics.MaxMp;
+        var player_comp = Player.GetComponent<Player>();
+        var players_light = GameObject.FindGameObjectWithTag("PlayersLight").GetComponent<Light>();
+        players_light.intensity = playerCharacteristics.Hp;
+        playerCharacteristics.Mp = playerCharacteristics.MaxMp;
         player_comp.Characteristics = playerCharacteristics;
 
         shortcutMenu.Init();
@@ -131,27 +149,31 @@ public class GameManager : MonoBehaviour
 
     public void RemoveEnemy(Enemy enemy)
     {
-       // Enemies.Remove(enemy);
+        // Enemies.Remove(enemy);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         //if (playersTurn)
         //    return;
-        ///StartCoroutine(MoveEnemies());
-       
+        var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
+        if (!ui.crtMenu.IsOpen)
+            StartCoroutine(MoveEnemies());
+
     }
 
     IEnumerator MoveEnemies()
     {
-        Enemies.RemoveAll(i => i == null);
-        yield return new WaitForSeconds(.1f);
-        foreach (var enemy in Enemies.Where(e => e.isActiveAndEnabled))
-        {
-            yield return new WaitForSeconds(enemy.moveTime);
-            enemy.MoveEnemy();
-        }
-
+        if (Enemies.Count > 0)
+            foreach (var enemy in Enemies)
+            {
+                yield return new WaitForSeconds(enemy.moveTime);
+                if (enemy != null)
+                {
+                    //Debug.Log($"{(enemy.gameObject == null ? "null" : "not null")}");
+                    enemy.MoveEnemy();
+                }
+            }
         playersTurn = true;
     }
     private void OnDestroy()

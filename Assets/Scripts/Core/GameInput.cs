@@ -19,7 +19,8 @@ namespace Assets.Scripts.Core
             ["InventoryMoveDown"]       = KeyCode.K,
             ["InventoryMoveLeft"]       = KeyCode.H,
             ["InventoryMoveRight"]      = KeyCode.L,
-            ["RemoveFromSlot"]          = KeyCode.X
+            ["RemoveFromSlot"]          = KeyCode.X,
+            ["Take"]                    = KeyCode.F
         };
 
         public static void SetKey(string name, KeyCode code)

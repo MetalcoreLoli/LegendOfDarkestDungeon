@@ -11,14 +11,15 @@ namespace Assets.Scripts.UI
 
     public enum DialogResult 
     {
-        OK = 0,
-        Cancel  = 1
+        OK      = 0,
+        Cancel  = 1,
+        None    = 2
     }
     public class MessageBox : MonoBehaviour
     {
         [SerializeField] Text Tile;
         [SerializeField] Text Message;
-        public DialogResult DialogResult { get; private set; }
+        public DialogResult DialogResult { get; private set; } = DialogResult.None;
 
         public DialogResult Show(string title, string message) 
         {
@@ -32,12 +33,14 @@ namespace Assets.Scripts.UI
         public void OkClick()
         {
             DialogResult = DialogResult.OK;
+            Debug.Log("OK");
             gameObject.SetActive(false);
         }
 
         public void CancelClick()
         { 
             DialogResult = DialogResult.Cancel;
+            Debug.Log("Cancel");
             gameObject.SetActive(false);
         }
     }
