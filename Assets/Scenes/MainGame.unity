@@ -467,6 +467,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3660896762601296697, guid: 7383cf11b2b33154fa8b6d8392c4831f,
         type: 3}
+    - target: {fileID: 2107167100, guid: b34513db1fdb1084da9c00fbc66002bc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107167100, guid: b34513db1fdb1084da9c00fbc66002bc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107167100, guid: b34513db1fdb1084da9c00fbc66002bc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 934100411617660454, guid: b34513db1fdb1084da9c00fbc66002bc,
         type: 3}
       propertyPath: Camera

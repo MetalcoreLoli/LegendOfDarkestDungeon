@@ -58,7 +58,7 @@ namespace Assets.Scripts.UI
 
         public void Roll()
         {
-            var stats = new Stats.ActorCharacteristics(25, DiceManager.RollUndSumFromString("4d6") * 6);
+            var stats = new Stats.ActorCharacteristics(100, DiceManager.RollUndSumFromString("4d6") * 6);
             GameManager._instance.UpdatePlayersCharacteristics(stats);
            
         }

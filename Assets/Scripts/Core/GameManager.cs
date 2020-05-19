@@ -60,7 +60,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            playerCharacteristics = new ActorCharacteristics(25, DiceManager.RollUndSumFromString("4d6") * 6);
+
+            playerCharacteristics = new ActorCharacteristics(100, DiceManager.RollUndSumFromString("4d6") * 7);
 
         }
 
@@ -78,7 +79,6 @@ public class GameManager : MonoBehaviour
         {
             ui.crtMenu.Open();
         }
-        StartCoroutine(MoveEnemies());
     }
 
 
@@ -89,10 +89,21 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        //if (CanShowMessageBox())
-        //    MessageBox = Instantiate(messageBox).GetComponent<MessageBox>();
 
-        //var dialogResult = MessageBox.Show(":CCCCC", "You DEAD");
+        var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
+        if (!ui.crtMenu.IsOpen && MessageBox.DialogResult == DialogResult.None)
+        { 
+            //MessageBox = Instantiate(messageBox).GetComponent<MessageBox>();
+            MessageBox.Show(":CCCCC", "You DEAD");
+        }
+        if (MessageBox.DialogResult != DialogResult.None)
+        {
+            StopAllCoroutines();
+            Enemies = new List<Enemy>();
+            Destroy(GameObject.Find("SoundManager"));
+            Destroy(gameObject);
+            SceneManager.LoadScene(0, LoadSceneMode.Single);
+        }
 
         //if (dialogResult == DialogResult.OK || dialogResult == DialogResult.Cancel) 
         //{
@@ -156,7 +167,7 @@ public class GameManager : MonoBehaviour
         //    return;
         var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
         if (!ui.crtMenu.IsOpen)
-           StartCoroutine(MoveEnemies());
+            StartCoroutine(MoveEnemies());
         Player = GameObject.Find("Player").GetComponent<Player>();
 
     }
@@ -167,17 +178,15 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         if (Enemies.Count > 0)
         {
-
-            while (true)
-                foreach (var enemy in Enemies)
+            foreach (var enemy in Enemies)
+            {
+                yield return new WaitForSeconds(enemy.moveTime);
+                if (enemy != null)
                 {
-                    yield return new WaitForSeconds(enemy.moveTime);
-                    if (enemy != null)
-                    {
-                        //Debug.Log($"{(enemy.gameObject == null ? "null" : "not null")}");
-                        enemy.MoveEnemy();
-                    }
+                    //Debug.Log($"{(enemy.gameObject == null ? "null" : "not null")}");
+                    enemy.MoveEnemy();
                 }
+            }
         }
         playersTurn = true;
     }

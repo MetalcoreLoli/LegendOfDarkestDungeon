@@ -64,6 +64,11 @@ public class Player : MovingObject, IData
         Mana    = Characteristics.Mp;
         MaxMana = Characteristics.MaxMp;
 
+#if UNITY_EDITOR
+        Characteristics.Mp = Characteristics.MaxMp = 25000;
+#endif
+
+
 
         GameManager._instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[0], 0);
         GameManager._instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[1], 1);
@@ -85,7 +90,7 @@ public class Player : MovingObject, IData
         var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
         if (!ui.crtMenu.IsOpen)
         { 
-            horizontal = (Input.GetAxisRaw("Horizontal"));
+            horizontal  = (Input.GetAxisRaw("Horizontal"));
             vertical    = (Input.GetAxisRaw("Vertical"));
 
             if (GameInput.GetKeyDown("Use"))
@@ -96,7 +101,7 @@ public class Player : MovingObject, IData
 
         mousePosition = Camera.ScreenToWorldPoint(Input.mousePosition);
 
-
+       
 
         if (horizontal != 0)
         {
@@ -137,10 +142,13 @@ public class Player : MovingObject, IData
             horizontal = 0;
         }
 
+        Vector3 inputDir = new Vector3(horizontal, vertical).normalized;
+        float inputAngel = (Mathf.Atan2(inputDir.x, inputDir.y)) * Mathf.Rad2Deg;
+        Debug.DrawRay(transform.position, inputDir * 3, Color.white);
 
-        //animator.SetFloat("Horizontal", horizontal);
-        //animator.SetFloat("Vertical", vertical);
-        //animator.SetFloat("speed", new Vector2(horizontal, vertical).sqrMagnitude);
+        //GameObject.Find("FirePoint").transform.eulerAngles = Vector3.up * inputAngel;
+        ////transform.eulerAngles = Vector2.up * -angel;
+
     }
 
     private IEnumerator RegenerateMana(float time)
@@ -171,7 +179,7 @@ public class Player : MovingObject, IData
         firePoint.transform.localPosition = vec;
 
         if (lookDir == LookDir.Down)
-        { 
+        {
             var veca = firePoint.transform.localEulerAngles;
             veca.z = (transform.localScale.x < 0) ? 90f : -90f;
             firePoint.transform.localEulerAngles = veca;
@@ -227,8 +235,8 @@ public class Player : MovingObject, IData
         else if (Characteristics.Hp < 0)
         {
             Characteristics.Hp = 0;
-            //enabled = false;
-            //GameManager._instance.GameOver();
+            enabled = false;
+            GameManager._instance.GameOver();
         }
     }
 
