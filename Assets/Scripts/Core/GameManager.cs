@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
         {
             ui.crtMenu.Open();
         }
-
+        StartCoroutine(MoveEnemies());
     }
 
 
@@ -91,15 +91,14 @@ public class GameManager : MonoBehaviour
     {
         //if (CanShowMessageBox())
         //    MessageBox = Instantiate(messageBox).GetComponent<MessageBox>();
-        
+
         //var dialogResult = MessageBox.Show(":CCCCC", "You DEAD");
-        
+
         //if (dialogResult == DialogResult.OK || dialogResult == DialogResult.Cancel) 
         //{
         //    //SceneManager.LoadScene(0, LoadSceneMode.Single);
         //    Debug.Log(dialogResult+ "on gameover");
         //}
-
     }
 
     public void UpdatePlayersCharacteristics(ActorCharacteristics actorCharacteristics)
@@ -157,25 +156,29 @@ public class GameManager : MonoBehaviour
         //    return;
         var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
         if (!ui.crtMenu.IsOpen)
-            StartCoroutine(MoveEnemies());
+           StartCoroutine(MoveEnemies());
+        Player = GameObject.Find("Player").GetComponent<Player>();
 
-        
     }
 
-    
+
     IEnumerator MoveEnemies()
     {
         yield return new WaitForSeconds(0.5f);
         if (Enemies.Count > 0)
-            foreach (var enemy in Enemies)
-            {
-                yield return new WaitForSeconds(enemy.moveTime);
-                if (enemy != null)
+        {
+
+            while (true)
+                foreach (var enemy in Enemies)
                 {
-                    //Debug.Log($"{(enemy.gameObject == null ? "null" : "not null")}");
-                    enemy.MoveEnemy();
+                    yield return new WaitForSeconds(enemy.moveTime);
+                    if (enemy != null)
+                    {
+                        //Debug.Log($"{(enemy.gameObject == null ? "null" : "not null")}");
+                        enemy.MoveEnemy();
+                    }
                 }
-            }
+        }
         playersTurn = true;
     }
     private void OnDestroy()

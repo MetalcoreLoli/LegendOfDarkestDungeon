@@ -36,7 +36,6 @@ public class Enemy : MovingObject
 		Hp = characteristics.Hp;
 		if (characteristics.Hp <= 0)
 		{
-			GameManager._instance.RemoveEnemy(this);
             if (DiceManager.RollDice("1d20") > 6)
             {
                 if (DiceManager.RollDice("1d20") > 10)
