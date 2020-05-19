@@ -24,7 +24,7 @@ namespace Assets.Scripts.Items.Potions
             var light = GameObject.FindGameObjectWithTag("PlayersLight").GetComponent<Light>();
             int value = DiceManager.RollDice("1d4");
 
-            GameManager._instance.Player.UpdateHealth(value);
+            GameObject.Find("Player").GetComponent<Player>().UpdateHealth(value);
             
             light.intensity += value;
         }

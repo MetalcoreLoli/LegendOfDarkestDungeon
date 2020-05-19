@@ -171,7 +171,7 @@ namespace Assets.Scripts.Actors
 
                 if (GameInput.GetKeyDown("Slot4") && Input.GetKey(KeyCode.LeftAlt))
                 {
-                     if (Items.Keys.Count() - 1 >= selectedCellNumber)
+                    if (Items.Keys.Count() - 1 >= selectedCellNumber)
                     {
                         var item = Items.Keys.ToArray()[selectedCellNumber];
                         PlaceItemIntoShortcut(item, 3);
@@ -198,7 +198,7 @@ namespace Assets.Scripts.Actors
                         }
                     }
                 }
-                
+
                 SelectedCellPosition = CellsPositions[selectedCellNumber];
                 Item[] keies = Items.Keys.Where(k => Items[k] == 0).ToArray();
                 for (int i = 0; i < keies.Count(); i++)
@@ -210,7 +210,7 @@ namespace Assets.Scripts.Actors
 
         private void PlaceItemIntoShortcut(Item item, int number)
         {
-            var shortcutMenu  = GameManager._instance.shortcutMenu;
+            var shortcutMenu = GameManager._instance.shortcutMenu;
             if (shortcutMenu.CanPlaceAt(number))
                 shortcutMenu.AddToShortcutMenu(item.gameObject, number);
             else
@@ -254,7 +254,7 @@ namespace Assets.Scripts.Actors
                 int t_width = guiCell.width * 4;
                 int t_height = guiCell.height * 4;
 
-                var player = GameManager._instance.Player;
+                Player player = GameObject.Find("Player").GetComponent<Player>() ?? null;
                 GUI.skin.font = font;
                 GUI.skin.font.material.SetColor("white", Color.white);
                 GUI.skin.box.normal.textColor = Color.white;
@@ -274,32 +274,40 @@ namespace Assets.Scripts.Actors
                         GUI.DrawTexture(new Rect(position, size), guiCell, ScaleMode.StretchToFill);
                     }
                 }
-                for (int i = 0; i < Items.Count; i++)
-                {
-                    var t = Items.Keys.ToArray()[i].gameObject.GetComponent<SpriteRenderer>();
-                    GUI.DrawTexture(new Rect(i * t_width + t_width, t_height, t_width, t_width), t.sprite.FromSprite(), ScaleMode.StretchToFill);
-                }
+                if (Items.Count() > 0)
+                    for (int i = 0; i < Items.Count; i++)
+                    {
+                        if (Items.Keys.ToArray()[i] != null)
+                        { 
+                            var t = Items.Keys.ToArray()[i].gameObject.GetComponent<SpriteRenderer>();
+                            GUI.DrawTexture(new Rect(i * t_width + t_width, t_height, t_width, t_width), t.sprite.FromSprite(), ScaleMode.StretchToFill);
+                        }
+                        else 
+                            Items.Remove(Items.Keys.ToArray()[i]);
+                    }
 
                 string modToStr(int mod) => (mod > 0) ? $"+{mod}" : mod.ToString();
+                if (player != null)
+                {
 
-                GUI.Box(
-                    new Rect(t_width * 6 + t_width, t_height, t_width * 3, t_height),
-                    ($"Int: {player.Characteristics.Intelligence}({modToStr(player.Characteristics.IntelligenceMod)})"));
+                    GUI.Box(
+                        new Rect(t_width * 6 + t_width, t_height, t_width * 3, t_height),
+                        ($"Int: {player.Characteristics.Intelligence}({modToStr(player.Characteristics.IntelligenceMod)})"));
 
-                GUI.Box(
-                    new Rect(t_width * 6 + t_width, t_height * 2 + 1, t_width * 3, t_height),
-                    ($"Str: {player.Characteristics.Strength}({modToStr(player.Characteristics.StrengthMod)})"));
+                    GUI.Box(
+                        new Rect(t_width * 6 + t_width, t_height * 2 + 1, t_width * 3, t_height),
+                        ($"Str: {player.Characteristics.Strength}({modToStr(player.Characteristics.StrengthMod)})"));
 
-                GUI.Box(
-                    new Rect(t_width * 6 + t_width, t_height * 3 + 1, t_width * 3, t_height),
-                    ($"Dex: {player.Characteristics.Dexterity}({modToStr(player.Characteristics.DexterityMod)})"));
-                GUI.Box(
-                    new Rect(t_width * 6 + t_width, t_height * 4 + 1, t_width * 3, t_height),
-                    ($"Chr: {player.Characteristics.Charisma}({modToStr(player.Characteristics.CharismaMod)})"));
-                GUI.Box(
-                    new Rect(t_width * 6 + t_width, t_height * 5 + 1, t_width * 3, t_height),
-                    ($"Lck: {player.Characteristics.Lucky}({modToStr(player.Characteristics.LuckyMod)})"));
-
+                    GUI.Box(
+                        new Rect(t_width * 6 + t_width, t_height * 3 + 1, t_width * 3, t_height),
+                        ($"Dex: {player.Characteristics.Dexterity}({modToStr(player.Characteristics.DexterityMod)})"));
+                    GUI.Box(
+                        new Rect(t_width * 6 + t_width, t_height * 4 + 1, t_width * 3, t_height),
+                        ($"Chr: {player.Characteristics.Charisma}({modToStr(player.Characteristics.CharismaMod)})"));
+                    GUI.Box(
+                        new Rect(t_width * 6 + t_width, t_height * 5 + 1, t_width * 3, t_height),
+                        ($"Lck: {player.Characteristics.Lucky}({modToStr(player.Characteristics.LuckyMod)})"));
+                }
                 GUI.skin.box.alignment = TextAnchor.MiddleLeft;
 
                 GUI.Box(
