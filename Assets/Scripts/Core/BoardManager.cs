@@ -81,6 +81,7 @@ public class BoardManager : MonoBehaviour
     private List<Vector3> VRoomDoorsCoords;
 
     private List<GameObject> enemis;
+    public LayerMask blockingLayer;
 
     public void SetUpLevel(int level) 
     {
@@ -379,8 +380,8 @@ public class BoardManager : MonoBehaviour
         while (h_count-- > 0)
         {
             var vec = GetRandVectorFrom(HRoomDoorsCoords);
-            RaycastHit2D hit_left   = Physics2D.Raycast(vec, Vector2.left);
-            RaycastHit2D hit_right  = Physics2D.Raycast(vec, Vector2.right);
+            RaycastHit2D hit_left   = Physics2D.Linecast(vec, Vector2.left,     blockingLayer);
+            RaycastHit2D hit_right  = Physics2D.Linecast(vec, Vector2.right,    blockingLayer);
             if (hit_left.transform != null && hit_right.transform != null)
             {
                 var collider_left   = hit_left.collider;
@@ -397,8 +398,8 @@ public class BoardManager : MonoBehaviour
         while (v_count-- > 0)
         {
             var vec = GetRandVectorFrom(VRoomDoorsCoords);
-            RaycastHit2D hit_up = Physics2D.Raycast(vec, Vector2.up);
-            RaycastHit2D hit_down = Physics2D.Raycast(vec, Vector2.down);
+            RaycastHit2D hit_up     = Physics2D.Raycast(vec, Vector2.up,    blockingLayer);
+            RaycastHit2D hit_down   = Physics2D.Raycast(vec, Vector2.down,  blockingLayer);
             if (hit_up.transform != null && hit_down.transform != null)
             {
                 var collider_left = hit_up.collider;

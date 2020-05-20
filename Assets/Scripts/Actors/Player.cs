@@ -260,10 +260,6 @@ public class Player : MovingObject, IData
         UpdateHealth(-damage);
         //GameManager._instance.playerCharacteristics.Hp = Hp;
         animator.SetTrigger("Hit");
-#if UNITY_EDITOR == false
-        var light = GameObject.FindGameObjectWithTag("PlayersLight").GetComponent<Light>();
-        light.intensity     -= damage;
-#endif
     }
 
     public bool PlayerCastSpell(int cost)

@@ -140,6 +140,9 @@ MonoBehaviour:
   MapHeight: 40
   CountOfEnemies: 30
   map: []
+  blockingLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &-6724495332495692363
 MonoBehaviour:
   m_ObjectHideFlags: 0

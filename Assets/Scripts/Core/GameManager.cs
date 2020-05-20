@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
 
         var player_comp = Player.GetComponent<Player>();
         var players_light = GameObject.FindGameObjectWithTag("PlayersLight").GetComponent<Light>();
-        players_light.intensity = playerCharacteristics.Hp;
+        players_light.intensity = 25;
         playerCharacteristics.Mp = playerCharacteristics.MaxMp;
         player_comp.Characteristics = playerCharacteristics;
 
