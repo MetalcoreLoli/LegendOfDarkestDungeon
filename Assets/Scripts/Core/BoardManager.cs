@@ -238,10 +238,10 @@ public class BoardManager : MonoBehaviour
 
         }
         PlaceTourches();
-        PlaceDoors();
 
         PlaceTraps();
         PlaceEnemies();
+        PlaceDoors();
 
         //PlaceFountains();
 
@@ -366,14 +366,6 @@ public class BoardManager : MonoBehaviour
 
     private void PlaceDoors()
     {
-        //foreach (var room in Rooms)
-        //{
-        //    RaycastHit2D hit_up     = Physics2D.Raycast(room.GetCenter(), Vector2.up);
-        //    RaycastHit2D hit_down   = Physics2D.Raycast(room.GetCenter(), Vector2.down);
-        //    if (hit_up.transform != null)
-        //    {
-        //    }
-        //}
 
         int h_count = HRoomDoorsCoords.Count;
         int v_count = VRoomDoorsCoords.Count;
@@ -402,8 +394,8 @@ public class BoardManager : MonoBehaviour
             RaycastHit2D hit_down   = Physics2D.Raycast(vec, Vector2.down,  blockingLayer);
             if (hit_up.transform != null && hit_down.transform != null)
             {
-                var collider_left = hit_up.collider;
-                var collider_right = hit_down.collider;
+                var collider_left   = hit_up.collider;
+                var collider_right  = hit_down.collider;
                 if (collider_right.gameObject.tag == "Wall" && collider_left.gameObject.tag == "Wall")
                     AddGameObjectToMap(Instantiate(ClosedDoorHorizontal, vec, Quaternion.identity));
 

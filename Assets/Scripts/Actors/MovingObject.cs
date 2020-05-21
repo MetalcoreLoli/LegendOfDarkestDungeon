@@ -9,7 +9,6 @@ public abstract class MovingObject : MonoBehaviour
 	public float moveTime = 0.1f;          
 	public LayerMask blockingLayer;
 
-
 	protected BoxCollider2D boxCollider;      
 	protected Rigidbody2D rb2D;              
 	private float inverseMoveTime;
@@ -23,8 +22,6 @@ public abstract class MovingObject : MonoBehaviour
 
 		inverseMoveTime = 1f / moveTime;
 	}
-
-
 
 	protected virtual bool Move(int xDir, int yDir, out RaycastHit2D hit)
 	{
@@ -70,9 +67,7 @@ public abstract class MovingObject : MonoBehaviour
 		isMoving = false;
 	}
 
-
-	protected virtual void AttemptMove<T>(int xDir, int yDir)
-		where T : Component
+	protected virtual void AttemptMove<T>(int xDir, int yDir) where T : Component
 	{
 		RaycastHit2D hit;
 

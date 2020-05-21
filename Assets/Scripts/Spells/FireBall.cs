@@ -53,7 +53,7 @@ public class FireBall : Spell
                 Instantiate(Info.Prefab, FirePointUp.position, FirePointUp.rotation);
                 firePointPos = FirePointUp.position;
             }
-            
+
             rb2D.AddForce(firePointPos * 10.0f, ForceMode2D.Impulse);
 
         }

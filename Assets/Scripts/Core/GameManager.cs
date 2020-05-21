@@ -1,5 +1,4 @@
-﻿#define TEST
-using Assets.Scripts.Actors;
+﻿using Assets.Scripts.Actors;
 using Assets.Scripts.Core;
 using Assets.Scripts.Dices;
 using Assets.Scripts.Stats;
@@ -45,12 +44,13 @@ public class GameManager : MonoBehaviour
         var msg = Instantiate(messageBox);
 
         MessageBox = msg.GetComponent<MessageBox>();
+        DontDestroyOnLoad(MessageBox);
 
-        itemManager = GetComponent<ItemManager>();
-        boardManager = GetComponent<BoardManager>();
-        shortcutMenu = GetComponent<ShortcutMenu>();
-        dataManager = GetComponent<DataManager>();
-        inventoryManager = GetComponent<InventoryManager>();
+        itemManager         = GetComponent<ItemManager>();
+        boardManager        = GetComponent<BoardManager>();
+        shortcutMenu        = GetComponent<ShortcutMenu>();
+        dataManager         = GetComponent<DataManager>();
+        inventoryManager    = GetComponent<InventoryManager>();
 
         Player = GameObject.Find("Player").GetComponent<Player>();
 
@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
         else
         {
 
-            playerCharacteristics = new ActorCharacteristics(100, DiceManager.RollUndSumFromString("4d6") * 7);
+            playerCharacteristics = new ActorCharacteristics(50, DiceManager.RollUndSumFromString("4d6") * 7);
 
         }
 
@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
         _instance.playersTurn = true;
         boardManager.SetUpLevel(FloorNumber);
         var room = boardManager.Rooms.FirstOrDefault();
-
+        //Instantiate(messageBox);
         var Player = GameObject.FindGameObjectWithTag("Player");
         Player.transform.position = room.GetCenter();
 

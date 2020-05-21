@@ -18,11 +18,6 @@ public class Casting : MonoBehaviour
 
     private int spellNumber = 0;
 
-    private void Awake()
-    {
-       
-    }
-
 
     // Update is called once per frame
     void Update()

@@ -4,6 +4,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class Enemy : MovingObject
 {
@@ -19,7 +21,8 @@ public class Enemy : MovingObject
 	public float MaxDistanceToPlayer = 5f;
 
 	public ActorCharacteristics characteristics;
-
+	public bool WasDamaged;
+	private int damaged;
 	private void Awake()
 	{
 		characteristics = new ActorCharacteristics(DiceManager.RollUndSumFromString("2d4"), DiceManager.RollUndSumFromString("2d4"));
@@ -116,8 +119,19 @@ public class Enemy : MovingObject
 	{
 		animator.SetTrigger("TakeDamage");
 		characteristics.Hp -= damage;
+		WasDamaged = !WasDamaged;
+		damaged = damage;
 	}
-   
+
+	private void OnGUI()
+	{
+		if (WasDamaged)
+		{
+			GUI.skin.font = Resources.Load<Font>("Sprites/GUI/SDS_8x8");
+			damaged = 0;
+			WasDamaged = !WasDamaged;
+		}
+	}
 
 	private void OnDestroy()
 	{

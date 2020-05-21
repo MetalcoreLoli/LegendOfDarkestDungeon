@@ -41,20 +41,9 @@ public class Player : MovingObject, IData
     private bool isFlipUpDown       = false;
 
     public LookDir lookDir = LookDir.Left;
-
-    Vector2 mousePosition;
+    private Vector2 mousePosition;
 
     public ActorCharacteristics Characteristics;
-
-    private void Awake()
-    {
-            //if (GameManager._instance.playerCharacteristics != null)
-            //    Characteristics = GameManager._instance.playerCharacteristics;
-            //else
-            //{
-            //    GameManager._instance.playerCharacteristics = Characteristics = new ActorCharacteristics();
-            //}
-    }
 
     protected override void Start()
     {
@@ -90,9 +79,10 @@ public class Player : MovingObject, IData
         var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
         if (!ui.crtMenu.IsOpen)
         { 
+
             horizontal  = (Input.GetAxisRaw("Horizontal"));
             vertical    = (Input.GetAxisRaw("Vertical"));
-
+            
             if (GameInput.GetKeyDown("Use"))
             {
                 GameManager._instance.shortcutMenu.ActivateCell();
@@ -142,9 +132,14 @@ public class Player : MovingObject, IData
             horizontal = 0;
         }
 
-        Vector3 inputDir = new Vector3(horizontal, vertical).normalized;
-        float inputAngel = (Mathf.Atan2(inputDir.x, inputDir.y)) * Mathf.Rad2Deg;
-        Debug.DrawRay(transform.position, inputDir * 3, Color.white);
+        if (horizontal != 0 || vertical != 0)
+        {
+            Vector3 inputDir = new Vector3(horizontal, vertical).normalized;
+            float inputAngel = (Mathf.Atan2(inputDir.y, inputDir.x)) * Mathf.Rad2Deg;
+            Debug.DrawRay(transform.position, inputDir * 3, Color.white);
+            GameObject.Find("FirePoint").transform.eulerAngles = new Vector3(0, 0, inputAngel);
+
+        }
 
         //GameObject.Find("FirePoint").transform.eulerAngles = Vector3.up * inputAngel;
         ////transform.eulerAngles = Vector2.up * -angel;
@@ -167,7 +162,8 @@ public class Player : MovingObject, IData
         var vec = transform.localScale;
         vec.x *= -1;
         transform.localScale = vec;
-        GameObject.FindGameObjectWithTag("PlayersFirePoint").transform.Rotate(0.0f, 180.0f, 0.0f);
+
+        //GameObject.FindGameObjectWithTag("PlayersFirePoint").transform.Rotate(0.0f, 180.0f, 0.0f);
     }
 
     private void FlipFirePointUpDown()
@@ -266,7 +262,7 @@ public class Player : MovingObject, IData
     { 
         if (Characteristics.Mp - cost >= 0)
         {
-            Characteristics.Mp -= cost;
+            UpdateMana(-cost);
             Mana = Characteristics.Mp;
             animator.SetTrigger("Casting2");
             return true;
