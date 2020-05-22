@@ -22,18 +22,11 @@ namespace Assets.Scripts.Items
     }
     public abstract class Item : MonoBehaviour, ITakable, IDropable
     {
-        public ItemInfo Info;
-        
-        public GameObject Prefab;
-        
-        public string Name          = "Item";
-
-        [Multiline] public string Description   = "";
+        public ItemData Info;
         protected BoxCollider2D BoxCollider2D;
         
         protected virtual void Awake()
         {
-            Info = new ItemInfo(Prefab, Name);
             BoxCollider2D = GetComponent<BoxCollider2D>();
         }
 

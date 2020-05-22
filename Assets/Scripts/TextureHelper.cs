@@ -19,5 +19,12 @@ namespace Assets.Scripts
             return text;
         }
 
+        public static Texture2D FromSpriteWithFilterMode(this Sprite sprite, FilterMode filterMode)
+        {
+            var text = sprite.FromSprite();
+            text.filterMode = filterMode;
+            return text;
+        }
+
     }
 }

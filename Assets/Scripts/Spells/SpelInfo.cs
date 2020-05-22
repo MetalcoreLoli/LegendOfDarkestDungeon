@@ -6,8 +6,8 @@ namespace Assets.Scripts.Spells
     [Serializable]
     public struct SpellInfo
     {
-        public string Name       ;
-        public int Cost          ;
+        public string Name      ;
+        public int Cost         ;
         public GameObject Prefab;
 
         public SpellInfo(string name, int cost, GameObject prefab)

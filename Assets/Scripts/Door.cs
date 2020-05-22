@@ -5,9 +5,6 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
 
-    public LayerMask BeforeEnter;
-    public LayerMask AfterEnter;
-
     public Animator animator;
 
     private void Start()

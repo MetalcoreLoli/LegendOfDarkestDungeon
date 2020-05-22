@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38ced845d752ac045bd65b5bbef24ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Info: {fileID: 11400000, guid: d24e9afb194740540bea4e768a1bb589, type: 2}
   Prefab: {fileID: 0}
   Name: Healing Potion
   Description: Restore healht points(1d4)

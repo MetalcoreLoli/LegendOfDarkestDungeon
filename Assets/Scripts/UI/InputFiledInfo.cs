@@ -9,7 +9,6 @@ namespace Assets.Scripts.UI
 {
     public class InputFiledInfo : MonoBehaviour
     {
-        [SerializeField]
-        public string Name;
+        [SerializeField] public string Name;
     }
 }

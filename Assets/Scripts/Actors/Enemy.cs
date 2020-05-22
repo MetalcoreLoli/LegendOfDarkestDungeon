@@ -29,10 +29,6 @@ public class Enemy : MovingObject
 		Hp				= characteristics.Hp;
 	}
 
-	private void FixedUpdate()
-	{
-		
-	}
 
 	private void Update()
 	{
@@ -135,6 +131,5 @@ public class Enemy : MovingObject
 
 	private void OnDestroy()
 	{
-		Destroy(this);
 	}
 }

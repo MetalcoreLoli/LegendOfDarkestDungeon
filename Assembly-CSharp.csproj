@@ -70,8 +70,8 @@
     <Compile Include="Assets\Scripts\Actors\Player.cs" />
     <Compile Include="Assets\Scripts\CameraMove.cs" />
     <Compile Include="Assets\Scripts\Core\BoardManager.cs" />
+    <Compile Include="Assets\Scripts\Core\Data\DataManager.cs" />
     <Compile Include="Assets\Scripts\Core\Data\IData.cs" />
-    <Compile Include="Assets\Scripts\Core\DataManager.cs" />
     <Compile Include="Assets\Scripts\Core\FieldOfView.cs" />
     <Compile Include="Assets\Scripts\Core\GameInput.cs" />
     <Compile Include="Assets\Scripts\Core\GameManager.cs" />
@@ -93,6 +93,7 @@
     <Compile Include="Assets\Scripts\Items\ITakable.cs" />
     <Compile Include="Assets\Scripts\Items\IUseable.cs" />
     <Compile Include="Assets\Scripts\Items\Item.cs" />
+    <Compile Include="Assets\Scripts\Items\ItemData.cs" />
     <Compile Include="Assets\Scripts\Items\Potions\HealingPotion.cs" />
     <Compile Include="Assets\Scripts\Items\Potions\IPotion.cs" />
     <Compile Include="Assets\Scripts\Items\Potions\ManaPotion.cs" />

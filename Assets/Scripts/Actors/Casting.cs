@@ -12,17 +12,9 @@ public class Casting : MonoBehaviour
 
     public GameObject[] SpellPrefabs;
 
-    public float spellForce = 10f;
-
-    private Player player;
-
-    private int spellNumber = 0;
-
-
     // Update is called once per frame
     void Update()
     {
-        player = GetComponent<Player>();
         //if (Input.GetKeyDown(KeyCode.Alpha1))
         //{
         //    spellNumber = 0;

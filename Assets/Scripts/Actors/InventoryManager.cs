@@ -34,10 +34,6 @@ namespace Assets.Scripts.Actors
         private void Awake()
         {
 
-            //if (instance == null)
-            //    instance = this;
-            //else if (instance != this)
-            //    Destroy(gameObject);
             CellsPositions = new Vector3[width * height];
             if (Items == null)
                 Items = new Dictionary<Item, int>();
@@ -47,16 +43,6 @@ namespace Assets.Scripts.Actors
                 //AddItem(GameManager._instance.itemManager.ManaPotion.GetComponent<ManaPotion>(), 5);
                 AddItem(GameManager._instance.itemManager.GetItem("HealingPotion").GetComponent<HealingPotion>(), 5);
             }
-
-        }
-        private void Start()
-        {
-            ////style.font = Resources.Load<Font>("Sprites/GUI/SDS_6x6");
-            //if (!SaveLoader.Instance().IsNeedToLoad)
-            //{
-            //    GameManager._instance.shortcutMenu.AddToShortcutMenu(GetItem("HealingPotion").gameObject, 4);
-            //    GameManager._instance.shortcutMenu.AddToShortcutMenu(GetItem("ManaPotion").gameObject, 3);
-            //}
 
         }
 
@@ -279,8 +265,8 @@ namespace Assets.Scripts.Actors
                     {
                         if (Items.Keys.ToArray()[i] != null)
                         { 
-                            var t = Items.Keys.ToArray()[i].gameObject.GetComponent<SpriteRenderer>();
-                            GUI.DrawTexture(new Rect(i * t_width + t_width, t_height, t_width, t_width), t.sprite.FromSprite(), ScaleMode.StretchToFill);
+                            var icon = Items.Keys.ToArray()[i].Info.Icon.FromSpriteWithFilterMode(FilterMode.Point);
+                            GUI.DrawTexture(new Rect(i * t_width + t_width, t_height, t_width, t_width), icon, ScaleMode.StretchToFill);
                         }
                         else 
                             Items.Remove(Items.Keys.ToArray()[i]);
@@ -331,9 +317,9 @@ namespace Assets.Scripts.Actors
             var size = new Vector3(cellWidth * 6, cellHeight * 4);
             GUI.Box(
                 new Rect(position, size),
-                $"Name: {item.Name}\n\n" +
+                $"Name: {item.Info.Name}\n\n" +
                 $"Count:{Items[item]}\n\n" +
-                $"Description:\n\n" + item.Description);
+                $"Description:\n\n" + item.Info.Description);
         }
         void SelecteCell(Vector3 selectedCellPosition)
         {

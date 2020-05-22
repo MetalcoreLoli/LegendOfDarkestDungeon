@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85837a7b72faa36459dd134728f37982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Info: {fileID: 11400000, guid: 3ac2c87b0c46c9f419e7897f020eb732, type: 2}
   Prefab: {fileID: 0}
   Name: Mana Potion
   Description: Restore mana points (1d4)
