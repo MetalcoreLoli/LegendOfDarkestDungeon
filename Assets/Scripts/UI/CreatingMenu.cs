@@ -33,13 +33,11 @@ namespace Assets.Scripts.UI
             LckText.text            = $"Lck: {player.Characteristics.Lucky} ({mod(player.Characteristics.LuckyMod)})";
             ManaPointsText.text     = $"Start ManaPoints : {player.Characteristics.MaxMp}";
         }
-
         public void Open()
         { 
             IsOpen = !IsOpen;
             gameObject.SetActive(IsOpen);
         }
-
         public void Close()
         {
             IsOpen = !IsOpen;
@@ -54,7 +52,6 @@ namespace Assets.Scripts.UI
                 GameManager.MessageBox.Show("Error", "Enter your character name !!!");
             }
         }
-
         public void Roll()
         {
             var stats = new Stats.ActorCharacteristics(50, DiceManager.RollUndSumFromString("4d6") * 6);

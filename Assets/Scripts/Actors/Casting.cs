@@ -8,28 +8,9 @@ public class Casting : MonoBehaviour
 {
     public Transform FirePoint;
     public Transform FirePointUp;
-    public GameObject SpellPrefab;
 
     public GameObject[] SpellPrefabs;
 
-    // Update is called once per frame
-    void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.Alpha1))
-        //{
-        //    spellNumber = 0;
-        //}
-        //if (Input.GetKeyDown(KeyCode.Alpha2))
-        //{
-        //    spellNumber = 1;
-        //}
-
-
-        //if (Input.GetKeyDown(KeyCode.LeftControl))
-        //{
-        //    Cast();
-        //}
-    }
 
     public void CastSpellWithIndex(int index)
     {

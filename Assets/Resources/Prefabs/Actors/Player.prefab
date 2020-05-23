@@ -283,13 +283,8 @@ MonoBehaviour:
   Mana: 0
   MaxMana: 0
   Camera: {fileID: 0}
+  damageDealer: {fileID: 11400000, guid: 47cf64872afc6d44d81ddff84172bfec, type: 2}
   lookDir: 2
-  Characteristics:
-    intell: 0
-    charisma: 0
-    dexterity: 0
-    strength: 0
-    lucky: 0
 --- !u!50 &-3190608310180739944
 Rigidbody2D:
   serializedVersion: 4
@@ -351,11 +346,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FirePoint: {fileID: 2107167100}
   FirePointUp: {fileID: 784458695}
-  SpellPrefab: {fileID: 576122911487092457, guid: dcbdd2606664ebc43a8ec8273dd9e530,
-    type: 3}
   SpellPrefabs:
   - {fileID: 576122911487092457, guid: dcbdd2606664ebc43a8ec8273dd9e530, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  spellForce: 10

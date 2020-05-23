@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Dices;
+using Assets.Scripts.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,10 @@ namespace Assets.Scripts.Spells
             var player = GameObject.Find("Player").GetComponent<Player>();
 
             if (player.PlayerCastSpell(2))
-            { 
-                player.UpdateHealth(DiceManager.RollDice("1d4"));
+            {
+                int heal = DiceManager.RollDice("1d4");
+                TextPopUp.CreateAt(transform.position, heal, player.DamageDealer.Text.transform);
+                player.UpdateHealth(heal);
             }
         }
     }

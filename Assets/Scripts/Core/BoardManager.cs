@@ -300,18 +300,6 @@ public class BoardManager : MonoBehaviour
         obj.transform.SetParent(boardHolder);
     }
 
-    /// <summary>
-    /// Уничтожает GameObject на заданной позиции
-    /// </summary>
-    /// <param name="vector3"></param>
-    private void FindUndDestory(Vector3 vector3)
-    {
-        foreach (GameObject obj in map)
-        {
-            if (obj.transform.position == vector3) Destroy(obj);
-        }
-    }
-
     private void ReplaceWith(GameObject tile, Vector3 vector3)
     {
         var gameObj = map.FirstOrDefault(obj => obj.transform.position == vector3);

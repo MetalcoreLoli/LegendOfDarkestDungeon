@@ -1,16 +1,17 @@
 ﻿using Assets.Scripts.Dices;
 using Assets.Scripts.Stats;
+using Assets.Scripts.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class Enemy : MovingObject
 {
-
-    public int Hp;
+	[SerializeField] private DamageDealer damageDealer;
 
     public int Damage = DiceManager.RollDice("2d6");
 
@@ -26,13 +27,11 @@ public class Enemy : MovingObject
 	private void Awake()
 	{
 		characteristics = new ActorCharacteristics(DiceManager.RollUndSumFromString("2d4"), DiceManager.RollUndSumFromString("2d4"));
-		Hp				= characteristics.Hp;
 	}
 
 
 	private void Update()
 	{
-		Hp = characteristics.Hp;
 		if (characteristics.Hp <= 0)
 		{
             if (DiceManager.RollDice("1d20") > 6)
@@ -115,21 +114,23 @@ public class Enemy : MovingObject
 	{
 		animator.SetTrigger("TakeDamage");
 		characteristics.Hp -= damage;
-		WasDamaged = !WasDamaged;
+		WasDamaged = true;
+		damageDealer.Damage = damage;
+		TextPopUp.CreateAt(transform.position, damage, damageDealer.Text.transform);
 		damaged = damage;
 	}
 
 	private void OnGUI()
 	{
-		if (WasDamaged)
-		{
-			GUI.skin.font = Resources.Load<Font>("Sprites/GUI/SDS_8x8");
-			damaged = 0;
-			WasDamaged = !WasDamaged;
-		}
-	}
-
-	private void OnDestroy()
-	{
+		//if (WasDamaged)
+		//{
+		//	GUI.skin.font = Resources.Load<Font>("Sprites/GUI/SDS_8x8");
+		//	GUI.skin.font.material.color = Color.white;
+		//	GUI.Label(
+		//		new Rect(transform.localPosition, new Vector2(64, 64)),
+		//		$"{damaged}");
+		//	//damaged = 0;
+		//	//WasDamaged = false;
+		//}
 	}
 }

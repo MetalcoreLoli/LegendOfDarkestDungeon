@@ -62,7 +62,6 @@ public class GameManager : MonoBehaviour
         {
 
             playerCharacteristics = new ActorCharacteristics(50, DiceManager.RollUndSumFromString("4d6") * 7);
-
         }
 
         Enemies = new List<Enemy>();
@@ -79,12 +78,6 @@ public class GameManager : MonoBehaviour
         {
             ui.crtMenu.Open();
         }
-    }
-
-
-    public bool CanShowMessageBox()
-    {
-        return GameObject.Find("MessageBoxCanvas(Clone)") == null;
     }
 
     public void GameOver()

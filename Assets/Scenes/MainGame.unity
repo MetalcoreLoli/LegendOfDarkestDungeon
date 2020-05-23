@@ -520,7 +520,7 @@ PrefabInstance:
     - target: {fileID: 5130027051594658357, guid: b34513db1fdb1084da9c00fbc66002bc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.41731268
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5130027051594658357, guid: b34513db1fdb1084da9c00fbc66002bc,
         type: 3}
@@ -9851,8 +9851,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 857e45603d9c5864681ccbe11922a951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.5
-  fov: 60
 --- !u!20 &1721537654 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 2289584726131807784, guid: 45394e698e178aa4b869f31d8a8514dd,

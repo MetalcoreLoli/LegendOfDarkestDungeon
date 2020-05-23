@@ -121,9 +121,10 @@ MonoBehaviour:
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256
-  Hp: 1
+  damageDealer: {fileID: 11400000, guid: 47cf64872afc6d44d81ddff84172bfec, type: 2}
   Damage: 1
   MaxDistanceToPlayer: 15
+  WasDamaged: 0
 --- !u!50 &6919290665616746656
 Rigidbody2D:
   serializedVersion: 4

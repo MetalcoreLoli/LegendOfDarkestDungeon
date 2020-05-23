@@ -23,7 +23,7 @@ public class Player : MovingObject, IData
     public float speed = 5f;
 
     private float restartLevelDelay = 1f;
-    private float manaRegenarationTime = 30.0f;
+    private float manaRegenarationTime = 15f;
     private Animator animator;
 
     private float horizontal  = 0;
@@ -39,12 +39,11 @@ public class Player : MovingObject, IData
     
     private bool isFlipLeftRight    = false;
     private bool isFlipUpDown       = false;
-
+    [SerializeField] private DamageDealer damageDealer;
     public LookDir lookDir = LookDir.Left;
-    private Vector2 mousePosition;
 
     public ActorCharacteristics Characteristics;
-
+    public  DamageDealer DamageDealer { get => damageDealer; }
     protected override void Start()
     {
         animator = GetComponent<Animator>();
@@ -69,8 +68,6 @@ public class Player : MovingObject, IData
         base.Start();
     }
 
-   
-
     // Update is called once per frame
     void Update()
     {
@@ -89,9 +86,6 @@ public class Player : MovingObject, IData
             }
         }
 
-        mousePosition = Camera.ScreenToWorldPoint(Input.mousePosition);
-
-       
 
         if (horizontal != 0)
         {
@@ -150,9 +144,13 @@ public class Player : MovingObject, IData
     {
         while(true)
         {
+#if UNITY_EDITOR
+            time = 10f;
+#endif
             yield return new WaitForSeconds(time);
             Debug.Log("Mp was restored " + Time.time);
-            UpdateMana(DiceManager.RollDice("1d4"));
+            int mana = DiceManager.RollDice("1d4");
+            UpdateMana(mana);
         }
     }
 
@@ -224,6 +222,9 @@ public class Player : MovingObject, IData
     public void UpdateHealth(int value)
     {
         Characteristics.Hp += value;
+        if (value > 0)
+            TextPopUp.CreateWithColor(transform.position, "+" + value, DamageDealer.Text.transform, Color.green);
+
         if (Characteristics.Hp > Characteristics.MaxHp)
         {
             Characteristics.Hp = Characteristics.MaxHp;
@@ -231,8 +232,10 @@ public class Player : MovingObject, IData
         else if (Characteristics.Hp < 0)
         {
             Characteristics.Hp = 0;
+#if UNITY_EDITOR == false
             enabled = false;
             GameManager._instance.GameOver();
+#endif
         }
     }
 
@@ -240,7 +243,9 @@ public class Player : MovingObject, IData
     {
         
         Characteristics.Mp  += value;
-        
+        if (value > 0)
+            TextPopUp.CreateWithColor(transform.position, "+" + value, DamageDealer.Text.transform, Color.blue);
+
         if (Characteristics.Mp > Characteristics.MaxMp)
         {
             Characteristics.Mp = Characteristics.MaxMp;
@@ -254,6 +259,7 @@ public class Player : MovingObject, IData
     public void LoseHp(int damage)
     {
         UpdateHealth(-damage);
+        TextPopUp.CreateWithColor(transform.position, "-" + damage, DamageDealer.Text.transform, Color.red);
         //GameManager._instance.playerCharacteristics.Hp = Hp;
         animator.SetTrigger("Hit");
     }

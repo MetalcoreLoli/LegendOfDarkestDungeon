@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3394b913347288e47adc0f0ea88c7d95, type: 3}
+  m_Name: DamagePopUp
+  m_EditorClassIdentifier: 
+  damage: 3
+  text: {fileID: 4477118436837952590, guid: eef5e29fe7bedd44d8f4b692428e5d77, type: 3}
