@@ -30,9 +30,6 @@ namespace Assets.Scripts.Items
             BoxCollider2D = GetComponent<BoxCollider2D>();
         }
 
-        void Update()
-        {
-        }
         
         public virtual void Drop()
         {

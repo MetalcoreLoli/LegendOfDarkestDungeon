@@ -12,11 +12,11 @@ namespace Assets.Scripts.Core
 {
     public class ShortcutMenu : MonoBehaviour
     {
-        public GameObject[] Objects;
-        public GameObject[] Cells;
+        public  GameObject[] Objects;
+        public  GameObject[] Cells;
         private UIController uIController;
-        public GameObject SelectedObject;
-        public Int32 CurrentCell = 0;
+        public  GameObject SelectedObject;
+        public  Int32 CurrentCell = 0;
         private void Awake()
         {
             var playerCasting = GameObject.Find("Player").GetComponent<Casting>();

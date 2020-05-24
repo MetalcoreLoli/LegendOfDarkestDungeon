@@ -5,6 +5,7 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using Assets.Scripts.Dices;
+using Assets.Scripts.Dungeon.Factory;
 
 [Serializable]
 public struct Size
@@ -49,7 +50,6 @@ public class BoardManager : MonoBehaviour
     public GameObject FloorTileDownRightCorner;
     public GameObject FloorTileDownLeftCorner;
 
-
     public GameObject ClosedDoorVertical;
     public GameObject ClosedDoorHorizontal;
 
@@ -87,7 +87,8 @@ public class BoardManager : MonoBehaviour
     {
         Debug.Log("Start board");
         BoardSetUp();
-        Generate(CountOfRooms);
+        if (level <= 10)
+            Generate(CountOfRooms, DungeonFactoryManager.Get().DefaultDungeonFactory);
     }
 
     private void BoardSetUp()
@@ -121,7 +122,7 @@ public class BoardManager : MonoBehaviour
        
     }
 
-    private void Generate(int roomsCount)
+    private void Generate(int roomsCount, DungeonFactory factory)
     {
         while (roomsCount-- > 0)
         {
@@ -131,7 +132,7 @@ public class BoardManager : MonoBehaviour
             int x       = Random.Range(0, MapWidth - width);
             int y       = Random.Range(0, MapHeight - height);
 
-            Room room = new Room(width, height, new Vector3(x, y, 0));
+            Room room = factory.MakeRoom(new Vector2(width, height), new Vector3(x, y));
             
             while (Rooms.FirstOrDefault(r => r.IsIntersectedWith(room)) != null)
             {
@@ -139,48 +140,12 @@ public class BoardManager : MonoBehaviour
                 height  = Random.Range(RoomsSize.Min, RoomsSize.Max);
                 x       = Random.Range(0, MapWidth - width);
                 y       = Random.Range(0, MapHeight - height);
-                room = new Room(width, height, new Vector3(x, y, 0));
-            }
-
-         
-            for (int x1 = 1; x1 < width-1; x1++)
-            {
-                for (int y1 = 1; y1 < height-1; y1++)
-                {
-                    int idx = x1 + width * y1;
-                    room.Body[idx].Body = FloorTile;
-
-                    if (x1 == 1 && y1 == 1)
-                        room.Body[idx].Body = FloorTileDownLeftCorner;
-
-                    if (x1 == width - 2 && y1 == 1)
-                        room.Body[idx].Body = FloorTileDownRightCorner;
-
-                    if (x1 == 1 && y1 == height - 2)
-                        room.Body[idx].Body = FloorTileUpLeftCorner;
-
-                    if (x1 == width - 2 && y1 == height - 2)
-                        room.Body[idx].Body = FloorTileUpRightCorner;
-
-                    if ((x1 == width - 2 && y1 > 1 && y1 < height - 2))
-                        room.Body[idx].Body = FloorRightTile;
-
-                    if ((y1 == height - 2 && x1 > 1 && x1 < width - 2))
-                        room.Body[idx].Body = FloorTileUp;
-
-                    if (x1 > 1 && x1 < width - 2 && y1 == 1)
-                        room.Body[idx].Body = FloorTileDown;
-
-                    if (y1 > 1 && y1 < height - 2 && x1 == 1)
-                        room.Body[idx].Body = FloorLeftTile;
-
-                }
+                room    = factory.MakeRoom(new Vector2(width, height), new Vector3(x, y));
             }
 
             Rooms.Add(room);
             DrawRoom(room);
         }
-        
 
         for (int i = 1; i < Rooms.Count; i++)
         {
@@ -196,20 +161,20 @@ public class BoardManager : MonoBehaviour
                 {
                     var upEnter     = new Vector3(prev.GetCenter().x - (prev.Width / 2), prev.GetCenter().y + 1);
                     var downEnter   = new Vector3(prev.GetCenter().x - (prev.Width / 2), prev.GetCenter().y - 1);
-                    ReplaceWith(WallDownRightCornerTile, upEnter);
-                    ReplaceWith(WallUpRightCornerTile, downEnter);
+                    ReplaceWith(factory.DungeonInfo.WallDownRightCornerTile, upEnter);
+                    ReplaceWith(factory.DungeonInfo.WallUpRightCornerTile, downEnter);
                     VRoomDoorsCoords.Add(new Vector3(prev.GetCenter().x - (prev.Width / 2), prev.GetCenter().y));
                 }
                 else
                 {
                     var upEnter     = new Vector3((int)prev.GetCenter().x + (width / 2), prev.GetCenter().y + 1);
                     var downEnter   = new Vector3((int)prev.GetCenter().x + (width / 2), prev.GetCenter().y - 1);
-                    ReplaceWith(WallDownLeftCornerTile, upEnter);
-                    ReplaceWith(WallUpLeftCornerTile, downEnter);
+                    ReplaceWith(factory.DungeonInfo.WallDownLeftCornerTile, upEnter);
+                    ReplaceWith(factory.DungeonInfo.WallUpLeftCornerTile, downEnter);
                     VRoomDoorsCoords.Add(new Vector3(prev.GetCenter().x + (width / 2), prev.GetCenter().y));
                 }
-                CreateHorizontalPath((int)prev.GetCenter().x, (int)currt.GetCenter().x, (int)prev.GetCenter().y);
-                CreateVerticalPath((int)currt.GetCenter().y, (int)prev.GetCenter().y, (int)currt.GetCenter().x);
+                CreateHorizontalPath(factory, (int)prev.GetCenter().x, (int)currt.GetCenter().x, (int)prev.GetCenter().y);
+                CreateVerticalPath(factory, (int)currt.GetCenter().y, (int)prev.GetCenter().y, (int)currt.GetCenter().x);
 
             }
             else
@@ -219,8 +184,8 @@ public class BoardManager : MonoBehaviour
                 {
                     var upEnter     = new Vector3(prev.GetCenter().x + 1, prev.GetCenter().y - (prev.Height / 2));
                     var downEnter   = new Vector3(prev.GetCenter().x - 1, prev.GetCenter().y - (prev.Height / 2));
-                    ReplaceWith(WallUpRightCornerTile, downEnter);
-                    ReplaceWith(WallUpLeftCornerTile, upEnter);
+                    ReplaceWith(factory.DungeonInfo.WallUpRightCornerTile, downEnter);
+                    ReplaceWith(factory.DungeonInfo.WallUpLeftCornerTile, upEnter);
                     HRoomDoorsCoords.Add(new Vector3(prev.GetCenter().x, prev.GetCenter().y - (prev.Height / 2)));
                 }
                 else
@@ -231,66 +196,53 @@ public class BoardManager : MonoBehaviour
                     ReplaceWith(WallDownLeftCornerTile,     upEnter);
                     HRoomDoorsCoords.Add(new Vector3(prev.GetCenter().x, prev.GetCenter().y + (height / 2)));
                 }
-                CreateHorizontalPath((int)currt.GetCenter().x, (int)prev.GetCenter().x, (int)currt.GetCenter().y);
-                CreateVerticalPath((int)prev.GetCenter().y, (int)currt.GetCenter().y, (int)prev.GetCenter().x);
+                CreateHorizontalPath(factory, (int)currt.GetCenter().x, (int)prev.GetCenter().x, (int)currt.GetCenter().y);
+                CreateVerticalPath(factory, (int)prev.GetCenter().y, (int)currt.GetCenter().y, (int)prev.GetCenter().x);
             }
 
 
         }
-        PlaceTourches();
-
-        PlaceTraps();
-        PlaceEnemies();
+        PlaceTourches(factory);
+        PlaceTraps(factory);
+        
+        PlaceEnemies(factory);
         PlaceDoors();
 
         //PlaceFountains();
 
         var lastRoomCenter = Rooms.Last().GetCenter();
-        Instantiate(Exit, lastRoomCenter, Quaternion.identity);
+        Instantiate(factory.DungeonInfo.Exit, lastRoomCenter, Quaternion.identity);
     }
-    private void CreateHorizontalPath(int xStart, int xEnd, int y)
+    private void CreateHorizontalPath(DungeonFactory factory, int xStart, int xEnd, int y)
     {
-        int min = Math.Min(xStart, xEnd);
-        int max = Math.Max(xStart, xEnd);
-
-        for (int x = min; x < max + 1; x++)
+        foreach (var vec in factory.MakeHorizontalPath(xStart, xEnd, y))
         {
-            //FindUndDestory(new Vector3(x, y, 0));
-            //if (x == max)
-            //    AddGameObjectToMap(Instantiate(FloorPathRightTile, new Vector3(x, y, 0), Quaternion.identity));
-            //else 
-            //    AddGameObjectToMap(Instantiate(FloorPathHorizontalTile, new Vector3(x, y, 0), Quaternion.identity));
-            ReplaceWith(FloorTile, new Vector3(x, y, 0));
+            ReplaceWith(factory.DungeonInfo.FloorTile, vec);
 
-            var upWallVector = new Vector3(x, y + 1, 0);
-            var downWallVector = new Vector3(x, y - 1, 0);
-
+            var upWallVector    = new Vector3(vec.x, y + 1, 0);
+            var downWallVector  = new Vector3(vec.x, y - 1, 0);
+            
             if (map.FirstOrDefault(obj => obj.transform.position == upWallVector) == null)
-                AddGameObjectToMap(Instantiate(WallTileHorizontal, upWallVector, Quaternion.identity));
+                AddGameObjectToMap(Instantiate(factory.DungeonInfo.WallTileHorizontal, upWallVector, Quaternion.identity));
 
             if (map.FirstOrDefault(obj => obj.transform.position == downWallVector) == null)
-                AddGameObjectToMap(Instantiate(WallTileHorizontal, downWallVector, Quaternion.identity));
+                AddGameObjectToMap(Instantiate(factory.DungeonInfo.WallTileHorizontal, downWallVector, Quaternion.identity));
         }
     }
 
-    private void CreateVerticalPath(int yStart, int yEnd, int x)
+    private void CreateVerticalPath(DungeonFactory factory, int yStart, int yEnd, int x)
     {
-        int min = Math.Min(yStart, yEnd);
-        int max = Math.Max(yStart, yEnd);
-
-        for (int y = min; y < max + 1; y++)
-        {
-            //FindUndDestory(new Vector3(x, y, 0));
-            //AddGameObjectToMap(Instantiate(FloorPathVerticalTile, new Vector3(x, y, 0), Quaternion.identity));
-            ReplaceWith(FloorTile, new Vector3(x, y, 0));
-            var leftWall = new Vector3(x + 1, y, 0);
-            var rightWall = new Vector3(x - 1, y, 0);
+        foreach (var vec in factory.MakeVecticalPath(yStart, yEnd, x))
+        { 
+            ReplaceWith(factory.DungeonInfo.FloorTile, vec);
+            var leftWall    = new Vector3(x + 1, vec.y, 0);
+            var rightWall   = new Vector3(x - 1, vec.y, 0);
 
             if (map.FirstOrDefault(obj => obj.transform.position == leftWall) == null)
-                AddGameObjectToMap(Instantiate(WallTileVertical, leftWall, Quaternion.identity));
+                AddGameObjectToMap(Instantiate(factory.DungeonInfo.WallTileVertical, leftWall, Quaternion.identity));
 
             if (map.FirstOrDefault(obj => obj.transform.position == rightWall) == null)
-                AddGameObjectToMap(Instantiate(WallTileVertical, rightWall, Quaternion.identity));
+                AddGameObjectToMap(Instantiate(factory.DungeonInfo.WallTileVertical, rightWall, Quaternion.identity));
         }
     }
 
@@ -315,36 +267,34 @@ public class BoardManager : MonoBehaviour
         return vec;
     }
 
-    private void PlaceTourches()
+    private void PlaceTourches(DungeonFactory factory)
     {
         UpWallCoords.AddRange(Rooms.SelectMany(room => room.UpWallCoord));
         int count = Tourches.Max;
-        while (count-- > 0)
-        {
-            Instantiate(TourchTile, GetRandVectorFrom(UpWallCoords), Quaternion.identity).transform.SetParent(boardHolder);
-        }
+        foreach (var vec in factory.MakeTrapsIn(count, UpWallCoords.ToArray()))
+            Instantiate(TourchTile, vec, Quaternion.identity).transform.SetParent(boardHolder);
     }
 
-    private void PlaceTraps()
+    private void PlaceTraps(DungeonFactory factory)
     {
         InnerRoomCoords.AddRange(Rooms.Skip(1).SelectMany(room => room.InnerCoords));
-        int count = CountOfTraps; 
-        while (count-- > 0)
+        int count = CountOfTraps;
+        foreach (var vec in factory.MakeTrapsIn(count, UpWallCoords.ToArray()))
         {
             Instantiate(Traps[0], GetRandVectorFrom(InnerRoomCoords), Quaternion.identity).transform.SetParent(boardHolder);
         }
     }
 
-    private void PlaceEnemies()
+    private void PlaceEnemies(DungeonFactory factory)
     {
         int count = CountOfEnemies;
-
-        while (count-- > 0)
+        foreach (var vec in factory.MakeEnemisIn(count, InnerRoomCoords.ToArray()))
         {
-            var enemy = Instantiate(EnemyPrefab, GetRandVectorFrom(InnerRoomCoords), Quaternion.identity);
+            var enemy = Instantiate(EnemyPrefab, vec, Quaternion.identity);
             enemy.transform.SetParent(boardHolder);
             GameManager._instance.Enemies.Add(enemy.GetComponent<Enemy>());
         }
+      
     }
 
     private void PlaceFountains()
@@ -354,7 +304,6 @@ public class BoardManager : MonoBehaviour
 
     private void PlaceDoors()
     {
-
         int h_count = HRoomDoorsCoords.Count;
         int v_count = VRoomDoorsCoords.Count;
         while (h_count-- > 0)

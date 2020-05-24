@@ -84,6 +84,10 @@
     <Compile Include="Assets\Scripts\Dices\DiceManager.cs" />
     <Compile Include="Assets\Scripts\Dices\Edge.cs" />
     <Compile Include="Assets\Scripts\Door.cs" />
+    <Compile Include="Assets\Scripts\Dungeon\Factory\DefaultDungeonFactory.cs" />
+    <Compile Include="Assets\Scripts\Dungeon\Factory\DungeonFactory.cs" />
+    <Compile Include="Assets\Scripts\Dungeon\Factory\DungeonFactoryManager.cs" />
+    <Compile Include="Assets\Scripts\Dungeon\Factory\DungeonInfo.cs" />
     <Compile Include="Assets\Scripts\Dungeon\Room.cs" />
     <Compile Include="Assets\Scripts\Dungeon\Tile.cs" />
     <Compile Include="Assets\Scripts\Dungeon\TileManager.cs" />
