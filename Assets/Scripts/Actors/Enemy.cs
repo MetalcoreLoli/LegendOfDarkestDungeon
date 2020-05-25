@@ -24,6 +24,8 @@ public class Enemy : MovingObject
 	public ActorCharacteristics characteristics;
 	public bool WasDamaged;
 	private int damaged;
+	private bool isDamagedByPlayer;
+
 	private void Awake()
 	{
 		characteristics = new ActorCharacteristics(DiceManager.RollUndSumFromString("2d4"), DiceManager.RollUndSumFromString("2d4"));
@@ -34,6 +36,8 @@ public class Enemy : MovingObject
 	{
 		if (characteristics.Hp <= 0)
 		{
+			if (isDamagedByPlayer)
+				GameManager._instance.Player.UpdateExp(DiceManager.RollUndSumFromString("2d4"));
             if (DiceManager.RollDice("1d20") > 6)
             {
                 if (DiceManager.RollDice("1d20") > 10)
@@ -110,7 +114,7 @@ public class Enemy : MovingObject
 
 	}
 
-	public void TakeDamage(int damage)
+	public void TakeDamage(int damage, bool byPlayer)
 	{
 		animator.SetTrigger("TakeDamage");
 		characteristics.Hp -= damage;
@@ -118,6 +122,7 @@ public class Enemy : MovingObject
 		damageDealer.Damage = damage;
 		TextPopUp.CreateAt(transform.position, damage, damageDealer.Text.transform);
 		damaged = damage;
+		isDamagedByPlayer = byPlayer;
 	}
 
 	private void OnGUI()

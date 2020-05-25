@@ -90,14 +90,14 @@ namespace Assets.Scripts.Stats
             Mp = MaxMp = maxMp;
 
         }
-
+     
         public void RollStats()
         {
-            Strength = DiceManager.RollUndSumFromString("4d6");
-            Charisma = DiceManager.RollUndSumFromString("4d6");
-            Dexterity = DiceManager.RollUndSumFromString("4d6");
-            Lucky = DiceManager.RollUndSumFromString("4d6");
-            Intelligence = DiceManager.RollUndSumFromString("4d6");
+            Strength        = DiceManager.RollUndSumFromString("4d6");
+            Charisma        = DiceManager.RollUndSumFromString("4d6");
+            Dexterity       = DiceManager.RollUndSumFromString("4d6");
+            Lucky           = DiceManager.RollUndSumFromString("4d6");
+            Intelligence    = DiceManager.RollUndSumFromString("4d6");
 
         }
     }

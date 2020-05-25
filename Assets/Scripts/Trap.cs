@@ -39,7 +39,7 @@ public class Trap : MonoBehaviour
             var enemy = collision.GetComponent<Enemy>();
             //animator.SetTrigger("playerStand");
             if (DiceManager.RollDice("1d20") > 10 && isActive)
-                enemy.TakeDamage(DiceManager.RollDice("1d4"));
+                enemy.TakeDamage(DiceManager.RollDice("1d4"), false);
             //isActive = false;
         }
     }

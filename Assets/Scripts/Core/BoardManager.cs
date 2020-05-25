@@ -88,7 +88,7 @@ public class BoardManager : MonoBehaviour
         Debug.Log("Start board");
         BoardSetUp();
         if (level <= 10)
-            Generate(CountOfRooms, DungeonFactoryManager.Get().DefaultDungeonFactory);
+            Generate(CountOfRooms, DungeonFactoryManager.instance.DefaultDungeonFactory);
     }
 
     private void BoardSetUp()

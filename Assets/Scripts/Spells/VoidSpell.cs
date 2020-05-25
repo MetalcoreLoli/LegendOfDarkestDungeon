@@ -35,7 +35,7 @@ public class VoidSpell : Spell
             Debug.Log("Enemy In trap");
             var enemy = collision.GetComponent<Enemy>();
             if (DiceManager.RollDice("1d20") > 10)
-                enemy.TakeDamage(DiceManager.RollDice("2d4"));
+                enemy.TakeDamage(DiceManager.RollDice("2d4"), true);
 
             StartCoroutine(DestoryAfter(1.5f));
             Destroy(gameObject);

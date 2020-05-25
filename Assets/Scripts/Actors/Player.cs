@@ -255,7 +255,10 @@ public class Player : MovingObject, IData
             Characteristics.Mp = 0;
         }
     }
-
+    public virtual void UpdateExp(int value)
+    {
+        TextPopUp.CreateWithColor(transform.position, "+" + value, DamageDealer.Text.transform, Color.yellow);
+    }
     public void LoseHp(int damage)
     {
         UpdateHealth(-damage);

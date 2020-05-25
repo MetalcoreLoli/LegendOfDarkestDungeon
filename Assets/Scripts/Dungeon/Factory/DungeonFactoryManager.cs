@@ -10,17 +10,25 @@ namespace Assets.Scripts.Dungeon.Factory
     public class DungeonFactoryManager : MonoBehaviour
     {
         DefaultDungeonFactory dungeonFactory;
+
+        public static DungeonFactoryManager instance;
         public DefaultDungeonFactory DefaultDungeonFactory { get => dungeonFactory; private set => dungeonFactory = value; }
 
-        public static DungeonFactoryManager Get()
-        {
-            return GameObject.Find("DungeonManager").GetComponent<DungeonFactoryManager>();
-        }
+        //public static DungeonFactoryManager Get()
+        //{
+        //    return GameObject.Find("DungeonManager").GetComponent<DungeonFactoryManager>();
+        //}
 
         private void Awake()
         {
+            if (instance == null)
+                instance = this;
+            else if (instance != this)
+                Destroy(gameObject);
+
             DontDestroyOnLoad(gameObject);
-            DefaultDungeonFactory = GetComponent<DefaultDungeonFactory>();
+            dungeonFactory = GetComponent<DefaultDungeonFactory>();
+            dungeonFactory.Size = new Vector2(70, 40);
         }
     }
 }

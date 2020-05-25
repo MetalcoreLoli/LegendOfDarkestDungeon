@@ -34,7 +34,7 @@ public class FireBall : Spell
         Debug.Log(collision.name);
         if (collision.tag == "Enemy")
         {
-            collision.GetComponent<Enemy>().TakeDamage(DiceManager.RollDice("1d4"));
+            collision.GetComponent<Enemy>().TakeDamage(DiceManager.RollDice("1d4"), true);
         }
         Destroy(gameObject);
     }
