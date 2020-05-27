@@ -119,7 +119,6 @@ public class BoardManager : MonoBehaviour
             GameObject obj = Instantiate(tile.Body, tile.Location, Quaternion.identity);
             AddGameObjectToMap(obj);
         }
-       
     }
 
     private void Generate(int roomsCount, DungeonFactory factory)

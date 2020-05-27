@@ -56,15 +56,12 @@ public class Player : MovingObject, IData
         Characteristics.Mp = Characteristics.MaxMp = 25000;
 #endif
 
-
-
         GameManager._instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[0], 0);
         GameManager._instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[1], 1);
         GameManager._instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[2], 2);
         //GameManager._instance.shortcutMenu.AddToShortcutMenu(GameManager._instance.potion, 4);
 
         StartCoroutine(RegenerateMana(manaRegenarationTime));
-
         base.Start();
     }
 
@@ -204,7 +201,6 @@ public class Player : MovingObject, IData
         }
        // GameManager._instance.playersTurn = false;
     }
-
 
     private void Restart()
     {

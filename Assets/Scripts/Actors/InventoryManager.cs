@@ -33,19 +33,16 @@ namespace Assets.Scripts.Actors
         private int selectedCellNumber = 0;
         private void Awake()
         {
-
             CellsPositions = new Vector3[width * height];
             if (Items == null)
                 Items = new Dictionary<Item, int>();
             if (!SaveLoader.Instance().IsNeedToLoad)
             {
                 AddItem(GameManager._instance.itemManager.GetItem("ManaPotion").GetComponent<ManaPotion>(), 5);
-                //AddItem(GameManager._instance.itemManager.ManaPotion.GetComponent<ManaPotion>(), 5);
                 AddItem(GameManager._instance.itemManager.GetItem("HealingPotion").GetComponent<HealingPotion>(), 5);
             }
 
         }
-
         public void AddItem(Item item, int count = 1)
         {
             if (item != null)
@@ -60,7 +57,6 @@ namespace Assets.Scripts.Actors
 
             }
         }
-
         private void Update()
         {
             var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
@@ -192,8 +188,6 @@ namespace Assets.Scripts.Actors
 
             }
         }
-
-
         private void PlaceItemIntoShortcut(Item item, int number)
         {
             var shortcutMenu = GameManager._instance.shortcutMenu;
@@ -202,13 +196,11 @@ namespace Assets.Scripts.Actors
             else
                 Debug.Log($"You cannot place {item.name} in this slot");
         }
-
         internal void RemoveOne(string name)
         {
             var item = GetItem(name);
             Items[item]--;
         }
-
         public void UseItem(string name)
         {
             if (CanUse(name))
@@ -310,7 +302,6 @@ namespace Assets.Scripts.Actors
                 }
             }
         }
-
         void DrawItemDescription(Item item)
         {
             var position = new Vector3(cellWidth * 10, cellHeight);
@@ -330,19 +321,16 @@ namespace Assets.Scripts.Actors
                     new Rect(position, size),
                     Resources.Load<Texture2D>("Sprites/GUI/GUISelectedCell"));
         }
-
         void MoveRight()
         {
             if (selectedCellNumber + 1 < width * height)
                 selectedCellNumber++;
         }
-
         void MoveLeft()
         {
             if (selectedCellNumber - 1 >= 0)
                 selectedCellNumber--;
         }
-
         void MoveUp()
         {
             int _selectedCellNumber = (int)(selectedCellNumber - width);
@@ -352,14 +340,12 @@ namespace Assets.Scripts.Actors
                 selectedCellNumber = _selectedCellNumber;
             }
         }
-
         void MoveDown()
         {
             int _selectedCellNumber = (int)(selectedCellNumber + width);
             if (_selectedCellNumber < width * height)
                 selectedCellNumber = _selectedCellNumber;
         }
-
         public Dictionary<string, int> GetData()
         {
             var data = new Dictionary<string, int>();
@@ -368,7 +354,6 @@ namespace Assets.Scripts.Actors
 
             return data;
         }
-
         public void LoadData(Dictionary<string, int> data)
         {
             var itemManager = GameManager._instance.itemManager;
