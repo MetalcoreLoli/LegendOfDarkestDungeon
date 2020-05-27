@@ -56,6 +56,13 @@ namespace Assets.Scripts.UI
         {
             var stats = new Stats.ActorCharacteristics(50, DiceManager.RollUndSumFromString("4d6") * 6);
             GameManager._instance.UpdatePlayersCharacteristics(stats);
+            var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
+
+            ui.HpController.SetMax(stats.MaxHp);
+            ui.HpController.SetValue(stats.Hp);
+
+            ui.MpController.SetMax(stats.MaxMp);
+            ui.MpController.SetValue(stats.Mp);
         }
     }
 }

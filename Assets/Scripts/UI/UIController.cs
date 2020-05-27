@@ -22,6 +22,9 @@ namespace Assets.Scripts.UI
         [SerializeField] private Text mpText;
 
         public Vector3[] SpellsPositions { get; private set; }
+
+        public BarController HpController { get => hpContoroller; }
+        public BarController MpController { get => mpContoroller; }
         private void Awake()
         {
             selectedSpell = GameObject.Find("SelectedSpell");

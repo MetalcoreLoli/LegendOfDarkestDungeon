@@ -1,6 +1,7 @@
 
 using Assets.Scripts.Dices;
 using System;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,17 +13,32 @@ namespace Assets.Scripts.Stats
     public class ActorCharacteristics : ICharacteristics, ICharcteristicsMod
     {
 
-        private int intell;
-        private int charisma;
-        private int dexterity;
-        private int strength;
-        private int lucky;
+        [SerializeField] private int intell;
+        [SerializeField] private int charisma;
+        [SerializeField] private int dexterity;
+        [SerializeField] private int strength;
+        [SerializeField] private int lucky;
+
+        [SerializeField] private int _hp;
+        [SerializeField] private int _mp;
+        [SerializeField] private int _maxHp;
+        [SerializeField] private int _maxMp;
+
+        public int Hp
+        {
+            get => _hp;
+            set => _hp = value;
+        }
 
 
-        public int Hp { get; set; }
-        public int MaxHp { get; set; }
-        public int Mp { get; set; }
-        public int MaxMp { get; set; }
+        public int Mp
+        {
+            get => _mp;
+            set => _mp = value;
+        }
+        public int MaxHp { get => _maxHp; set => _maxHp = value; }
+
+        public int MaxMp { get => _maxMp; set => _maxMp = value; }
 
         public int IntelligenceMod { get; set; }
         public int CharismaMod { get; set; }
@@ -37,6 +53,7 @@ namespace Assets.Scripts.Stats
             {
                 intell = value;
                 IntelligenceMod = CalculateModificators(intell);
+                MaxMp += IntelligenceMod;
             }
         }
         public int Charisma
@@ -63,7 +80,8 @@ namespace Assets.Scripts.Stats
             set
             {
                 strength = value;
-                LuckyMod = CalculateModificators(strength);
+                StrengthMod = CalculateModificators(strength);
+                MaxHp += StrengthMod;
             }
         }
         public int Lucky
@@ -84,21 +102,20 @@ namespace Assets.Scripts.Stats
 
         public ActorCharacteristics(int maxHp, int maxMp)
         {
-            RollStats();
             Hp = MaxHp = maxHp;
-            maxMp += IntelligenceMod;
             Mp = MaxMp = maxMp;
-
+            RollStats();
+            Hp = MaxHp;
+            Mp = MaxMp;
         }
-     
+
         public void RollStats()
         {
-            Strength        = DiceManager.RollUndSumFromString("4d6");
-            Charisma        = DiceManager.RollUndSumFromString("4d6");
-            Dexterity       = DiceManager.RollUndSumFromString("4d6");
-            Lucky           = DiceManager.RollUndSumFromString("4d6");
-            Intelligence    = DiceManager.RollUndSumFromString("4d6");
-
+            Strength = DiceManager.RollUndSumFromString("4d6");
+            Charisma = DiceManager.RollUndSumFromString("4d6");
+            Dexterity = DiceManager.RollUndSumFromString("4d6");
+            Lucky = DiceManager.RollUndSumFromString("4d6");
+            Intelligence = DiceManager.RollUndSumFromString("4d6");
         }
     }
 }
