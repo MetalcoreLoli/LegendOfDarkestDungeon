@@ -6,6 +6,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using Assets.Scripts.Dices;
 using Assets.Scripts.Dungeon.Factory;
+using Assets.Scripts.Core.Data;
 
 [Serializable]
 public struct Size
@@ -20,7 +21,7 @@ public struct Size
     }
 
 }
-public class BoardManager : MonoBehaviour
+public class BoardManager : MonoBehaviour, IData<GameObject, int>
 {
 
     private Transform boardHolder;
@@ -271,7 +272,7 @@ public class BoardManager : MonoBehaviour
         UpWallCoords.AddRange(Rooms.SelectMany(room => room.UpWallCoord));
         int count = Tourches.Max;
         foreach (var vec in factory.MakeTrapsIn(count, UpWallCoords.ToArray()))
-            Instantiate(TourchTile, vec, Quaternion.identity).transform.SetParent(boardHolder);
+            AddGameObjectToMap(Instantiate(TourchTile, vec, Quaternion.identity));
     }
 
     private void PlaceTraps(DungeonFactory factory)
@@ -280,7 +281,7 @@ public class BoardManager : MonoBehaviour
         int count = CountOfTraps;
         foreach (var vec in factory.MakeTrapsIn(count, UpWallCoords.ToArray()))
         {
-            Instantiate(Traps[0], GetRandVectorFrom(InnerRoomCoords), Quaternion.identity).transform.SetParent(boardHolder);
+            AddGameObjectToMap(Instantiate(Traps[0], GetRandVectorFrom(InnerRoomCoords), Quaternion.identity));
         }
     }
 
@@ -339,7 +340,6 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-
     public void SpawnObject(Vector3 pos, GameObject obj)
     {
         AddGameObjectToMap(Instantiate(obj, pos, Quaternion.identity));
@@ -353,5 +353,22 @@ public class BoardManager : MonoBehaviour
         //{
         //    Destroy(item);
         //}
+    }
+
+    public Dictionary<GameObject, int> GetData()
+    {
+        var dict = new Dictionary<GameObject, int>();
+        foreach (var item in map)
+            dict.Add(item, 0);
+     
+        return dict;
+    }
+
+    public void LoadData(Dictionary<GameObject, int> data)
+    {
+        foreach (var item in data.Keys)
+        {
+            AddGameObjectToMap(Instantiate(item, item.transform.position, Quaternion.identity));
+        }
     }
 }

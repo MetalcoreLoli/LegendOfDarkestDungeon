@@ -11,18 +11,20 @@ namespace Assets.Scripts.UI
 
     public enum DialogResult 
     {
-        OK      = 0,
-        Cancel  = 1,
-        None    = 2
+        None      = 0,
+        OK        = 1,
+        Cancel    = 2
     }
     public class MessageBox : MonoBehaviour
     {
         [SerializeField] Text Tile;
         [SerializeField] Text Message;
-        public DialogResult DialogResult { get; private set; } = DialogResult.None;
+        [SerializeField] DialogResult dialogResult = DialogResult.None;
+        public DialogResult DialogResult { get => dialogResult; private set => dialogResult = value; } 
 
         public DialogResult Show(string title, string message) 
         {
+            ResetResult();
             gameObject.SetActive(true);
             Tile.text = title;
             Message.text = message;

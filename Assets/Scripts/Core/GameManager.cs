@@ -110,6 +110,14 @@ public class GameManager : MonoBehaviour
         if (Player == null) return;
         Player.Characteristics = actorCharacteristics;
         playerCharacteristics = actorCharacteristics;
+
+        var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
+
+        ui.HpController.SetMax(Player.Characteristics.MaxHp);
+        ui.HpController.SetValue(Player.Characteristics.Hp);
+
+        ui.MpController.SetMax(Player.Characteristics.MaxMp);
+        ui.MpController.SetValue(Player.Characteristics.Mp);
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]

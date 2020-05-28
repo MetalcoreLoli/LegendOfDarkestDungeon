@@ -3,6 +3,7 @@ using Assets.Scripts.Core.Data;
 using Assets.Scripts.Dices;
 using Assets.Scripts.Stats;
 using Assets.Scripts.UI;
+using Assets.Scripts.UI.Menu;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ public enum LookDir
     Right   = 3
 }
 
-public class Player : MovingObject, IData
+public class Player : MovingObject, IData<string, int>
 {
     public float speed = 5f;
 
@@ -34,6 +35,9 @@ public class Player : MovingObject, IData
 
     public int Mana;
     public int MaxMana;
+
+    [SerializeField] private int exp;
+    [SerializeField] private int maxExp = 20;
 
     public Camera Camera;
     
@@ -253,6 +257,17 @@ public class Player : MovingObject, IData
     }
     public virtual void UpdateExp(int value)
     {
+        exp += value;
+        if (exp >= maxExp)
+        {
+            var lvlMenu = GameObject.Find("HUDCanvas").GetComponent<UIController>().lvlMenu;
+            lvlMenu.Points = lvlMenu.MaxPoints += 2;
+            maxExp *= 2;
+            lvlMenu.Open();
+            Characteristics.Hp = Characteristics.MaxHp;
+            Characteristics.Mp = Characteristics.MaxMp;
+            GameManager._instance.UpdatePlayersCharacteristics(Characteristics);
+        }
         TextPopUp.CreateWithColor(transform.position, "+" + value, DamageDealer.Text.transform, Color.yellow);
     }
     public void LoseHp(int damage)

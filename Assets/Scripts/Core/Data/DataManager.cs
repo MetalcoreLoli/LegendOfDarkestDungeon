@@ -18,8 +18,9 @@ namespace Assets.Scripts.Core
 
             Dictionary<string, object> gameData = new Dictionary<string, object>
             {
-                { "Player",     GameManager._instance.Player.GetData() },
-                { "Inverntory", GameManager._instance.inventoryManager.GetData() }
+                { "Player",     GameManager._instance.Player.GetData()              },
+                { "Inverntory", GameManager._instance.inventoryManager.GetData()    },
+                { "GameMap",    GameManager._instance.boardManager.GetData()        }
             };
 
             using (var fileStream = File.Create(filePath))
@@ -47,8 +48,10 @@ namespace Assets.Scripts.Core
                 BinaryFormatter formatter = new BinaryFormatter();
                 gameData = formatter.Deserialize(stream) as Dictionary<string, object>;
             }
+
             GameManager._instance.Player.LoadData((Dictionary<string, int>)gameData["Player"]);
             GameManager._instance.inventoryManager.LoadData((Dictionary<string, int>)gameData["Inverntory"]);
+            GameManager._instance.boardManager.LoadData((Dictionary<GameObject, int>)gameData["GameMap"]);
         }
     }
 }

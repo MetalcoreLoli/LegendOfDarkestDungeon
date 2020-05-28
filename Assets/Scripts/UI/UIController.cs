@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.UI.Menu;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,8 @@ namespace Assets.Scripts.UI
         public GameObject selectedSpell;
 
         [SerializeField] private GameMenuSettings   gameMenu;
-        [SerializeField] public OptionMenu         optionMenu;
+        [SerializeField] public LevelUpMenu        lvlMenu;
+        [SerializeField] public OptionMenu          optionMenu;
         [SerializeField] public CreatingMenu        crtMenu;
         [SerializeField] private Text hpText;
         [SerializeField] private Text mpText;

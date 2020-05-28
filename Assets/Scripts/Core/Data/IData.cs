@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Core.Data
 {
-    interface IData
+    interface IData<TKey, TValue>
     {
-        Dictionary<string, int> GetData();
-        void LoadData(Dictionary<string, int> data);
+        Dictionary<TKey, TValue> GetData();
+        void LoadData(Dictionary<TKey, TValue> data);
     }
 }

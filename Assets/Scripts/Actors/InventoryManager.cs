@@ -15,7 +15,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Actors
 {
-    public class InventoryManager : MonoBehaviour, IData
+    public class InventoryManager : MonoBehaviour, IData<string, int>
     {
 
         public static InventoryManager instance = null;
@@ -253,16 +253,25 @@ namespace Assets.Scripts.Actors
                     }
                 }
                 if (Items.Count() > 0)
+                {
                     for (int i = 0; i < Items.Count; i++)
                     {
                         if (Items.Keys.ToArray()[i] != null)
-                        { 
+                        {
                             var icon = Items.Keys.ToArray()[i].Info.Icon.FromSpriteWithFilterMode(FilterMode.Point);
-                            GUI.DrawTexture(new Rect(i * t_width + t_width, t_height, t_width, t_width), icon, ScaleMode.StretchToFill);
+                            if (i < CellsPositions.Length)
+                            {
+                                var pos = CellsPositions[i];
+                                GUI.DrawTexture(new Rect(pos.x, pos.y, t_width, t_width), icon, ScaleMode.StretchToFill);
+                            }
+                            else
+                                Items.Remove(Items.Keys.ToArray()[i]);
                         }
-                        else 
+                        else
                             Items.Remove(Items.Keys.ToArray()[i]);
                     }
+
+                }
 
                 string modToStr(int mod) => (mod > 0) ? $"+{mod}" : mod.ToString();
                 if (player != null)
