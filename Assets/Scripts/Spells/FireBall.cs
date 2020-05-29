@@ -9,11 +9,6 @@ public class FireBall : Spell
 
     public float speed = 20f;
 
-    public FireBall()
-    { 
-    
-    }
-
     private void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
@@ -26,9 +21,6 @@ public class FireBall : Spell
         Debug.Log(Info);
     }
 
-    private void FixedUpdate()
-    {
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log(collision.name);
@@ -43,8 +35,8 @@ public class FireBall : Spell
     {
         var firePointPos = FirePoint.position;
         var player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        Debug.Log(Info);
-        if (player.PlayerCastSpell(this.Info.Cost))
+        Debug.Log(Info.Name + " was cast");
+        if (player.PlayerCastSpell(Info.Cost))
         {
             if (player.lookDir == LookDir.Left || player.lookDir == LookDir.Right)
                 Instantiate(Info.Prefab, FirePoint.position, FirePoint.rotation);
@@ -55,7 +47,6 @@ public class FireBall : Spell
             }
 
             rb2D.AddForce(firePointPos * 10.0f, ForceMode2D.Impulse);
-
         }
     }
        

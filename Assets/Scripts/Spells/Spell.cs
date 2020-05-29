@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Spells
 {
+
     public abstract class Spell : MonoBehaviour
     {
         public SpellInfo Info;

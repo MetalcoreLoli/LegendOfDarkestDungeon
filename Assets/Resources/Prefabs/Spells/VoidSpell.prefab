@@ -335,10 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d87611c22162d54f80ebff1a2dc9bd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Info:
-    Name: VoidSpell
-    Cost: 2
-    Prefab: {fileID: 2830494459419614571}
+  Info: {fileID: 11400000, guid: 9a62fe5d317f7ab44a969f23512c7572, type: 2}
   FirePoint: {fileID: 0}
   FirePointUp: {fileID: 0}
   Icon: {fileID: 0}

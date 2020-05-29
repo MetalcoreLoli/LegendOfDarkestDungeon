@@ -54,7 +54,7 @@ namespace Assets.Scripts.UI.Menu
 
         private void UpdateChar(ActorCharacteristics actorCharacteristics)
         {
-            foreach (System.Reflection.PropertyInfo property in typeof(ActorCharacteristics).GetProperties())
+            foreach (PropertyInfo property in typeof(ActorCharacteristics).GetProperties())
                 property.SetValue(playerChaCharacteristicsBuffer, property.GetValue(actorCharacteristics));
         }
 
@@ -75,6 +75,7 @@ namespace Assets.Scripts.UI.Menu
             playerChaCharacteristicsBuffer.Hp = playerChaCharacteristicsBuffer.MaxHp;
             playerChaCharacteristicsBuffer.Mp = playerChaCharacteristicsBuffer.MaxMp;
             GameManager._instance.UpdatePlayersCharacteristics(playerChaCharacteristicsBuffer);
+            MaxPoints = Points;
             Close();
         }
 

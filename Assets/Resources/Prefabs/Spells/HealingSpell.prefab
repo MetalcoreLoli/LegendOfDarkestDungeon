@@ -46,6 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f70ce8a2ac8b990429ecd401cb071ad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Info: {fileID: 0}
+  FirePoint: {fileID: 0}
+  FirePointUp: {fileID: 0}
+  Icon: {fileID: 0}
+  rb2D: {fileID: 0}
 --- !u!212 &3660896762601296699
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -127,3 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f70ce8a2ac8b990429ecd401cb071ad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Info: {fileID: 11400000, guid: 035bfadee7f57ea488799f1f511efc83, type: 2}
+  FirePoint: {fileID: 0}
+  FirePointUp: {fileID: 0}
+  Icon: {fileID: 0}
+  rb2D: {fileID: 0}

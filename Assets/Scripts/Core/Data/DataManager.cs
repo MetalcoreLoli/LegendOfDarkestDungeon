@@ -20,7 +20,7 @@ namespace Assets.Scripts.Core
             {
                 { "Player",     GameManager._instance.Player.GetData()              },
                 { "Inverntory", GameManager._instance.inventoryManager.GetData()    },
-                { "GameMap",    GameManager._instance.boardManager.GetData()        }
+               // { "GameMap",    GameManager._instance.boardManager.GetData()        }
             };
 
             using (var fileStream = File.Create(filePath))
@@ -51,7 +51,7 @@ namespace Assets.Scripts.Core
 
             GameManager._instance.Player.LoadData((Dictionary<string, int>)gameData["Player"]);
             GameManager._instance.inventoryManager.LoadData((Dictionary<string, int>)gameData["Inverntory"]);
-            GameManager._instance.boardManager.LoadData((Dictionary<GameObject, int>)gameData["GameMap"]);
+            //GameManager._instance.boardManager.LoadData((Dictionary<GameObject, int>)gameData["GameMap"]);
         }
     }
 }
