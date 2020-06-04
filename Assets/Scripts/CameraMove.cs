@@ -15,12 +15,8 @@ public class CameraMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //float deltaX = Input.GetAxis("Horizontal")    * speed;
-        //float deltaY = Input.GetAxis("Vertical")      * speed;
 
         if (player != null)
             transform.position = (new Vector3(player.transform.position.x, player.transform.position.y, -10));
-
-        //transform.Translate(deltaX, deltaY, 0);
     }
 }

@@ -10,9 +10,11 @@ namespace Assets.Scripts.Dungeon.Factory
     public class DungeonFactoryManager : MonoBehaviour
     {
         DefaultDungeonFactory dungeonFactory;
+        BlueDungeonFactory dungeonBlueFactory;
 
         public static DungeonFactoryManager instance;
         public DefaultDungeonFactory DefaultDungeonFactory { get => dungeonFactory; private set => dungeonFactory = value; }
+        public BlueDungeonFactory BlueDungeonFactory { get => dungeonBlueFactory; private set => dungeonBlueFactory = value; }
 
         //public static DungeonFactoryManager Get()
         //{
@@ -29,6 +31,8 @@ namespace Assets.Scripts.Dungeon.Factory
             DontDestroyOnLoad(gameObject);
             dungeonFactory = GetComponent<DefaultDungeonFactory>();
             dungeonFactory.Size = new Vector2(70, 40);
+            dungeonBlueFactory = GetComponent<BlueDungeonFactory>();
+            dungeonBlueFactory.Size = new Vector2(70, 40);
         }
     }
 }

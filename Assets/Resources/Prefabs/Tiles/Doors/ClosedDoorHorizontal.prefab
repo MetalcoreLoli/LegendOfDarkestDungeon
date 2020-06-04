@@ -123,13 +123,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc2da2ce9ce2046418f9fbc974c2befa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BeforeEnter:
+  animator: {fileID: 980971939266091268}
+  blockingLayer:
     serializedVersion: 2
     m_Bits: 256
-  AfterEnter:
-    serializedVersion: 2
-    m_Bits: 1
-  animator: {fileID: 980971939266091268}
 --- !u!95 &980971939266091268
 Animator:
   serializedVersion: 3

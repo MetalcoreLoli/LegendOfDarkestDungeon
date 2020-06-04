@@ -24,8 +24,10 @@ namespace Assets.Scripts.Actors
         public Dictionary<Item, int> Items;
         [SerializeField] private int width;
         [SerializeField] private int height;
+
         private int cellWidth = 64;
         private int cellHeight = 64;
+
         public Vector3[] CellsPositions { get; private set; }
         public Vector3 SelectedCellPosition { get; private set; }
 
@@ -188,6 +190,7 @@ namespace Assets.Scripts.Actors
 
             }
         }
+
         private void PlaceItemIntoShortcut(Item item, int number)
         {
             var shortcutMenu = GameManager._instance.shortcutMenu;
@@ -196,11 +199,13 @@ namespace Assets.Scripts.Actors
             else
                 Debug.Log($"You cannot place {item.name} in this slot");
         }
+        
         internal void RemoveOne(string name)
         {
             var item = GetItem(name);
             Items[item]--;
         }
+        
         public void UseItem(string name)
         {
             if (CanUse(name))
@@ -211,6 +216,7 @@ namespace Assets.Scripts.Actors
                 RemoveOne(name);
             }
         }
+        
         public bool CanUse(string name)
         {
             if (Items[GetItem(name)] - 1 >= 0)
@@ -218,19 +224,18 @@ namespace Assets.Scripts.Actors
 
             return false;
         }
+        
         public Item GetItem(string name) => Items.Keys.FirstOrDefault(k => k.name == name || k.name == name + "(Clone)");
+        
         private void OnGUI()
         {
             if (IsOpen)
             {
-                GUIStyle style = new GUIStyle();
-
-
                 var guiCell = Resources.Load<Texture2D>("Sprites/GUI/GUIEmptyInventoryCell");
-                var font = Resources.Load<Font>("Sprites/GUI/SDS_8x8");
+                var font    = Resources.Load<Font>("Sprites/GUI/SDS_8x8");
 
-                int t_width = guiCell.width * 4;
-                int t_height = guiCell.height * 4;
+                int t_width     = guiCell.width * 4;
+                int t_height    = guiCell.height * 4;
 
                 Player player = GameObject.Find("Player").GetComponent<Player>() ?? null;
                 GUI.skin.font = font;
@@ -309,8 +314,22 @@ namespace Assets.Scripts.Actors
                 {
                     DrawItemDescription(Items.Keys.ToArray()[selectedCellNumber]);
                 }
+
+                DrawExpUndLevel();
+
             }
         }
+        
+        void DrawExpUndLevel()
+        {
+            var position = new Vector3(cellWidth * 10, cellHeight * 5);
+            var size = new Vector3(cellWidth * 6, cellHeight * 2);
+            GUI.Box(
+                new Rect(position, size),
+                $"Level: {GameManager._instance.Player.Level}\n\n" +
+                $"Exp: {GameManager._instance.Player.Exp} / {GameManager._instance.Player.MaxExp}\n\n");
+        }
+        
         void DrawItemDescription(Item item)
         {
             var position = new Vector3(cellWidth * 10, cellHeight);
@@ -321,6 +340,7 @@ namespace Assets.Scripts.Actors
                 $"Count:{Items[item]}\n\n" +
                 $"Description:\n\n" + item.Info.Description);
         }
+        
         void SelecteCell(Vector3 selectedCellPosition)
         {
             Vector3 position = selectedCellPosition;
@@ -330,6 +350,7 @@ namespace Assets.Scripts.Actors
                     new Rect(position, size),
                     Resources.Load<Texture2D>("Sprites/GUI/GUISelectedCell"));
         }
+        
         void MoveRight()
         {
             if (selectedCellNumber + 1 < width * height)

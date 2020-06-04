@@ -26,33 +26,6 @@ public class BoardManager : MonoBehaviour, IData<GameObject, int>
 
     private Transform boardHolder;
 
-    public GameObject Exit;
-    public GameObject WallTileHorizontal;
-    public GameObject WallTileVertical;
-    public GameObject WallUpLeftCornerTile;
-    public GameObject WallUpRightCornerTile;
-    public GameObject WallDownLeftCornerTile;
-    public GameObject WallDownRightCornerTile;
-
-    public GameObject FloorPathHorizontalTile;
-    public GameObject FloorPathRightTile;
-    public GameObject FloorPathLeftTile;
-    public GameObject FloorPathVerticalTile;
-    public GameObject FloorPathUpTile;
-    public GameObject FloorPathDownTile;
-
-    public GameObject FloorTile;
-    public GameObject FloorLeftTile;
-    public GameObject FloorRightTile;
-    public GameObject FloorTileUp;
-    public GameObject FloorTileUpRightCorner;
-    public GameObject FloorTileUpLeftCorner;
-    public GameObject FloorTileDown;
-    public GameObject FloorTileDownRightCorner;
-    public GameObject FloorTileDownLeftCorner;
-
-    public GameObject ClosedDoorVertical;
-    public GameObject ClosedDoorHorizontal;
 
     public GameObject TourchTile;
     public GameObject BloodFountain;
@@ -88,8 +61,11 @@ public class BoardManager : MonoBehaviour, IData<GameObject, int>
     {
         Debug.Log("Start board");
         BoardSetUp();
-        if (level <= 10)
+        if (level % 2 == 0)
+            Generate(CountOfRooms, DungeonFactoryManager.instance.BlueDungeonFactory);
+        else
             Generate(CountOfRooms, DungeonFactoryManager.instance.DefaultDungeonFactory);
+
     }
 
     private void BoardSetUp()
@@ -102,15 +78,7 @@ public class BoardManager : MonoBehaviour, IData<GameObject, int>
         InnerRoomCoords     = new List<Vector3>();
         HRoomDoorsCoords    = new List<Vector3>();
         VRoomDoorsCoords    = new List<Vector3>();
-
-        TileManager.Exit                    = Exit;
-        TileManager.FloorTile               = FloorTile;
-        TileManager.WallTileHorizontal      = WallTileHorizontal;
-        TileManager.WallTileVertical        = WallTileVertical;
-        TileManager.WallUpLeftCornerTile    = WallUpLeftCornerTile;
-        TileManager.WallUpRightCornerTile   = WallUpRightCornerTile;
-        TileManager.WallDownLeftCornerTile  = WallDownLeftCornerTile;
-        TileManager.WallDownRightCornerTile = WallDownRightCornerTile;
+    
     }
 
     private void DrawRoom(Room room) 
@@ -144,8 +112,9 @@ public class BoardManager : MonoBehaviour, IData<GameObject, int>
             }
 
             Rooms.Add(room);
-            DrawRoom(room);
         }
+        foreach (var room in Rooms)
+            DrawRoom(room);
 
         for (int i = 1; i < Rooms.Count; i++)
         {
@@ -161,7 +130,7 @@ public class BoardManager : MonoBehaviour, IData<GameObject, int>
                 {
                     var upEnter     = new Vector3(prev.GetCenter().x - (prev.Width / 2), prev.GetCenter().y + 1);
                     var downEnter   = new Vector3(prev.GetCenter().x - (prev.Width / 2), prev.GetCenter().y - 1);
-                    ReplaceWith(factory.DungeonInfo.WallDownRightCornerTile, upEnter);
+                    ReplaceWith(factory.DungeonInfo.WallDownLeftCornerTile, upEnter);
                     ReplaceWith(factory.DungeonInfo.WallUpRightCornerTile, downEnter);
                     VRoomDoorsCoords.Add(new Vector3(prev.GetCenter().x - (prev.Width / 2), prev.GetCenter().y));
                 }
@@ -169,7 +138,7 @@ public class BoardManager : MonoBehaviour, IData<GameObject, int>
                 {
                     var upEnter     = new Vector3((int)prev.GetCenter().x + (width / 2), prev.GetCenter().y + 1);
                     var downEnter   = new Vector3((int)prev.GetCenter().x + (width / 2), prev.GetCenter().y - 1);
-                    ReplaceWith(factory.DungeonInfo.WallDownLeftCornerTile, upEnter);
+                    ReplaceWith(factory.DungeonInfo.WallDownRightCornerTile, upEnter);
                     ReplaceWith(factory.DungeonInfo.WallUpLeftCornerTile, downEnter);
                     VRoomDoorsCoords.Add(new Vector3(prev.GetCenter().x + (width / 2), prev.GetCenter().y));
                 }
@@ -192,8 +161,8 @@ public class BoardManager : MonoBehaviour, IData<GameObject, int>
                 {
                     var upEnter     = new Vector3(prev.GetCenter().x + 1, prev.GetCenter().y + (height / 2));
                     var downEnter   = new Vector3(prev.GetCenter().x - 1, prev.GetCenter().y + (height / 2));
-                    ReplaceWith(WallDownRightCornerTile,    downEnter);
-                    ReplaceWith(WallDownLeftCornerTile,     upEnter);
+                    ReplaceWith(factory.DungeonInfo.WallDownLeftCornerTile,    downEnter);
+                    ReplaceWith(factory.DungeonInfo.WallDownRightCornerTile,     upEnter);
                     HRoomDoorsCoords.Add(new Vector3(prev.GetCenter().x, prev.GetCenter().y + (height / 2)));
                 }
                 CreateHorizontalPath(factory, (int)currt.GetCenter().x, (int)prev.GetCenter().x, (int)currt.GetCenter().y);
@@ -206,7 +175,7 @@ public class BoardManager : MonoBehaviour, IData<GameObject, int>
         PlaceTraps(factory);
         
         PlaceEnemies(factory);
-        PlaceDoors();
+        PlaceDoors(factory);
 
         //PlaceFountains();
 
@@ -302,21 +271,25 @@ public class BoardManager : MonoBehaviour, IData<GameObject, int>
         AddGameObjectToMap(Instantiate(BloodFountain, GetRandVectorFrom(InnerRoomCoords), Quaternion.identity));    
     }
 
-    private void PlaceDoors()
+    private void PlaceDoors(DungeonFactory factory)
     {
         int h_count = HRoomDoorsCoords.Count;
         int v_count = VRoomDoorsCoords.Count;
         while (h_count-- > 0)
         {
             var vec = GetRandVectorFrom(HRoomDoorsCoords);
-            RaycastHit2D hit_left   = Physics2D.Linecast(vec, Vector2.left,     blockingLayer);
-            RaycastHit2D hit_right  = Physics2D.Linecast(vec, Vector2.right,    blockingLayer);
+            RaycastHit2D hit_left   = Physics2D.Raycast(vec, Vector2.left,     1);
+            RaycastHit2D hit_right  = Physics2D.Raycast(vec, Vector2.right,    1);
             if (hit_left.transform != null && hit_right.transform != null)
             {
                 var collider_left   = hit_left.collider;
                 var collider_right  = hit_right.collider;
                 if (collider_right.gameObject.tag == "Wall" && collider_left.gameObject.tag == "Wall")
-                    AddGameObjectToMap(Instantiate(ClosedDoorVertical, vec, Quaternion.identity));
+                {
+                    var gb = map.FirstOrDefault(g => g.transform.position == vec && g.tag == "Wall");
+                    if (gb == null)
+                        AddGameObjectToMap(Instantiate(factory.DungeonInfo.ClosedDoorVertical, vec, Quaternion.identity));
+                }
                 else
                     continue;
             }
@@ -327,14 +300,14 @@ public class BoardManager : MonoBehaviour, IData<GameObject, int>
         while (v_count-- > 0)
         {
             var vec = GetRandVectorFrom(VRoomDoorsCoords);
-            RaycastHit2D hit_up     = Physics2D.Raycast(vec, Vector2.up,    blockingLayer);
-            RaycastHit2D hit_down   = Physics2D.Raycast(vec, Vector2.down,  blockingLayer);
+            RaycastHit2D hit_up     = Physics2D.Raycast(vec, Vector2.up,    1);
+            RaycastHit2D hit_down   = Physics2D.Raycast(vec, Vector2.down,  1);
             if (hit_up.transform != null && hit_down.transform != null)
             {
                 var collider_left   = hit_up.collider;
                 var collider_right  = hit_down.collider;
                 if (collider_right.gameObject.tag == "Wall" && collider_left.gameObject.tag == "Wall")
-                    AddGameObjectToMap(Instantiate(ClosedDoorHorizontal, vec, Quaternion.identity));
+                    AddGameObjectToMap(Instantiate(factory.DungeonInfo.ClosedDoorHorizontal, vec, Quaternion.identity));
 
             }
         }

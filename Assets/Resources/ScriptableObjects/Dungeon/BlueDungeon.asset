@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d14472bf93a9e244a22dcc9a199fb2e, type: 3}
+  m_Name: BlueDungeon
+  m_EditorClassIdentifier: 
+  floorPathDownTile: {fileID: 1048670667889827998, guid: 927231cf582a9b641b1d9647f9b5c052,
+    type: 3}
+  exit: {fileID: 6867529305742489804, guid: b25c22c5f968d2f45bf324e85101a086, type: 3}
+  wallTileHorizontal: {fileID: 1610500172841578493, guid: d03522614e683c448aa7e08f0ee1716f,
+    type: 3}
+  wallTileVertical: {fileID: 5582264392466149099, guid: e0ac18fb2ae20714d9370c4a84e6c7ef,
+    type: 3}
+  wallUpLeftCornerTile: {fileID: 3987359309309463400, guid: ed8e2a9ded605474bb6025075d61c93b,
+    type: 3}
+  wallUpRightCornerTile: {fileID: 881151895079465455, guid: f7aeea480c778c04aa48d5ba2a3c8713,
+    type: 3}
+  wallDownLeftCornerTile: {fileID: 789635554972142304, guid: c4ff44b5ac82ef24b8071a6a8c343f8f,
+    type: 3}
+  wallDownRightCornerTile: {fileID: 1644660098922759532, guid: 850d2d3bd40caef4ea06f221311231fa,
+    type: 3}
+  floorPathHorizontalTile: {fileID: 1048670667889827998, guid: 927231cf582a9b641b1d9647f9b5c052,
+    type: 3}
+  floorPathRightTile: {fileID: 1048670667889827998, guid: 927231cf582a9b641b1d9647f9b5c052,
+    type: 3}
+  floorPathLeftTile: {fileID: 1048670667889827998, guid: 927231cf582a9b641b1d9647f9b5c052,
+    type: 3}
+  floorPathVerticalTile: {fileID: 1048670667889827998, guid: 927231cf582a9b641b1d9647f9b5c052,
+    type: 3}
+  floorPathUpTile: {fileID: 1048670667889827998, guid: 927231cf582a9b641b1d9647f9b5c052,
+    type: 3}
+  floorTile: {fileID: 1048670667889827998, guid: 927231cf582a9b641b1d9647f9b5c052,
+    type: 3}
+  floorLeftTile: {fileID: 1048670667889827998, guid: 927231cf582a9b641b1d9647f9b5c052,
+    type: 3}
+  floorRightTile: {fileID: 1048670667889827998, guid: 927231cf582a9b641b1d9647f9b5c052,
+    type: 3}
+  floorTileUp: {fileID: 1048670667889827998, guid: 927231cf582a9b641b1d9647f9b5c052,
+    type: 3}
+  floorTileUpRightCorner: {fileID: 1048670667889827998, guid: 927231cf582a9b641b1d9647f9b5c052,
+    type: 3}
+  floorTileUpLeftCorner: {fileID: 1048670667889827998, guid: 927231cf582a9b641b1d9647f9b5c052,
+    type: 3}
+  floorTileDown: {fileID: 1048670667889827998, guid: 927231cf582a9b641b1d9647f9b5c052,
+    type: 3}
+  floorTileDownRightCorner: {fileID: 1048670667889827998, guid: 927231cf582a9b641b1d9647f9b5c052,
+    type: 3}
+  floorTileDownLeftCorner: {fileID: 1048670667889827998, guid: 927231cf582a9b641b1d9647f9b5c052,
+    type: 3}
+  closedDoorVertical: {fileID: 2626164225247765529, guid: d76b1d13cf010954e8801c95d1bd37fb,
+    type: 3}
+  closedDoorHorizontal: {fileID: 2628248733754246426, guid: 2c65f83f93f21fd4f805e3759484e67f,
+    type: 3}

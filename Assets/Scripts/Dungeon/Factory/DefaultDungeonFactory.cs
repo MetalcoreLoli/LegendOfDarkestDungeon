@@ -33,6 +33,41 @@ namespace Assets.Scripts.Dungeon.Factory
         public override Room MakeRoom(Vector2 roomSize, Vector3 location)
         {
             var room = new Room((int)roomSize.x, (int)roomSize.y, location);
+            for (int x1 = 0; x1 < room.Width; x1++)
+            {
+                for (int y1 = 0; y1 < room.Height; y1++)
+                {
+                    int idx = x1 + room.Width * y1;
+                    room.Body[idx].Body = DungeonInfo.FloorTile;
+
+                    if (x1 == 0 && y1 == 0)
+                        room.Body[idx].Body = DungeonInfo.WallDownRightCornerTile;
+
+                    if (x1 == room.Width - 1 && y1 == 0)
+                        room.Body[idx].Body = DungeonInfo.WallDownLeftCornerTile;
+
+                    if (x1 == 0 && y1 == room.Height - 1)
+                        room.Body[idx].Body = DungeonInfo.WallUpLeftCornerTile;
+
+                    if (x1 == room.Width - 1 && y1 == room.Height - 1)
+                        room.Body[idx].Body = DungeonInfo.WallUpRightCornerTile;
+
+                    if ((x1 == room.Width - 1 && y1 > 0 && y1 < room.Height - 1))
+                        room.Body[idx].Body = DungeonInfo.WallTileVertical;
+
+                    if ((y1 == room.Height - 1 && x1 > 0 && x1 < room.Width - 1))
+                    {
+                        room.Body[idx].Body = DungeonInfo.WallTileHorizontal;
+                        room.UpWallCoord.Add(new Vector3(x1, y1) + room.Location);
+                    }
+
+                    if (x1 > 0 && x1 < room.Width - 1 && y1 == 0)
+                        room.Body[idx].Body = DungeonInfo.WallTileHorizontal;
+
+                    if (y1 > 0 && y1 < room.Height - 1 && x1 == 0)
+                        room.Body[idx].Body = DungeonInfo.WallTileVertical;
+                }
+            }
             for (int x1 = 1; x1 < room.Width - 1; x1++)
             {
                 for (int y1 = 1; y1 < room.Height - 1; y1++)
@@ -40,6 +75,7 @@ namespace Assets.Scripts.Dungeon.Factory
                     int idx = x1 + room.Width * y1;
                     room.Body[idx].Body = DungeonInfo.FloorTile;
 
+                   
                     if (x1 == 1 && y1 == 1)
                         room.Body[idx].Body = DungeonInfo.FloorTileDownLeftCorner;
 

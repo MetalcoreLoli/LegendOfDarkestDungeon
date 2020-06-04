@@ -17,9 +17,10 @@ namespace Assets.Scripts.UI
         public GameObject selectedSpell;
 
         [SerializeField] private GameMenuSettings   gameMenu;
-        [SerializeField] public LevelUpMenu        lvlMenu;
+        [SerializeField] public LevelUpMenu         lvlMenu;
         [SerializeField] public OptionMenu          optionMenu;
         [SerializeField] public CreatingMenu        crtMenu;
+        [SerializeField] public BookOfSpellMenu     bookOfSpellsMenu;
         [SerializeField] private Text hpText;
         [SerializeField] private Text mpText;
 
@@ -55,7 +56,7 @@ namespace Assets.Scripts.UI
                 if (!gameMenu.IsOpen && !crtMenu.IsOpen)
                     gameMenu.Open();
             }
-            
+
         }
 
         private void FixedUpdate()

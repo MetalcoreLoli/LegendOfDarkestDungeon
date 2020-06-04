@@ -33,34 +33,9 @@ public class Room
             {
                 int idx = x + width * y;
 
-                temp[idx] = new Tile(new Vector3(x, y, 0) + Location, TileManager.FloorTile);
+                temp[idx] = new Tile(new Vector3(x, y, 0) + Location);
 
-                if (x == 0 && y == 0)
-                    temp[idx].Body = TileManager.WallDownLeftCornerTile;
-
-                if (x == width - 1 && y == 0)
-                    temp[idx].Body = TileManager.WallDownRightCornerTile;
-
-                if (x == 0 && y == height - 1)
-                    temp[idx].Body = TileManager.WallUpLeftCornerTile;
-
-                if (x == width - 1 && y == height - 1)
-                    temp[idx].Body = TileManager.WallUpRightCornerTile;
-
-                if ((x == width - 1 && y > 0 && y < height - 1))
-                    temp[idx].Body = TileManager.WallTileVertical;
-
-                if ((y == height - 1 && x > 0 && x < width - 1))
-                { 
-                    temp[idx].Body = TileManager.WallTileHorizontal;
-                    UpWallCoord.Add(new Vector3(x, y) + Location);
-                }
-
-                if (x > 0 && x < width - 1 && y == 0)
-                    temp[idx].Body = TileManager.WallTileHorizontal;
-
-                if (y > 0 && y < height - 1 && x == 0)
-                    temp[idx].Body = TileManager.WallTileVertical;
+               
 
             }
         }

@@ -30,6 +30,8 @@ public class Player : MovingObject, IData<string, int>
     private float horizontal  = 0;
     private float vertical    = 0;
 
+    private int level = 1;
+
     public int MaxHp;
     public int Hp;
 
@@ -48,6 +50,11 @@ public class Player : MovingObject, IData<string, int>
 
     public ActorCharacteristics Characteristics;
     public  DamageDealer DamageDealer { get => damageDealer; }
+
+    public int Level { get => level; internal set => level = value; }
+    public int Exp { get => exp; internal set => exp = value; }
+    public int MaxExp { get => maxExp; internal set => maxExp = value; }
+
     protected override void Start()
     {
         animator = GetComponent<Animator>();
@@ -85,6 +92,7 @@ public class Player : MovingObject, IData<string, int>
             {
                 GameManager._instance.shortcutMenu.ActivateCell();
             }
+
         }
 
 
@@ -260,6 +268,7 @@ public class Player : MovingObject, IData<string, int>
         exp += value;
         if (exp >= maxExp)
         {
+            Level++;
             var lvlMenu = GameObject.Find("HUDCanvas").GetComponent<UIController>().lvlMenu;
             lvlMenu.Points = lvlMenu.MaxPoints += 2;
             maxExp *= 2;
@@ -314,6 +323,11 @@ public class Player : MovingObject, IData<string, int>
         temp.Add("Charisma",        Characteristics.Charisma);
         temp.Add("Intelligence",    Characteristics.Intelligence);
 
+        temp.Add("Exp",    Exp);
+        temp.Add("MaxExp",    MaxExp);
+        
+        temp.Add("Level",    Level);
+
         return temp;
     }
 
@@ -330,6 +344,11 @@ public class Player : MovingObject, IData<string, int>
         Characteristics.Intelligence    = data["Intelligence"];
         Characteristics.Charisma        = data["Charisma"];
 
+        Exp     = data["Exp"];
+        MaxExp  = data["MaxExp"];
+
+        Level   = data["Level"];
+        
         GameManager._instance.playerCharacteristics = Characteristics;
         //GameManager._instance.Player = this;
     }
