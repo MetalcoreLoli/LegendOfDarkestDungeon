@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3590054663093747233}
   - component: {fileID: 3387257449379879200}
   - component: {fileID: 5918372810071283938}
+  - component: {fileID: 4132093274255086994}
   m_Layer: 8
   m_Name: OuterBlueUpLeftWallCorner
   m_TagString: Wall
@@ -109,3 +110,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4132093274255086994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3987359309309463400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8243f01b52a6b0d4fa000040621e6b4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wasHitUp: {fileID: 0}
+  wasHitDown: {fileID: 0}
+  wasHitLeft: {fileID: 0}
+  wasHitRight: {fileID: 0}

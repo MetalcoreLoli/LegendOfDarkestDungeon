@@ -177,11 +177,66 @@ public class BoardManager : MonoBehaviour, IData<GameObject, int>
         PlaceEnemies(factory);
         PlaceDoors(factory);
 
+
+        CorrectAngels(factory);
+        CorrectWalls(factory);
+        //CorrectAngels(factory);
         //PlaceFountains();
 
         var lastRoomCenter = Rooms.Last().GetCenter();
         Instantiate(factory.DungeonInfo.Exit, lastRoomCenter, Quaternion.identity);
     }
+
+    private void CorrectWalls(DungeonFactory factory)
+    {
+        var walls = map.Where(gb => gb.CompareTag("Wall"));
+
+        var toReplace = new List<(GameObject, Vector3)>();
+
+        foreach (GameObject wall in walls)
+        {
+            var wallScript = wall.GetComponent<Wall>();
+
+            //if (wallScript.HitDownLeftRightWithTag("Wall"))
+            //    toReplace.Add((factory.DungeonInfo.WallDownLeftRightTile, wall.transform.position));
+            if (wallScript.HitLeftRightWithTag("Wall"))
+                toReplace.Add((factory.DungeonInfo.WallTileHorizontal, wall.transform.position));
+            else if (wallScript.HitUpDownWithTag("Wall"))
+                toReplace.Add((factory.DungeonInfo.WallTileVertical, wall.transform.position));
+            else
+                continue;
+        }
+
+        foreach (var wall in toReplace)
+            ReplaceWith(wall.Item1, wall.Item2);
+    }
+
+    private void CorrectAngels(DungeonFactory factory)
+    {
+        var walls = map.Where(gb => gb.CompareTag("Wall"));
+
+        var toReplace = new List<(GameObject, Vector3)>();
+
+        foreach (GameObject wall in walls)
+        {
+            var wallScript = wall.GetComponent<Wall>();
+
+            if (wallScript.HitDownLeftWithTag("Wall"))
+                toReplace.Add((factory.DungeonInfo.WallUpRightCornerTile, wall.transform.position));
+            else if (wallScript.HitDownRightWithTag("Wall"))
+                toReplace.Add((factory.DungeonInfo.WallUpLeftCornerTile, wall.transform.position));
+            else if (wallScript.HitUpLeftWithTag("Wall"))
+                toReplace.Add((factory.DungeonInfo.WallDownLeftCornerTile, wall.transform.position));
+            else if (wallScript.HitUpRightWithTag("Wall"))
+                toReplace.Add((factory.DungeonInfo.WallDownRightCornerTile, wall.transform.position));
+            else
+                continue;
+        }
+
+        foreach (var wall in toReplace)
+            ReplaceWith(wall.Item1, wall.Item2);
+    }
+
     private void CreateHorizontalPath(DungeonFactory factory, int xStart, int xEnd, int y)
     {
         foreach (var vec in factory.MakeHorizontalPath(xStart, xEnd, y))

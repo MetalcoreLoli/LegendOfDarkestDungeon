@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3183057519884662004}
   - component: {fileID: 2414187910546796922}
   - component: {fileID: 5918597189170307501}
+  - component: {fileID: -7263609946428325809}
   m_Layer: 8
   m_Name: OuterWallVertical
   m_TagString: Wall
@@ -109,3 +110,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-7263609946428325809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5172456881007598874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8243f01b52a6b0d4fa000040621e6b4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wasHitUp: {fileID: 0}
+  wasHitDown: {fileID: 0}
+  wasHitLeft: {fileID: 0}
+  wasHitRight: {fileID: 0}

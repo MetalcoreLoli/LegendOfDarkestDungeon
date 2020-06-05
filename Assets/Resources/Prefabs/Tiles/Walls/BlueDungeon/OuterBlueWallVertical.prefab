@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2782116469484701445}
   - component: {fileID: 3112135632534962827}
   - component: {fileID: 6382578182887117404}
+  - component: {fileID: -477132731168482470}
   m_Layer: 8
   m_Name: OuterBlueWallVertical
   m_TagString: Wall
@@ -109,3 +110,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-477132731168482470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5582264392466149099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8243f01b52a6b0d4fa000040621e6b4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wasHitUp: {fileID: 0}
+  wasHitDown: {fileID: 0}
+  wasHitLeft: {fileID: 0}
+  wasHitRight: {fileID: 0}

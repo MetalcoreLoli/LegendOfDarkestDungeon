@@ -111,7 +111,6 @@ public class Enemy : MovingObject
 		if (isActiveAndEnabled)
 		if (DiceManager.RollDice("1d20") > 10 + hitPlayer.Characteristics.DexterityMod)
 			hitPlayer.LoseHp(Damage);
-
 	}
 
 	public void TakeDamage(int damage, bool byPlayer)

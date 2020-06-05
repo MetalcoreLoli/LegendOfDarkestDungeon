@@ -14,6 +14,7 @@ namespace Assets.Scripts.Dungeon.Factory
         [SerializeField] private GameObject exit;
         [SerializeField] private GameObject wallTileHorizontal;
         [SerializeField] private GameObject wallTileVertical;
+        [SerializeField] private GameObject wallDownLeftRightTile;
         [SerializeField] private GameObject wallUpLeftCornerTile;
         [SerializeField] private GameObject wallUpRightCornerTile;
         [SerializeField] private GameObject wallDownLeftCornerTile;
@@ -38,6 +39,7 @@ namespace Assets.Scripts.Dungeon.Factory
         public GameObject Exit { get => exit; set => exit = value; }
         public GameObject WallTileHorizontal { get => wallTileHorizontal; set => wallTileHorizontal = value; }
         public GameObject WallTileVertical { get => wallTileVertical; set => wallTileVertical = value; }
+        public GameObject WallDownLeftRightTile { get => wallDownLeftRightTile; set => wallDownLeftRightTile = value; }
         public GameObject WallUpLeftCornerTile { get => wallUpLeftCornerTile; set => wallUpLeftCornerTile = value; }
         public GameObject WallUpRightCornerTile { get => wallUpRightCornerTile; set => wallUpRightCornerTile = value; }
         public GameObject WallDownLeftCornerTile { get => wallDownLeftCornerTile; set => wallDownLeftCornerTile = value; }

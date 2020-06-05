@@ -18,6 +18,8 @@ MonoBehaviour:
     type: 3}
   wallTileVertical: {fileID: 5172456881007598874, guid: d942d33424ecf1049a20d1cfed667dd0,
     type: 3}
+  wallDownLeftRightTile: {fileID: 6560210937755515946, guid: eb636700c9292ff4dbe2e7e6252acc63,
+    type: 3}
   wallUpLeftCornerTile: {fileID: 7922070559763322170, guid: 23bd851a675e51841a5fc1b4a702bf2e,
     type: 3}
   wallUpRightCornerTile: {fileID: 8222186699196059234, guid: b0b9f2bde394814459891caf9d10b0b6,
