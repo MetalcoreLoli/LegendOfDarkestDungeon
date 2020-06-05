@@ -27,7 +27,7 @@ public class Wall : MonoBehaviour
         var free    = HitDownOrDefault();
         var free1   = HitRightOrDefault();
 
-        if (gb != null && gb1 != null && (free == null && free1 == null))
+        if (gb != null && gb1 != null && (free == null || free1 == null))
             return gb.CompareTag(tag) && gb1.CompareTag(tag);
         else
             return false;
@@ -40,7 +40,7 @@ public class Wall : MonoBehaviour
         var free    = HitDownOrDefault();
         var free1   = HitLeftOrDefault();
 
-        if (gb != null && gb1 != null && (free == null&& free1 == null))
+        if (gb != null && gb1 != null && (free == null || free1 == null))
             return gb.CompareTag(tag) && gb1.CompareTag(tag);
         else
             return false;
@@ -53,7 +53,7 @@ public class Wall : MonoBehaviour
         var free    = HitUpOrDefault();
         var free1   = HitRightOrDefault();
         
-        if (gb != null && gb1 != null && (free == null && free1 == null))
+        if (gb != null && gb1 != null && (free == null || free1 == null))
             return gb.CompareTag(tag) && gb1.CompareTag(tag);
         else
             return false;
@@ -66,7 +66,7 @@ public class Wall : MonoBehaviour
         var free    = HitUpOrDefault();
         var free1   = HitLeftOrDefault();
 
-        if (gb != null && gb1 != null && (free == null && free1 == null))
+        if (gb != null && gb1 != null && (free == null || free1 == null))
             return gb.CompareTag(tag) && gb1.CompareTag(tag);
         else
             return false;
@@ -112,9 +112,48 @@ public class Wall : MonoBehaviour
             return false;
     }
 
+    public bool HitLeftWithTag(string tag)
+    {
+        var gb = HitLeftOrDefault();
+
+        if (gb != null)
+            return gb.CompareTag(tag);
+        else
+            return false;
+    }
+    public bool HitRightWithTag(string tag)
+    {
+        var gb = HitRightOrDefault();
+
+        if (gb != null)
+            return gb.CompareTag(tag);
+        else
+            return false;
+    }
+    
+    public bool HitUpWithTag(string tag)
+    {
+        var gb = HitUpOrDefault();
+
+        if (gb != null)
+            return gb.CompareTag(tag);
+        else
+            return false;
+    }
+
+    public bool HitDownWithTag(string tag)
+    {
+        var gb = HitDownOrDefault();
+
+        if (gb != null)
+            return gb.CompareTag(tag);
+        else
+            return false;
+    }
+
     public bool IsAngelHere() => HitDownRightWithTag("Wall") || HitDownLeftWithTag("Wall") || HitUpLeftWithTag("Wall") || HitUpRightWithTag("Wall");
 
-    private GameObject HitUpOrDefault()
+    public GameObject HitUpOrDefault()
     {
         boxCollider2.enabled = false;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.up, 1);
@@ -125,7 +164,8 @@ public class Wall : MonoBehaviour
         else
             return default;
     }
-    private GameObject HitDownOrDefault()
+
+    public GameObject HitDownOrDefault()
     {
         boxCollider2.enabled = false;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.down, 1);
@@ -136,7 +176,7 @@ public class Wall : MonoBehaviour
         else
             return default;
     }
-    private GameObject HitLeftOrDefault()
+    public GameObject HitLeftOrDefault()
     {
         boxCollider2.enabled = false;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.left, 1);
@@ -147,7 +187,7 @@ public class Wall : MonoBehaviour
         else
             return default;
     }
-    private GameObject HitRightOrDefault()
+    public GameObject HitRightOrDefault()
     {
         boxCollider2.enabled = false;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.right, 1);

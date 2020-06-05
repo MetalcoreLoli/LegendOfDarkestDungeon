@@ -215,7 +215,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14450}
     - Class: 114
-      Script: {instanceID: 16358}
+      Script: {instanceID: 16362}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -882,7 +882,7 @@ ScriptsOnlyBuild:
     className: Wall
   - hash:
       serializedVersion: 2
-      Hash: 925e3c68468b3e141994162b0d8cc8af
+      Hash: 08b8ea326420221fc851860c1cd5328b
     assemblyName: Assembly-CSharp.dll
     namespaceName: Assets.Scripts.Dungeon.Factory
     className: DungeonInfo

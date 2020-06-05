@@ -61,7 +61,7 @@ public class BoardManager : MonoBehaviour, IData<GameObject, int>
     {
         Debug.Log("Start board");
         BoardSetUp();
-        if (level % 2 == 0)
+        if (level % 6 == 0)
             Generate(CountOfRooms, DungeonFactoryManager.instance.BlueDungeonFactory);
         else
             Generate(CountOfRooms, DungeonFactoryManager.instance.DefaultDungeonFactory);
@@ -203,6 +203,8 @@ public class BoardManager : MonoBehaviour, IData<GameObject, int>
                 toReplace.Add((factory.DungeonInfo.WallTileHorizontal, wall.transform.position));
             else if (wallScript.HitUpDownWithTag("Wall"))
                 toReplace.Add((factory.DungeonInfo.WallTileVertical, wall.transform.position));
+            //else if (wallScript.HitLeftWithTag("Wall") && !wallScript.HitRightWithTag("Wall") && !wallScript.IsAngelHere())
+            //    toReplace.Add((factory.DungeonInfo.WallTileHorizontal, wall.transform.position));
             else
                 continue;
         }
