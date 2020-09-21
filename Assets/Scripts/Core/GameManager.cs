@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public List<Enemy> Enemies;
     [HideInInspector] public bool playersTurn;
 
-    public BoardManager boardManager;
+    public Board board;
     public static MessageBox MessageBox;
     public DataManager dataManager;
     public ShortcutMenu shortcutMenu;
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(MessageBox);
 
         itemManager         = GetComponent<ItemManager>();
-        boardManager        = GetComponent<BoardManager>();
+        board               = GetComponent<Board>();
         shortcutMenu        = GetComponent<ShortcutMenu>();
         dataManager         = GetComponent<DataManager>();
         inventoryManager    = GetComponent<InventoryManager>();
@@ -141,8 +141,8 @@ public class GameManager : MonoBehaviour
             enabled = true;
         Enemies = new List<Enemy>();
         _instance.playersTurn = true;
-        boardManager.SetUpLevel(FloorNumber);
-        var room = boardManager.Rooms.FirstOrDefault();
+        board.SetUpLevel(FloorNumber);
+        var room = board.Rooms.FirstOrDefault();
         //Instantiate(messageBox);
         var Player = GameObject.FindGameObjectWithTag("Player");
         Player.transform.position = room.GetCenter();
