@@ -46,14 +46,14 @@ namespace Assets.Scripts.UI.Menu
         
         public void Exit()
         {
-            Destroy(GameObject.Find("SoundManager"));
-            Destroy(GameObject.Find("GameManager(Clone)")); 
+            DestroyImmediate(GameObject.Find("SoundManager"));
+            DestroyImmediate(GameObject.Find("GameManager(Clone)")); 
             var board = GameObject.Find("Board");
-            GameObject.Destroy(board);
+            GameObject.DestroyImmediate(board);
             var enemies = GameObject.FindGameObjectsWithTag("Enemy");
             
             foreach (var enem in enemies)
-                Destroy(enem);
+                DestroyImmediate(enem);
             SaveLoader.Instance().IsNeedToLoad = false;
 
 
