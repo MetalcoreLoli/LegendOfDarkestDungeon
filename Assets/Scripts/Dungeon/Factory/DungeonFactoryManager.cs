@@ -26,7 +26,7 @@ namespace Assets.Scripts.Dungeon.Factory
             if (instance == null)
                 instance = this;
             else if (instance != this)
-                Destroy(gameObject);
+                DestroyImmediate(gameObject);
 
             DontDestroyOnLoad(gameObject);
             dungeonFactory = GetComponent<DefaultDungeonFactory>();

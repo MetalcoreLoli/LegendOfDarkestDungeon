@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         if (_instance == null)
             _instance = this;
         else if (_instance != this)
-            Destroy(gameObject);
+            DestroyImmediate(gameObject);
 
 
 
@@ -93,8 +93,8 @@ public class GameManager : MonoBehaviour
         {
             StopAllCoroutines();
             Enemies = new List<Enemy>();
-            Destroy(GameObject.Find("SoundManager"));
-            Destroy(gameObject);
+            DestroyImmediate (GameObject.Find("SoundManager").gameObject);
+            DestroyImmediate(gameObject);
             SceneManager.LoadScene(0, LoadSceneMode.Single);
         }
 
@@ -195,7 +195,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (var item in Enemies)
         {
-            Destroy(item);
+            DestroyImmediate(item.gameObject);
         }
     }
 }

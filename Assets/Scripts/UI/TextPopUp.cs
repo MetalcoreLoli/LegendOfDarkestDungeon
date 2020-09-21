@@ -51,7 +51,7 @@ namespace Assets.Scripts.UI
             livingTime -= Time.deltaTime;
 
             if (livingTime < 0)
-                Destroy(gameObject);
+                DestroyImmediate(gameObject);
         }
     }
 }

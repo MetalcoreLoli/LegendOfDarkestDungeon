@@ -38,7 +38,7 @@ public class VoidSpell : Spell
                 enemy.TakeDamage(DiceManager.RollDice("2d4"), true);
 
             StartCoroutine(DestoryAfter(1.5f));
-            Destroy(gameObject);
+            DestroyImmediate(gameObject);
         }
 
         StartCoroutine(DestoryAfter(4.5f));
@@ -47,6 +47,6 @@ public class VoidSpell : Spell
     IEnumerator DestoryAfter(float seconds)
     {
         yield return new WaitForSecondsRealtime(seconds);
-        Destroy(gameObject);
+        DestroyImmediate(gameObject);
     }
 }

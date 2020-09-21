@@ -46,11 +46,12 @@ public class Enemy : MovingObject
                     GameManager._instance.itemManager.DropAt(transform.position, "HealingPotion");
             
             }
-			gameObject.SetActive(false);	
+			DestroyImmediate(gameObject);
+			//gameObject.SetActive(false);	
 		}
 		else
 		{
-			var player = GameObject.FindGameObjectWithTag("Player");
+			var player = GameManager._instance.Player;
 			float dis = (player.transform.position - transform.position).sqrMagnitude;
 			var end = (player.GetComponent<Rigidbody2D>().position - rb2D.position);
 			
@@ -74,7 +75,7 @@ public class Enemy : MovingObject
 	{
 		///GameManager._instance.Enemies.Add(this);
 		animator	= GetComponent<Animator>();
-		target		= GameObject.FindGameObjectWithTag("Player").transform;
+		target		= GameManager._instance.Player?.transform;
 		base.Start();
 	}
 	

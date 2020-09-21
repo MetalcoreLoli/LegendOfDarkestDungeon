@@ -28,7 +28,7 @@ public class FireBall : Spell
         {
             collision.GetComponent<Enemy>().TakeDamage(DiceManager.RollDice("1d4"), true);
         }
-        Destroy(gameObject);
+        DestroyImmediate(gameObject);
     }
 
     public override void Cast()

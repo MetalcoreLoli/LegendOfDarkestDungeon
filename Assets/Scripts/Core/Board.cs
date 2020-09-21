@@ -59,7 +59,7 @@ public class Board : MonoBehaviour, IData<GameObject, int>
     {
         Debug.Log("Start board");
         BoardSetUp();
-        if (level % 6 == 0)
+        if (level % 2 == 0)
             Generate(CountOfRooms, DungeonFactoryManager.instance.BlueDungeonFactory);
         else
             Generate(CountOfRooms, DungeonFactoryManager.instance.DefaultDungeonFactory);
@@ -443,11 +443,7 @@ public class Board : MonoBehaviour, IData<GameObject, int>
     private void OnDestroy()
     {
         Debug.Log("Was Destroied");
-        //Destroy(boardHolder);
-        //foreach (var item in map)
-        //{
-        //    Destroy(item);
-        //}
+
     }
 
     public Dictionary<GameObject, int> GetData()
