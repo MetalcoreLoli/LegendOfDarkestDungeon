@@ -11,7 +11,7 @@ using UnityEngine.UIElements;
 
 public class Enemy : MovingObject
 {
-	[SerializeField] private DamageDealer damageDealer;
+	[SerializeField] private readonly DamageDealer damageDealer;
 
     public int Damage = DiceManager.RollDice("2d6");
 
@@ -46,29 +46,27 @@ public class Enemy : MovingObject
                     GameManager._instance.itemManager.DropAt(transform.position, "HealingPotion");
             
             }
-			DestroyImmediate(gameObject);
+			Destroy(gameObject);
 			//gameObject.SetActive(false);	
 		}
 		else
 		{
-			var player = GameManager._instance.Player;
-			float dis = (player.transform.position - transform.position).sqrMagnitude;
-			var end = (player.GetComponent<Rigidbody2D>().position - rb2D.position);
-			
-			if (transform.position == player.transform.position)
-			{
-				//GameManager._instance.Enemies.Remove(this);
-				gameObject.SetActive(false);
-				//transform.position = (end.normalized * 2);
+            var player = GameManager._instance.Player;
+            //float dis = (player.transform.position - transform.position).sqrMagnitude;
+            //var end = (player.GetComponent<Rigidbody2D>().position - rb2D.position);
 
-			}
+            if (transform.position == player.transform.position)
+            {
 
-			if (dis <= MaxDistanceToPlayer && player.GetComponent<Rigidbody2D>().position != rb2D.position)
-			{
-				Debug.DrawLine(rb2D.position, rb2D.position + end.normalized * end.magnitude, Color.white);
-				MoveEnemy();
-			}
-		}
+                TakeDamage(characteristics.MaxHp * 2, true);
+            }
+
+            //if (dis <= MaxDistanceToPlayer && player.GetComponent<Rigidbody2D>().position != rb2D.position)
+            //{
+            //	Debug.DrawLine(rb2D.position, rb2D.position + end.normalized * end.magnitude, Color.white);
+            //	MoveEnemy();
+            //}
+        }
 	}
 
 	protected override void Start()
@@ -95,11 +93,11 @@ public class Enemy : MovingObject
 	
 	protected override void AttemptMove<T>(int xDir, int yDir)
 	{
-		if (skipMove)
-		{
-			skipMove = false;
-			return;
-		}
+		//if (skipMove)
+		//{
+		//	skipMove = false;
+		//	return;
+		//}
 		base.AttemptMove<T>(xDir, yDir);
 
 		//Now that Enemy has moved, set skipMove to true to skip next move.
@@ -116,26 +114,16 @@ public class Enemy : MovingObject
 
 	public void TakeDamage(int damage, bool byPlayer)
 	{
-		animator.SetTrigger("TakeDamage");
+		animator?.SetTrigger("TakeDamage");
 		characteristics.Hp -= damage;
 		WasDamaged = true;
-		damageDealer.Damage = damage;
-		TextPopUp.CreateAt(transform.position, damage, damageDealer.Text.transform);
+		//TextPopUp.CreateAt(transform.position, damage, damageDealer.Text.transform);
 		damaged = damage;
 		isDamagedByPlayer = byPlayer;
 	}
 
-	private void OnGUI()
+	private void OnDestroy()
 	{
-		//if (WasDamaged)
-		//{
-		//	GUI.skin.font = Resources.Load<Font>("Sprites/GUI/SDS_8x8");
-		//	GUI.skin.font.material.color = Color.white;
-		//	GUI.Label(
-		//		new Rect(transform.localPosition, new Vector2(64, 64)),
-		//		$"{damaged}");
-		//	//damaged = 0;
-		//	//WasDamaged = false;
-		//}
+
 	}
 }

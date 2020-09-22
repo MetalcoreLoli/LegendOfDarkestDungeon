@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         if (_instance == null)
             _instance = this;
         else if (_instance != this)
-            DestroyImmediate(gameObject);
+            Destroy(gameObject);
 
 
 
@@ -93,8 +93,8 @@ public class GameManager : MonoBehaviour
         {
             StopAllCoroutines();
             Enemies = new List<Enemy>();
-            DestroyImmediate (GameObject.Find("SoundManager").gameObject);
-            DestroyImmediate(gameObject);
+            Destroy (GameObject.Find("SoundManager").gameObject);
+            Destroy (gameObject);
             SceneManager.LoadScene(0, LoadSceneMode.Single);
         }
 
@@ -157,20 +157,11 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void RemoveEnemy(Enemy enemy)
-    {
-        // Enemies.Remove(enemy);
-    }
-
     private void Update()
     {
-        //if (playersTurn)
-        //    return;
         var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
         if (!ui.crtMenu.IsOpen)
             StartCoroutine(MoveEnemies());
-        Player = GameObject.Find("Player").GetComponent<Player>();
-
     }
 
 
@@ -194,8 +185,6 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         foreach (var item in Enemies)
-        {
-            DestroyImmediate(item.gameObject);
-        }
+            item.TakeDamage(item.characteristics.MaxHp * 2, false);
     }
 }

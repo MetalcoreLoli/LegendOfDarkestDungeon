@@ -230,8 +230,8 @@ public class Player : MovingObject, IData<string, int>
     public void UpdateHealth(int value)
     {
         Characteristics.Hp += value;
-        if (value > 0)
-            TextPopUp.CreateWithColor(transform.position, "+" + value, DamageDealer.Text.transform, Color.green);
+        //if (value > 0)
+        //    TextPopUp.CreateWithColor(transform.position, "+" + value, DamageDealer.Text.transform, Color.green);
 
         if (Characteristics.Hp > Characteristics.MaxHp)
         {
@@ -251,8 +251,8 @@ public class Player : MovingObject, IData<string, int>
     {
         
         Characteristics.Mp  += value;
-        if (value > 0)
-            TextPopUp.CreateWithColor(transform.position, "+" + value, DamageDealer.Text.transform, Color.blue);
+        //if (value > 0)
+        //    TextPopUp.CreateWithColor(transform.position, "+" + value, DamageDealer.Text.transform, Color.blue);
 
         if (Characteristics.Mp > Characteristics.MaxMp)
         {
@@ -277,12 +277,12 @@ public class Player : MovingObject, IData<string, int>
             Characteristics.Mp = Characteristics.MaxMp;
             GameManager._instance.UpdatePlayersCharacteristics(Characteristics);
         }
-        TextPopUp.CreateWithColor(transform.position, "+" + value, DamageDealer.Text.transform, Color.yellow);
+        //TextPopUp.CreateWithColor(transform.position, "+" + value, DamageDealer.Text.transform, Color.yellow);
     }
     public void LoseHp(int damage)
     {
         UpdateHealth(-damage);
-        TextPopUp.CreateWithColor(transform.position, "-" + damage, DamageDealer.Text.transform, Color.red);
+        //TextPopUp.CreateWithColor(transform.position, "-" + damage, DamageDealer.Text.transform, Color.red);
         //GameManager._instance.playerCharacteristics.Hp = Hp;
         animator.SetTrigger("Hit");
     }

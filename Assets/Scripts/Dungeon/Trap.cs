@@ -31,8 +31,8 @@ public class Trap : MonoBehaviour
             var player = collision.GetComponent<Player>();
             if (DiceManager.RollDice("1d20") > 5 + player.Characteristics.DexterityMod && isActive)
                 player.LoseHp(DiceManager.RollDice("1d4"));
-            else
-                TextPopUp.CreateWithColor(transform.position, "Miss", player.DamageDealer.Text.transform, Color.red);
+            //else
+            //    TextPopUp.CreateWithColor(transform.position, "Miss", player.DamageDealer.Text.transform, Color.red);
 
             isActive = false;
         }
@@ -42,7 +42,7 @@ public class Trap : MonoBehaviour
             var enemy = collision.GetComponent<Enemy>();
             //animator.SetTrigger("playerStand");
             if (DiceManager.RollDice("1d20") > 10 && isActive)
-                enemy.TakeDamage(DiceManager.RollDice("1d4"), false);
+                enemy?.TakeDamage(DiceManager.RollDice("1d4"), false);
             //isActive = false;
         }
     }

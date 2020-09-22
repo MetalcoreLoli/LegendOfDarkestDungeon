@@ -18,7 +18,7 @@ namespace Assets.Scripts.Spells
             if (player.PlayerCastSpell(2))
             {
                 int heal = DiceManager.RollDice("1d4");
-                TextPopUp.CreateAt(transform.position, heal, player.DamageDealer.Text.transform);
+                //TextPopUp.CreateAt(transform.position, heal, player.DamageDealer.Text.transform);
                 player.UpdateHealth(heal);
             }
         }

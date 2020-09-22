@@ -17,9 +17,11 @@ namespace Assets.Scripts.UI
     }
     public class MessageBox : MonoBehaviour
     {
-        [SerializeField] Text Tile;
-        [SerializeField] Text Message;
-        [SerializeField] DialogResult dialogResult = DialogResult.None;
+        [SerializeField] private Text Tile;
+        [SerializeField] private Text Message;
+        [SerializeField] private DialogResult dialogResult = DialogResult.None;
+        [SerializeField] private Button okButton;
+        [SerializeField] private Button cancelButton;
         public DialogResult DialogResult { get => dialogResult; private set => dialogResult = value; } 
 
         public DialogResult Show(string title, string message) 
@@ -28,24 +30,26 @@ namespace Assets.Scripts.UI
             gameObject.SetActive(true);
             Tile.text = title;
             Message.text = message;
-
+            okButton.onClick.AddListener(OkClick);
+            cancelButton.onClick.AddListener(CancelClick);
             return DialogResult;
         }
 
         public void ResetResult()
         {
+            okButton.onClick.RemoveAllListeners();
+            cancelButton.onClick.RemoveAllListeners();
             DialogResult = DialogResult.None;
         }
 
-        public void OkClick()
+        private void OkClick()
         {
             DialogResult = DialogResult.OK;
             Debug.Log("OK");
             gameObject.SetActive(false);
         }
 
-
-        public void CancelClick()
+        private void CancelClick()
         { 
             DialogResult = DialogResult.Cancel;
             Debug.Log("Cancel");

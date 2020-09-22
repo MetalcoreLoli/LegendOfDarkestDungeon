@@ -26,9 +26,10 @@ public class FireBall : Spell
         Debug.Log(collision.name);
         if (collision.tag == "Enemy")
         {
-            collision.GetComponent<Enemy>().TakeDamage(DiceManager.RollDice("1d4"), true);
+            var enemy = collision.GetComponent<Enemy>();
+            enemy?.TakeDamage(DiceManager.RollDice("1d4"), true);
         }
-        DestroyImmediate(gameObject);
+        Destroy(gameObject);
     }
 
     public override void Cast()

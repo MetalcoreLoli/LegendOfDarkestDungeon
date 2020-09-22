@@ -15,19 +15,19 @@ namespace Assets.Scripts.UI
 
         [SerializeField] private float livingTime;
         [SerializeField] private float textSpeed;
-        public static TextPopUp CreateAt(Vector3 postion, int damage, Transform prefab)
+        public static void CreateAt(Vector3 postion, int damage, Transform prefab)
         {
             Transform popUpTransform = Instantiate(prefab, postion,  Quaternion.identity);
             TextPopUp damagePopUp = popUpTransform.GetComponent<TextPopUp>();
             damagePopUp.SetUp(damage);
-            return damagePopUp;
+           // return damagePopUp;
         }
-        public static TextPopUp CreateWithColor(Vector3 postion, string text, Transform prefab, Color color)
+        public static void CreateWithColor(Vector3 postion, string text, Transform prefab, Color color)
         {
             Transform popUpTransform = Instantiate(prefab, postion, Quaternion.identity);
             TextPopUp damagePopUp = popUpTransform.GetComponent<TextPopUp>();
             damagePopUp.SetUp(text, color);
-            return damagePopUp;
+            //return damagePopUp;
         }
 
         private void Awake()
@@ -51,7 +51,7 @@ namespace Assets.Scripts.UI
             livingTime -= Time.deltaTime;
 
             if (livingTime < 0)
-                DestroyImmediate(gameObject);
+                Destroy(gameObject);
         }
     }
 }
