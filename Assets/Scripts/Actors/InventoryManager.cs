@@ -237,7 +237,7 @@ namespace Assets.Scripts.Actors
                 int t_width     = guiCell.width * 4;
                 int t_height    = guiCell.height * 4;
 
-                Player player = GameObject.Find("Player").GetComponent<Player>() ?? null;
+                var player = GameManager._instance.Player.GetComponent<Actor>() ?? null;
                 GUI.skin.font = font;
                 GUI.skin.font.material.SetColor("white", Color.white);
                 GUI.skin.box.normal.textColor = Color.white;

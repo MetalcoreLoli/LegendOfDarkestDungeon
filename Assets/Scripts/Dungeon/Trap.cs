@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Dices;
+﻿using Assets.Scripts.Actors;
+using Assets.Scripts.Dices;
 using Assets.Scripts.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,9 +29,10 @@ public class Trap : MonoBehaviour
         {
            // Debug.Log("Player In trap");
             animator.SetTrigger("playerStand");
-            var player = collision.GetComponent<Player>();
-            if (DiceManager.RollDice("1d20") > 5 + player.Characteristics.DexterityMod && isActive)
-                player.LoseHp(DiceManager.RollDice("1d4"));
+            var actor = collision.GetComponent<Actor>();
+            var pl = collision.GetComponent<Player>();
+            if (DiceManager.RollDice("1d20") > 5 + actor.Characteristics.DexterityMod && isActive)
+                pl.LoseHp(DiceManager.RollDice("1d4"));
             //else
             //    TextPopUp.CreateWithColor(transform.position, "Miss", player.DamageDealer.Text.transform, Color.red);
 

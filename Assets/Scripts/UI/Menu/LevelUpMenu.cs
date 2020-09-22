@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Stats;
+﻿using Assets.Scripts.Actors;
+using Assets.Scripts.Stats;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,7 @@ namespace Assets.Scripts.UI.Menu
 
         private void Start()
         {
-            UpdateChar(player.Characteristics);
+            UpdateChar(player.GetComponent<Actor>().Characteristics);
         }
 
         private void Update()

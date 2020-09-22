@@ -90,7 +90,7 @@ namespace Assets.Scripts.Stats
             set
             {
                 lucky = value;
-                CalculateModificators(lucky);
+                LuckyMod = CalculateModificators(lucky);
             }
         }
 
@@ -98,7 +98,8 @@ namespace Assets.Scripts.Stats
 
         protected virtual int CalculateModificators(int value)
              => (value - 10 != 0) ? (value - 10) / 2 : 0;
-
+        
+        public ActorCharacteristics() { }
 
         public ActorCharacteristics(int maxHp, int maxMp)
         {

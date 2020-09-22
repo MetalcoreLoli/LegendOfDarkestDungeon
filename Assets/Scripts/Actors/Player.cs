@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Core;
+﻿using Assets.Scripts.Actors;
+using Assets.Scripts.Core;
 using Assets.Scripts.Core.Data;
 using Assets.Scripts.Dices;
 using Assets.Scripts.Stats;
@@ -45,27 +46,26 @@ public class Player : MovingObject, IData<string, int>
     
     private bool isFlipLeftRight    = false;
     private bool isFlipUpDown       = false;
-    [SerializeField] private DamageDealer damageDealer;
     public LookDir lookDir = LookDir.Left;
 
-    public ActorCharacteristics Characteristics;
-    public  DamageDealer DamageDealer { get => damageDealer; }
+    [NonSerialized] private Actor actor;
 
     public int Level { get => level; internal set => level = value; }
     public int Exp { get => exp; internal set => exp = value; }
     public int MaxExp { get => maxExp; internal set => maxExp = value; }
 
+    private void Awake()
+    {
+        actor = GetComponent<Actor>();
+    }
+
     protected override void Start()
     {
         animator = GetComponent<Animator>();
-        Hp      = Characteristics.Hp;
-        MaxHp   = Characteristics.MaxHp;
-        Mana    = Characteristics.Mp;
-        MaxMana = Characteristics.MaxMp;
 
-#if UNITY_EDITOR
-        Characteristics.Mp = Characteristics.MaxMp = 25000;
-#endif
+//#if UNITY_EDITOR
+//        actor.Characteristics.Mp = actor.Characteristics.MaxMp = 25000;
+//#endif
 
         GameManager._instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[0], 0);
         GameManager._instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[1], 1);
@@ -229,17 +229,17 @@ public class Player : MovingObject, IData<string, int>
 
     public void UpdateHealth(int value)
     {
-        Characteristics.Hp += value;
+        actor.Characteristics.Hp += value;
         //if (value > 0)
         //    TextPopUp.CreateWithColor(transform.position, "+" + value, DamageDealer.Text.transform, Color.green);
 
-        if (Characteristics.Hp > Characteristics.MaxHp)
+        if (actor.Characteristics.Hp > actor.Characteristics.MaxHp)
         {
-            Characteristics.Hp = Characteristics.MaxHp;
+            actor.Characteristics.Hp = actor.Characteristics.MaxHp;
         }
-        else if (Characteristics.Hp < 0)
+        else if (actor.Characteristics.Hp < 0)
         {
-            Characteristics.Hp = 0;
+            actor.Characteristics.Hp = 0;
 #if UNITY_EDITOR == false
             enabled = false;
             GameManager._instance.GameOver();
@@ -250,17 +250,17 @@ public class Player : MovingObject, IData<string, int>
     public void UpdateMana(int value)
     {
         
-        Characteristics.Mp  += value;
+        actor.Characteristics.Mp  += value;
         //if (value > 0)
         //    TextPopUp.CreateWithColor(transform.position, "+" + value, DamageDealer.Text.transform, Color.blue);
 
-        if (Characteristics.Mp > Characteristics.MaxMp)
+        if (actor.Characteristics.Mp > actor.Characteristics.MaxMp)
         {
-            Characteristics.Mp = Characteristics.MaxMp;
+            actor.Characteristics.Mp = actor.Characteristics.MaxMp;
         }
-        else if (Characteristics.Mp < 0)
+        else if (actor.Characteristics.Mp < 0)
         {
-            Characteristics.Mp = 0;
+            actor.Characteristics.Mp = 0;
         }
     }
     public virtual void UpdateExp(int value)
@@ -273,9 +273,8 @@ public class Player : MovingObject, IData<string, int>
             lvlMenu.Points = lvlMenu.MaxPoints += 2;
             maxExp *= 2;
             lvlMenu.Open();
-            Characteristics.Hp = Characteristics.MaxHp;
-            Characteristics.Mp = Characteristics.MaxMp;
-            GameManager._instance.UpdatePlayersCharacteristics(Characteristics);
+            actor.Characteristics.Hp = actor.Characteristics.MaxHp;
+            actor.Characteristics.Mp = actor.Characteristics.MaxMp;
         }
         //TextPopUp.CreateWithColor(transform.position, "+" + value, DamageDealer.Text.transform, Color.yellow);
     }
@@ -283,21 +282,19 @@ public class Player : MovingObject, IData<string, int>
     {
         UpdateHealth(-damage);
         //TextPopUp.CreateWithColor(transform.position, "-" + damage, DamageDealer.Text.transform, Color.red);
-        //GameManager._instance.playerCharacteristics.Hp = Hp;
         animator.SetTrigger("Hit");
     }
 
     public bool PlayerCastSpell(int cost)
     { 
-        if (Characteristics.Mp - cost >= 0)
+        if (actor.Characteristics.Mp - cost >= 0)
         {
             UpdateMana(-cost);
-            Mana = Characteristics.Mp;
+            Mana = actor.Characteristics.Mp;
             animator.SetTrigger("Casting2");
             return true;
         }
         return false;
-
     }
     protected override void OnCantMove<T>(T comp)
     {
@@ -311,45 +308,45 @@ public class Player : MovingObject, IData<string, int>
 
         Dictionary<string, int> temp = new Dictionary<string, int>();
 
-        temp.Add("Hp",      Characteristics.Hp);
-        temp.Add("MaxHp",   Characteristics.MaxHp);
+        //temp.Add("Hp",      actor.Characteristics.Hp);
+        //temp.Add("MaxHp",   actor.Characteristics.MaxHp);
 
-        temp.Add("Mp",      Characteristics.Mp);
-        temp.Add("MaxMp",   Characteristics.MaxMp);
+        //temp.Add("Mp",      actor.Characteristics.Mp);
+        //temp.Add("MaxMp",   actor.Characteristics.MaxMp);
 
-        temp.Add("Lucky",           Characteristics.Lucky);
-        temp.Add("Dexterity",       Characteristics.Dexterity);
-        temp.Add("Strength",        Characteristics.Strength);
-        temp.Add("Charisma",        Characteristics.Charisma);
-        temp.Add("Intelligence",    Characteristics.Intelligence);
+        //temp.Add("Lucky",           actor.Characteristics.Lucky);
+        //temp.Add("Dexterity",       actor.Characteristics.Dexterity);
+        //temp.Add("Strength",        actor.Characteristics.Strength);
+        //temp.Add("Charisma",        actor.Characteristics.Charisma);
+        //temp.Add("Intelligence",    actor.Characteristics.Intelligence);
 
-        temp.Add("Exp",    Exp);
-        temp.Add("MaxExp",    MaxExp);
+        //temp.Add("Exp",    Exp);
+        //temp.Add("MaxExp",    MaxExp);
         
-        temp.Add("Level",    Level);
+        //temp.Add("Level",    Level);
 
         return temp;
     }
 
     public void LoadData(Dictionary<string, int> data)
     {
-        Characteristics.Hp      = data["Hp"];
-        Characteristics.MaxHp   = data["MaxHp"];
-        Characteristics.Mp      = data["Mp"];
-        Characteristics.MaxMp   = data["MaxMp"];
+        //actor.Characteristics.Hp      = data["Hp"];
+        //actor.Characteristics.MaxHp   = data["MaxHp"];
+        //actor.Characteristics.Mp      = data["Mp"];
+        //actor.Characteristics.MaxMp   = data["MaxMp"];
 
-        Characteristics.Lucky           = data["Lucky"];
-        Characteristics.Dexterity       = data["Dexterity"];
-        Characteristics.Strength        = data["Strength"];
-        Characteristics.Intelligence    = data["Intelligence"];
-        Characteristics.Charisma        = data["Charisma"];
+        //actor.Characteristics.Lucky           = data["Lucky"];
+        //actor.Characteristics.Dexterity       = data["Dexterity"];
+        //actor.Characteristics.Strength        = data["Strength"];
+        //actor.Characteristics.Intelligence    = data["Intelligence"];
+        //actor.Characteristics.Charisma        = data["Charisma"];
 
-        Exp     = data["Exp"];
-        MaxExp  = data["MaxExp"];
+        //Exp     = data["Exp"];
+        //MaxExp  = data["MaxExp"];
 
-        Level   = data["Level"];
+        //Level   = data["Level"];
         
-        GameManager._instance.playerCharacteristics = Characteristics;
+        //GameManager._instance.playeractor.Characteristics = actor.Characteristics;
         //GameManager._instance.Player = this;
     }
 }

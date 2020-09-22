@@ -7,7 +7,7 @@ using UnityEngine;
 public class VoidSpell : Spell
 {
     
-    public override void Cast()
+    public override void Cast(Transform caster)
     {
         var firePointPos = FirePoint.position;
         var player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();

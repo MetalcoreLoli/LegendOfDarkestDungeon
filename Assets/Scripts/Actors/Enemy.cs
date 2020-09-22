@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Dices;
+﻿using Assets.Scripts.Actors;
+using Assets.Scripts.Dices;
 using Assets.Scripts.Stats;
 using Assets.Scripts.UI;
 using System;
@@ -108,7 +109,7 @@ public class Enemy : MovingObject
 	{
 		Player hitPlayer = component as Player;
 		if (isActiveAndEnabled)
-		if (DiceManager.RollDice("1d20") > 10 + hitPlayer.Characteristics.DexterityMod)
+		if (DiceManager.RollDice("1d20") > 10 + hitPlayer.GetComponent<Actor>().Characteristics.DexterityMod)
 			hitPlayer.LoseHp(Damage);
 	}
 

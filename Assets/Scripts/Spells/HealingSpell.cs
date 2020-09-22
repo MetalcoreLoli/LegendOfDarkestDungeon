@@ -11,7 +11,7 @@ namespace Assets.Scripts.Spells
 {
     public class HealingSpell : Spell
     {
-        public override void Cast()
+        public override void Cast(Transform caster)
         {
             var player = GameObject.Find("Player").GetComponent<Player>();
 

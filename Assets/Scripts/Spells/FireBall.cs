@@ -32,14 +32,14 @@ public class FireBall : Spell
         Destroy(gameObject);
     }
 
-    public override void Cast()
+    public override void Cast(Transform caster)
     {
         var firePointPos = FirePoint.position;
-        var player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        Debug.Log(Info.Name + " was cast");
-        if (player.PlayerCastSpell(Info.Cost))
+        var caster1 = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        Debug.Log(Info.Name + $" was cast by {caster1.GetType().Name}");
+        if (caster1.PlayerCastSpell(Info.Cost))
         {
-            if (player.lookDir == LookDir.Left || player.lookDir == LookDir.Right)
+            if (caster1.lookDir == LookDir.Left || caster1.lookDir == LookDir.Right)
                 Instantiate(Info.Prefab, FirePoint.position, FirePoint.rotation);
             else
             {

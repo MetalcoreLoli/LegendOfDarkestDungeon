@@ -108,16 +108,16 @@ public class GameManager : MonoBehaviour
     public void UpdatePlayersCharacteristics(ActorCharacteristics actorCharacteristics)
     {
         if (Player == null) return;
-        Player.Characteristics = actorCharacteristics;
-        playerCharacteristics = actorCharacteristics;
+        var actor = Player.GetComponent<Actor>();
+        actor.Characteristics = actorCharacteristics;
 
         var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
 
-        ui.HpController.SetMax(Player.Characteristics.MaxHp);
-        ui.HpController.SetValue(Player.Characteristics.Hp);
+        ui.HpController.SetMax(actor.Characteristics.MaxHp);
+        ui.HpController.SetValue(actor.Characteristics.Hp);
 
-        ui.MpController.SetMax(Player.Characteristics.MaxMp);
-        ui.MpController.SetValue(Player.Characteristics.Mp);
+        ui.MpController.SetMax(actor.Characteristics.MaxMp);
+        ui.MpController.SetValue(actor.Characteristics.Mp);
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -143,15 +143,12 @@ public class GameManager : MonoBehaviour
         _instance.playersTurn = true;
         board.SetUpLevel(FloorNumber);
         var room = board.Rooms.FirstOrDefault();
-        //Instantiate(messageBox);
-        var Player = GameObject.FindGameObjectWithTag("Player");
+        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         Player.transform.position = room.GetCenter();
 
-        var player_comp = Player.GetComponent<Player>();
         var players_light = GameObject.FindGameObjectWithTag("PlayersLight").GetComponent<Light>();
         players_light.intensity = 25;
-        playerCharacteristics.Mp = playerCharacteristics.MaxMp;
-        player_comp.Characteristics = playerCharacteristics;
+        Player.GetComponent<Actor>().Characteristics = playerCharacteristics;
 
         shortcutMenu.Init();
 
@@ -159,29 +156,26 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
-        if (!ui.crtMenu.IsOpen)
-            StartCoroutine(MoveEnemies());
     }
 
 
-    IEnumerator MoveEnemies()
-    {
-        yield return new WaitForSeconds(0.5f);
-        if (Enemies.Count > 0)
-        {
-            foreach (var enemy in Enemies)
-            {
-                yield return new WaitForSeconds(enemy.moveTime);
-                if (enemy != null)
-                {
-                    //Debug.Log($"{(enemy.gameObject == null ? "null" : "not null")}");
-                    enemy.MoveEnemy();
-                }
-            }
-        }
-        playersTurn = true;
-    }
+    //IEnumerator MoveEnemies()
+    //{
+    //    yield return new WaitForSeconds(0.5f);
+    //    if (Enemies.Count > 0)
+    //    {
+    //        foreach (var enemy in Enemies)
+    //        {
+    //            yield return new WaitForSeconds(enemy.moveTime);
+    //            if (enemy != null)
+    //            {
+    //                //Debug.Log($"{(enemy.gameObject == null ? "null" : "not null")}");
+    //                enemy.MoveEnemy();
+    //            }
+    //        }
+    //    }
+    //    playersTurn = true;
+    //}
     private void OnDestroy()
     {
         foreach (var item in Enemies)

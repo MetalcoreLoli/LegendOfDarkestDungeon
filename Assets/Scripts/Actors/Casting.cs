@@ -9,6 +9,8 @@ public class Casting : MonoBehaviour
     public Transform FirePoint;
     public Transform FirePointUp;
 
+    public Transform Caster;
+
     public GameObject[] SpellPrefabs;
 
 
@@ -18,7 +20,7 @@ public class Casting : MonoBehaviour
         spell.FirePoint     = FirePoint;
         spell.FirePointUp   = FirePointUp;
         
-        spell.Cast();
+        spell.Cast(Caster);
     }
 
     public void CastSpellWithName(string name)
@@ -26,6 +28,6 @@ public class Casting : MonoBehaviour
         var spell           = SpellPrefabs.First(s => s.name == name).GetComponent<Spell>();
         spell.FirePoint     = FirePoint;
         spell.FirePointUp   = FirePointUp;
-        spell.Cast();
+        spell.Cast(Caster);
     }
 }
