@@ -44,8 +44,8 @@ namespace Assets.Scripts.UI
         {
             hpContoroller = GameObject.FindGameObjectWithTag("HpBar").GetComponent<BarController>();
             mpContoroller = GameObject.FindGameObjectWithTag("MpBar").GetComponent<BarController>();
-            hpContoroller.SetMax(GameManager._instance.playerCharacteristics.MaxHp);
-            mpContoroller.SetMax(GameManager._instance.playerCharacteristics.MaxMp);
+            hpContoroller.SetMax(GameManager.Instance.playerCharacteristics.MaxHp);
+            mpContoroller.SetMax(GameManager.Instance.playerCharacteristics.MaxMp);
             gameMenu.Close();
         }
 
@@ -63,11 +63,11 @@ namespace Assets.Scripts.UI
         {
             selectedSpell = GameObject.Find("SelectedSpell");
 
-            hpContoroller.SetValue(GameManager._instance.playerCharacteristics.Hp);
-            mpContoroller.SetValue(GameManager._instance.playerCharacteristics.Mp);
+            hpContoroller.SetValue(GameManager.Instance.playerCharacteristics.Hp);
+            mpContoroller.SetValue(GameManager.Instance.playerCharacteristics.Mp);
 
-            hpText.text = $"{GameManager._instance.playerCharacteristics.Hp} / {GameManager._instance.playerCharacteristics.MaxHp}";
-            mpText.text = $"{GameManager._instance.playerCharacteristics.Mp} / {GameManager._instance.playerCharacteristics.MaxMp}";
+            hpText.text = $"{GameManager.Instance.playerCharacteristics.Hp} / {GameManager.Instance.playerCharacteristics.MaxHp}";
+            mpText.text = $"{GameManager.Instance.playerCharacteristics.Mp} / {GameManager.Instance.playerCharacteristics.MaxMp}";
         }
 
         public void SelectShortcutBarCell(int numberOfCell)

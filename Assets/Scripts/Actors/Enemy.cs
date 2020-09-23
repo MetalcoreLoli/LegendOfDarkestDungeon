@@ -38,13 +38,13 @@ public class Enemy : MovingObject
 		if (characteristics.Hp <= 0)
 		{
 			if (isDamagedByPlayer)
-				GameManager._instance.Player.UpdateExp(DiceManager.RollUndSumFromString("2d4"));
+				GameManager.Instance.Player.UpdateExp(DiceManager.RollUndSumFromString("2d4"));
             if (DiceManager.RollDice("1d20") > 6)
             {
                 if (DiceManager.RollDice("1d20") > 10)
-                    GameManager._instance.itemManager.DropAt(transform.position, "ManaPotion");
+                    GameManager.Instance.itemManager.DropAt(transform.position, "ManaPotion");
                 else 
-                    GameManager._instance.itemManager.DropAt(transform.position, "HealingPotion");
+                    GameManager.Instance.itemManager.DropAt(transform.position, "HealingPotion");
             
             }
 			Destroy(gameObject);
@@ -52,7 +52,7 @@ public class Enemy : MovingObject
 		}
 		else
 		{
-            var player = GameManager._instance.Player;
+            var player = GameManager.Instance.Player;
             //float dis = (player.transform.position - transform.position).sqrMagnitude;
             //var end = (player.GetComponent<Rigidbody2D>().position - rb2D.position);
 
@@ -72,9 +72,9 @@ public class Enemy : MovingObject
 
 	protected override void Start()
 	{
-		///GameManager._instance.Enemies.Add(this);
+		///GameManager.Instance.Enemies.Add(this);
 		animator	= GetComponent<Animator>();
-		target		= GameManager._instance.Player?.transform;
+		target		= GameManager.Instance.Player?.transform;
 		base.Start();
 	}
 	

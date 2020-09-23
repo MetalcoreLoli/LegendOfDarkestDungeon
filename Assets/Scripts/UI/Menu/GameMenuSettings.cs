@@ -8,12 +8,12 @@ namespace Assets.Scripts.UI.Menu
     {
         public override void Open()
         {
-            if (GameManager._instance.inventoryManager.IsOpen)
-                GameManager._instance.inventoryManager.IsOpen = !GameManager._instance.inventoryManager.IsOpen;
+            if (GameManager.Instance.inventoryManager.IsOpen)
+                GameManager.Instance.inventoryManager.IsOpen = !GameManager.Instance.inventoryManager.IsOpen;
 
             gameObject.SetActive(true);
             IsOpen = true;
-            GameManager._instance.enabled = false;
+            GameManager.Instance.enabled = false;
             SoundManager.instance.musicSource.Stop();
             SoundManager.instance.menuMusicSource.Play();
         }
@@ -23,17 +23,17 @@ namespace Assets.Scripts.UI.Menu
             IsOpen = false;
             SoundManager.instance.musicSource.Play();
             SoundManager.instance.menuMusicSource.Stop();
-            GameManager._instance.enabled = true;
+            GameManager.Instance.enabled = true;
         }
 
         public void Save()
         {
-            GameManager._instance.dataManager.SaveData();
+            GameManager.Instance.dataManager.SaveData();
         }
 
         public void OpenInventory()
         {
-            GameManager._instance.inventoryManager.IsOpen = !GameManager._instance.inventoryManager.IsOpen;
+            GameManager.Instance.inventoryManager.IsOpen = !GameManager.Instance.inventoryManager.IsOpen;
             Close();
         }
         public void OpenOptions()

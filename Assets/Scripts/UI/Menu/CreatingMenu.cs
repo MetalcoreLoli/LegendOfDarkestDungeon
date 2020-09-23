@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Actors;
 using Assets.Scripts.Actors.Stats;
 using Assets.Scripts.Dices;
+using Assets.Scripts.Stats;
 using Assets.Scripts.UI.Menu;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace Assets.Scripts.UI.Menu
 
         private void Update()
         {
-            var player              = GameManager._instance.Player.GetComponent<Actor>();
+            var player              = GameManager.Instance.Player.GetComponent<Actor>();
             Func<int, string> mod   = num => (num > 0) ? $"+{num}" : num.ToString();
             IntText.text            = $"Int: {player.Characteristics.Intelligence} ({mod(player.Characteristics.IntelligenceMod)})";
             StrText.text            = $"Str: {player.Characteristics.Strength} ({mod(player.Characteristics.StrengthMod)})";
@@ -58,7 +59,7 @@ namespace Assets.Scripts.UI.Menu
         }
         public void Roll()
         {
-            GameManager._instance.UpdatePlayersCharacteristics(Actor.FromTemplate(template));
+            GameManager.Instance.UpdatePlayersCharacteristics(ActorCharacteristics.FromTemplate(template));
         }
     }
 }

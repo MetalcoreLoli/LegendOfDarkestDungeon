@@ -39,9 +39,9 @@ namespace Assets.Scripts.UI.Menu
         private void Update()
         {
             if (IsOpen)
-                GameManager._instance.enabled = false;
+                GameManager.Instance.enabled = false;
             else
-                GameManager._instance.enabled = true;
+                GameManager.Instance.enabled = true;
 
             string func_mod(int mod) => mod < 0 ? "-" + mod : "+" + mod;
             intText.text = $"Int: {playerChaCharacteristicsBuffer.Intelligence} ({(func_mod(playerChaCharacteristicsBuffer.IntelligenceMod))})";
@@ -75,7 +75,7 @@ namespace Assets.Scripts.UI.Menu
         {
             playerChaCharacteristicsBuffer.Hp = playerChaCharacteristicsBuffer.MaxHp;
             playerChaCharacteristicsBuffer.Mp = playerChaCharacteristicsBuffer.MaxMp;
-            GameManager._instance.UpdatePlayersCharacteristics(playerChaCharacteristicsBuffer);
+            GameManager.Instance.UpdatePlayersCharacteristics(playerChaCharacteristicsBuffer);
             MaxPoints = Points;
             Close();
         }

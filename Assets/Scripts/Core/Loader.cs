@@ -15,9 +15,15 @@ public class Loader : MonoBehaviour
             Instantiate(dungeonManager);
         }
 
-        if (GameManager._instance == null)
+        if (GameManager.Instance == null)
         { 
             Instantiate(gameManager);
+        }
+
+        var player = GameObject.Find("Player");
+        if (player == null)
+        {
+            Instantiate(gameManager.GetComponent<GameManager>().PlayerObject);
         }
     }
 }

@@ -383,7 +383,7 @@ public class Board : MonoBehaviour, IData<GameObject, int>
         {
             var enemy = Instantiate(EnemyPrefab, vec, Quaternion.identity);
             enemy.transform.SetParent(boardHolder);
-            GameManager._instance.Enemies.Add(enemy.GetComponent<Enemy>());
+            GameManager.Instance.Enemies.Add(enemy.GetComponent<Enemy>());
         }
       
     }

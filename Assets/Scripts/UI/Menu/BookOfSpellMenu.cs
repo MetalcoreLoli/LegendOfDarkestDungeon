@@ -30,15 +30,15 @@ namespace Assets.Scripts.UI.Menu
         public override void Close()
         {
             IsOpen = false;
-            GameManager._instance.enabled           = true;
-            GameManager._instance.Player.enabled    = true;
+            GameManager.Instance.enabled           = true;
+            GameManager.Instance.Player.enabled    = true;
         }
 
         public override void Open()
         {
             IsOpen = true;
-            GameManager._instance.enabled           = false;
-            GameManager._instance.Player.enabled    = false;
+            GameManager.Instance.enabled           = false;
+            GameManager.Instance.Player.enabled    = false;
         }
         
         private void Update()

@@ -13,7 +13,7 @@ namespace Assets.Scripts.Core
 
         public void DropAt(Vector3 position, string name)
         { 
-            GameManager._instance.board.SpawnObject(position, GetItem(name).gameObject);    
+            GameManager.Instance.board.SpawnObject(position, GetItem(name).gameObject);    
         }
 
         public Item GetItem(string name)

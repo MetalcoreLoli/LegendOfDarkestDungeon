@@ -12,9 +12,11 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
-    public static GameManager _instance = null;
+    public static GameManager Instance = null;
     public GameObject messageBox;
+    public GameObject PlayerObject;
     public Player Player;
+    public Actor PlayerActor;
 
 
     public List<Enemy> Enemies;
@@ -32,14 +34,15 @@ public class GameManager : MonoBehaviour
     public int FloorNumber = 1;
     private void Awake()
     {
-        if (_instance == null)
-            _instance = this;
-        else if (_instance != this)
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
             Destroy(gameObject);
 
 
-
         DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(PlayerObject);
+
         messageBox.SetActive(false);
         var msg = Instantiate(messageBox);
 
@@ -52,7 +55,8 @@ public class GameManager : MonoBehaviour
         dataManager         = GetComponent<DataManager>();
         inventoryManager    = GetComponent<InventoryManager>();
 
-        Player = GameObject.Find("Player").GetComponent<Player>();
+        Player = PlayerObject?.GetComponent<Player>();
+        PlayerActor = PlayerObject?.GetComponent<Actor>();
 
         if (SaveLoader.Instance().IsNeedToLoad)
         {
@@ -128,10 +132,10 @@ public class GameManager : MonoBehaviour
 
     private static void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
-        if (_instance != null)
+        if (Instance != null)
         {
-            _instance.FloorNumber += 1;
-            _instance.Init();
+            Instance.FloorNumber += 1;
+            Instance.Init();
         }
     }
 
@@ -140,14 +144,14 @@ public class GameManager : MonoBehaviour
         if (enabled == false)
             enabled = true;
         Enemies = new List<Enemy>();
-        _instance.playersTurn = true;
+        Instance.playersTurn = true;
         board.SetUpLevel(FloorNumber);
         var room = board.Rooms.FirstOrDefault();
-        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
         Player.transform.position = room.GetCenter();
 
-        var players_light = GameObject.FindGameObjectWithTag("PlayersLight").GetComponent<Light>();
-        players_light.intensity = 25;
+        //var players_light = GameObject.FindGameObjectWithTag("PlayersLight").GetComponent<Light>();
+        //players_light.intensity = 25;
         Player.GetComponent<Actor>().Characteristics = playerCharacteristics;
 
         shortcutMenu.Init();

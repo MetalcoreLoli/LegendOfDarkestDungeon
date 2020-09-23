@@ -67,10 +67,10 @@ public class Player : MovingObject, IData<string, int>
 //        actor.Characteristics.Mp = actor.Characteristics.MaxMp = 25000;
 //#endif
 
-        GameManager._instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[0], 0);
-        GameManager._instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[1], 1);
-        GameManager._instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[2], 2);
-        //GameManager._instance.shortcutMenu.AddToShortcutMenu(GameManager._instance.potion, 4);
+        GameManager.Instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[0], 0);
+        GameManager.Instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[1], 1);
+        GameManager.Instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[2], 2);
+        //GameManager.Instance.shortcutMenu.AddToShortcutMenu(GameManager.Instance.potion, 4);
 
         StartCoroutine(RegenerateMana(manaRegenarationTime));
         base.Start();
@@ -80,7 +80,7 @@ public class Player : MovingObject, IData<string, int>
     void Update()
     {
 
-        if (GameManager._instance.playersTurn == false) return;
+        if (GameManager.Instance.playersTurn == false) return;
         var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
         if (!ui.crtMenu.IsOpen)
         { 
@@ -90,7 +90,7 @@ public class Player : MovingObject, IData<string, int>
             
             if (GameInput.GetKeyDown("Use"))
             {
-                GameManager._instance.shortcutMenu.ActivateCell();
+                GameManager.Instance.shortcutMenu.ActivateCell();
             }
 
         }
@@ -205,13 +205,13 @@ public class Player : MovingObject, IData<string, int>
         if (horizontal != 0 || vertical != 0)
         {
             AttemptMove<Enemy>((int)(horizontal), (int)(vertical));
-            //if (GameManager._instance.playersTurn)
+            //if (GameManager.Instance.playersTurn)
             //{
-            //    GameManager._instance.playersTurn = false;
+            //    GameManager.Instance.playersTurn = false;
             //}
             //IsMoving = false;
         }
-       // GameManager._instance.playersTurn = false;
+       // GameManager.Instance.playersTurn = false;
     }
 
     private void Restart()
@@ -346,7 +346,7 @@ public class Player : MovingObject, IData<string, int>
 
         //Level   = data["Level"];
         
-        //GameManager._instance.playeractor.Characteristics = actor.Characteristics;
-        //GameManager._instance.Player = this;
+        //GameManager.Instance.playeractor.Characteristics = actor.Characteristics;
+        //GameManager.Instance.Player = this;
     }
 }

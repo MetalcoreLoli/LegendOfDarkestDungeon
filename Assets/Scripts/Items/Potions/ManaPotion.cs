@@ -14,7 +14,7 @@ namespace Assets.Scripts.Items.Potions
         public void Use()
         {
             Debug.Log(nameof(ManaPotion));
-            GameManager._instance.Player.UpdateMana(DiceManager.RollDice("1d4"));
+            GameManager.Instance.Player.UpdateMana(DiceManager.RollDice("1d4"));
         }
     }
 }

@@ -40,8 +40,8 @@ namespace Assets.Scripts.Actors
                 Items = new Dictionary<Item, int>();
             if (!SaveLoader.Instance().IsNeedToLoad)
             {
-                AddItem(GameManager._instance.itemManager.GetItem("ManaPotion").GetComponent<ManaPotion>(), 5);
-                AddItem(GameManager._instance.itemManager.GetItem("HealingPotion").GetComponent<HealingPotion>(), 5);
+                AddItem(GameManager.Instance.itemManager.GetItem("ManaPotion").GetComponent<ManaPotion>(), 5);
+                AddItem(GameManager.Instance.itemManager.GetItem("HealingPotion").GetComponent<HealingPotion>(), 5);
             }
 
         }
@@ -193,7 +193,7 @@ namespace Assets.Scripts.Actors
 
         private void PlaceItemIntoShortcut(Item item, int number)
         {
-            var shortcutMenu = GameManager._instance.shortcutMenu;
+            var shortcutMenu = GameManager.Instance.shortcutMenu;
             if (shortcutMenu.CanPlaceAt(number))
                 shortcutMenu.AddToShortcutMenu(item.gameObject, number);
             else
@@ -237,7 +237,7 @@ namespace Assets.Scripts.Actors
                 int t_width     = guiCell.width * 4;
                 int t_height    = guiCell.height * 4;
 
-                var player = GameManager._instance.Player.GetComponent<Actor>() ?? null;
+                var player = GameManager.Instance.Player.GetComponent<Actor>() ?? null;
                 GUI.skin.font = font;
                 GUI.skin.font.material.SetColor("white", Color.white);
                 GUI.skin.box.normal.textColor = Color.white;
@@ -326,8 +326,8 @@ namespace Assets.Scripts.Actors
             var size = new Vector3(cellWidth * 6, cellHeight * 2);
             GUI.Box(
                 new Rect(position, size),
-                $"Level: {GameManager._instance.Player.Level}\n\n" +
-                $"Exp: {GameManager._instance.Player.Exp} / {GameManager._instance.Player.MaxExp}\n\n");
+                $"Level: {GameManager.Instance.Player.Level}\n\n" +
+                $"Exp: {GameManager.Instance.Player.Exp} / {GameManager.Instance.Player.MaxExp}\n\n");
         }
         
         void DrawItemDescription(Item item)
@@ -386,7 +386,7 @@ namespace Assets.Scripts.Actors
         }
         public void LoadData(Dictionary<string, int> data)
         {
-            var itemManager = GameManager._instance.itemManager;
+            var itemManager = GameManager.Instance.itemManager;
             foreach (var item in data)
             {
                 var itm = itemManager.GetItem(item.Key);

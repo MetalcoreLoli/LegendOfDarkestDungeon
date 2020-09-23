@@ -42,7 +42,7 @@ namespace Assets.Scripts.Items
         }
         public virtual void Take()
         {
-            GameManager._instance.inventoryManager.AddItem(this, DiceManager.RollDice("1d4"));
+            GameManager.Instance.inventoryManager.AddItem(this, DiceManager.RollDice("1d4"));
             gameObject.SetActive(false);
         }
 

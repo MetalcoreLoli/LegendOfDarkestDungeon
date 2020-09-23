@@ -17,61 +17,48 @@ namespace Assets.Scripts.Actors
     public class Actor : MonoBehaviour
     {
         [SerializeField] private ActorCharacteristics characteristics;
-        public ActorCharacteristics Characteristics { get => characteristics; set => characteristics = value; }
 
         [SerializeField] private ActorCharacteristicsTemplate template;
+
+        public ActorCharacteristics Characteristics { get => characteristics; set => characteristics = value; }
+        
+        public event EventHandler<int> OnHealthUpdate;
+        public event EventHandler<int> OnManaUpdate;
 
         private void Awake()
         {
             characteristics = 
                 template == null 
-                ? FromDices("6d6", "1d12") 
-                : FromTemplate(template);
+                ? ActorCharacteristics.FromDices("6d6", "1d12") 
+                : ActorCharacteristics.FromTemplate(template);
         }
 
-        public static ActorCharacteristics FromTemplate(ActorCharacteristicsTemplate template)
+        public void UpdateHealth(int value)
         {
-            var builder = new ActorCharacteristicsBuilder();
-
-            builder
-                .WithHp(DiceManager.RollUndSumFromString(template.Hp)).WithMaxHp(DiceManager.RollUndSumFromString(template.MaxHp))
-                .WithMp(DiceManager.RollUndSumFromString(template.Mp)).WithMaxMp(DiceManager.RollUndSumFromString(template.MaxMp))
-                .Characteristic
-                    .IntelligenceWithValue (DiceManager.RollUndSumFromString(template.Intelligence)).Modifactor.CalculateIntelligence()
-                .Characteristic
-                    .LuckyWithValue (DiceManager.RollUndSumFromString(template.Lucky))              .Modifactor.CalculateLucky()
-                .Characteristic
-                    .CharismaWithValue (DiceManager.RollUndSumFromString(template.Charisma))        .Modifactor.CalculateCharisma()
-                .Characteristic
-                    .StrengthWithValue (DiceManager.RollUndSumFromString(template.Strength))        .Modifactor.CalculateStrength()
-                .Characteristic
-                    .DexterityWithValue (DiceManager.RollUndSumFromString(template.Dexterity))      .Modifactor.CalculateDexterity();
-
-            return builder.Build();
+            Characteristics.Hp += CorrentValue(Characteristics.Hp += value, min: 0, max: Characteristics.MaxHp);
+            OnHealthUpdate?.Invoke(this, Characteristics.Hp);
         }
 
-        public static ActorCharacteristics FromDices(string diceForHp, string diceForMp)
+        public void UpdateMana(int value)
         {
-            var builder = new ActorCharacteristicsBuilder();
+            Characteristics.Mp = CorrentValue(Characteristics.Mp += value, min: 0, max: Characteristics.MaxMp);
+            OnManaUpdate?.Invoke(this, Characteristics.Mp);
+        }
 
-            var hpDice = DiceManager.RollUndSumFromString(diceForHp);
-            var mpDice = DiceManager.RollUndSumFromString(diceForMp);
-
-            builder
-                .WithHp(hpDice).WithMaxHp(hpDice)
-                .WithMp(mpDice).WithMaxMp(mpDice)
-                .Characteristic
-                    .IntelligenceWithValue(DiceManager.RollUndSumFromString("4d6")).Modifactor.CalculateIntelligence()
-                .Characteristic
-                    .LuckyWithValue(DiceManager.RollUndSumFromString("4d6")).Modifactor.CalculateLucky()
-                .Characteristic
-                    .CharismaWithValue(DiceManager.RollUndSumFromString("4d6")).Modifactor.CalculateCharisma()
-                .Characteristic
-                    .StrengthWithValue(DiceManager.RollUndSumFromString("4d6")).Modifactor.CalculateStrength()
-                .Characteristic
-                    .DexterityWithValue(DiceManager.RollUndSumFromString("4d6")).Modifactor.CalculateDexterity();
-
-            return builder.Build();
+        /// <summary>
+        /// Корректирует значение (value), если оно больше максимимума (max), 
+        /// то value присваивается max, иначе если 
+        /// value меньше либо равно минимуму (min), 
+        /// то ему присваивается min
+        /// </summary>
+        /// <param name="value">знaчeние для корректировки</param>
+        /// <param name="min">минимум</param>
+        /// <param name="max">максимум</param>
+        private int CorrentValue(int value, int min, int max)
+        {
+            if (value > max) return max;
+            else if (value <= min) return min;
+            else return value;
         }
     }
 }
