@@ -39,9 +39,11 @@ public class GameManager : MonoBehaviour
         else if (Instance != this)
             Destroy(gameObject);
 
-
+        PlayerObject = Instantiate(PlayerObject);
         DontDestroyOnLoad(gameObject);
         DontDestroyOnLoad(PlayerObject);
+
+        PlayerObject.GetComponent<Casting>().Caster = PlayerObject.transform;
 
         messageBox.SetActive(false);
         var msg = Instantiate(messageBox);
@@ -57,6 +59,7 @@ public class GameManager : MonoBehaviour
 
         Player = PlayerObject?.GetComponent<Player>();
         PlayerActor = PlayerObject?.GetComponent<Actor>();
+
 
         if (SaveLoader.Instance().IsNeedToLoad)
         {
@@ -78,6 +81,10 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
+
+        PlayerActor.OnHealthUpdate  += (s, e) => ui.HpController.SetValue(e);
+        PlayerActor.OnManaUpdate    += (s, e) => ui.MpController.SetValue(e);
+
         if (!SaveLoader.Instance().IsNeedToLoad)
         {
             ui.crtMenu.Open();
@@ -112,7 +119,7 @@ public class GameManager : MonoBehaviour
     public void UpdatePlayersCharacteristics(ActorCharacteristics actorCharacteristics)
     {
         if (Player == null) return;
-        var actor = Player.GetComponent<Actor>();
+        var actor = PlayerActor;
         actor.Characteristics = actorCharacteristics;
 
         var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
@@ -160,26 +167,27 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        StartCoroutine(MoveEnemies());
     }
 
 
-    //IEnumerator MoveEnemies()
-    //{
-    //    yield return new WaitForSeconds(0.5f);
-    //    if (Enemies.Count > 0)
-    //    {
-    //        foreach (var enemy in Enemies)
-    //        {
-    //            yield return new WaitForSeconds(enemy.moveTime);
-    //            if (enemy != null)
-    //            {
-    //                //Debug.Log($"{(enemy.gameObject == null ? "null" : "not null")}");
-    //                enemy.MoveEnemy();
-    //            }
-    //        }
-    //    }
-    //    playersTurn = true;
-    //}
+    IEnumerator MoveEnemies()
+    {
+        yield return new WaitForSeconds(0.5f);
+        if (Enemies.Count > 0)
+        {
+            foreach (var enemy in Enemies)
+            {
+                yield return new WaitForSeconds(enemy.moveTime);
+                if (enemy != null)
+                {
+                    //Debug.Log($"{(enemy.gameObject == null ? "null" : "not null")}");
+                    enemy.MoveEnemy();
+                }
+            }
+        }
+        playersTurn = true;
+    }
     private void OnDestroy()
     {
         foreach (var item in Enemies)

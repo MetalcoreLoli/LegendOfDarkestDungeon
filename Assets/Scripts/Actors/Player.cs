@@ -24,7 +24,7 @@ public class Player : MovingObject, IData<string, int>
 {
     public float speed = 5f;
 
-    private float restartLevelDelay = 1f;
+    private float restartLevelDelay = 0.5f;
     private float manaRegenarationTime = 15f;
     private Animator animator;
 
@@ -32,12 +32,6 @@ public class Player : MovingObject, IData<string, int>
     private float vertical    = 0;
 
     private int level = 1;
-
-    public int MaxHp;
-    public int Hp;
-
-    public int Mana;
-    public int MaxMana;
 
     [SerializeField] private int exp;
     [SerializeField] private int maxExp = 20;
@@ -49,6 +43,7 @@ public class Player : MovingObject, IData<string, int>
     public LookDir lookDir = LookDir.Left;
 
     [NonSerialized] private Actor actor;
+    public static Player Instance = null;
 
     public int Level { get => level; internal set => level = value; }
     public int Exp { get => exp; internal set => exp = value; }
@@ -56,16 +51,21 @@ public class Player : MovingObject, IData<string, int>
 
     private void Awake()
     {
-        actor = GetComponent<Actor>();
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
+            Destroy(gameObject);
+
     }
 
     protected override void Start()
     {
         animator = GetComponent<Animator>();
+        actor = GameManager.Instance.PlayerActor;
 
-//#if UNITY_EDITOR
-//        actor.Characteristics.Mp = actor.Characteristics.MaxMp = 25000;
-//#endif
+        //#if UNITY_EDITOR
+        //        actor.Characteristics.Mp = actor.Characteristics.MaxMp = 25000;
+        //#endif
 
         GameManager.Instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[0], 0);
         GameManager.Instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[1], 1);
@@ -159,7 +159,7 @@ public class Player : MovingObject, IData<string, int>
             yield return new WaitForSeconds(time);
             Debug.Log("Mp was restored " + Time.time);
             int mana = DiceManager.RollDice("1d4");
-            UpdateMana(mana);
+            GameManager.Instance.PlayerActor.UpdateMana(mana);
         }
     }
 
@@ -247,22 +247,6 @@ public class Player : MovingObject, IData<string, int>
         }
     }
 
-    public void UpdateMana(int value)
-    {
-        
-        actor.Characteristics.Mp  += value;
-        //if (value > 0)
-        //    TextPopUp.CreateWithColor(transform.position, "+" + value, DamageDealer.Text.transform, Color.blue);
-
-        if (actor.Characteristics.Mp > actor.Characteristics.MaxMp)
-        {
-            actor.Characteristics.Mp = actor.Characteristics.MaxMp;
-        }
-        else if (actor.Characteristics.Mp < 0)
-        {
-            actor.Characteristics.Mp = 0;
-        }
-    }
     public virtual void UpdateExp(int value)
     {
         exp += value;
@@ -287,11 +271,10 @@ public class Player : MovingObject, IData<string, int>
 
     public bool PlayerCastSpell(int cost)
     { 
-        if (actor.Characteristics.Mp - cost >= 0)
+        if (GameManager.Instance.PlayerActor.Characteristics.Mp - cost >= 0)
         {
-            UpdateMana(-cost);
-            Mana = actor.Characteristics.Mp;
-            animator.SetTrigger("Casting2");
+            GameManager.Instance.PlayerActor.UpdateMana(-cost);
+           // animator.SetTrigger("Casting2");
             return true;
         }
         return false;
@@ -327,7 +310,6 @@ public class Player : MovingObject, IData<string, int>
 
         return temp;
     }
-
     public void LoadData(Dictionary<string, int> data)
     {
         //actor.Characteristics.Hp      = data["Hp"];

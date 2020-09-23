@@ -118,7 +118,7 @@ namespace Assets.Scripts.Core
 
         public void ActivateCell()
         {
-            var player = GameObject.Find("Player");
+            var player = GameManager.Instance.Player;
             var casting = player.GetComponent<Casting>();
             if (Objects[CurrentCell] != null && !GameManager.Instance.inventoryManager.IsOpen)
             {

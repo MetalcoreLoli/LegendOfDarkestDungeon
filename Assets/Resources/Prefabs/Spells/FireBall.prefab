@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 576122911487092457}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 64.7044, y: 9.6276, z: -11.707271}
+  m_LocalPosition: {x: 29, y: 25, z: 0}
   m_LocalScale: {x: 0.8877411, y: 0.9167061, z: 1}
   m_Children:
   - {fileID: 7952144542710995987}
@@ -51,6 +51,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -156,8 +157,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Info: {fileID: 11400000, guid: c3f38c4c950b25b4ebb8a6d633fdf592, type: 2}
-  FirePoint: {fileID: 0}
-  FirePointUp: {fileID: 0}
+  FirePoint: {fileID: 3412384893320734635, guid: b34513db1fdb1084da9c00fbc66002bc,
+    type: 3}
+  FirePointUp: {fileID: 3412384893928095810, guid: b34513db1fdb1084da9c00fbc66002bc,
+    type: 3}
   Icon: {fileID: 0}
   rb2D: {fileID: 3063216085136426767}
   speed: 5

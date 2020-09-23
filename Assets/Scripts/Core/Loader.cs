@@ -19,11 +19,5 @@ public class Loader : MonoBehaviour
         { 
             Instantiate(gameManager);
         }
-
-        var player = GameObject.Find("Player");
-        if (player == null)
-        {
-            Instantiate(gameManager.GetComponent<GameManager>().PlayerObject);
-        }
     }
 }

@@ -13,7 +13,6 @@ public class Casting : MonoBehaviour
 
     public GameObject[] SpellPrefabs;
 
-
     public void CastSpellWithIndex(int index)
     {
         var spell           = SpellPrefabs[index].GetComponent<Spell>();

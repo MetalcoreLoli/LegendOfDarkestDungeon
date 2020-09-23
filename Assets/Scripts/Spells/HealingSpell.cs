@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Dices;
+﻿using Assets.Scripts.Actors;
+using Assets.Scripts.Dices;
 using Assets.Scripts.UI;
 using System;
 using System.Collections.Generic;
@@ -13,14 +14,10 @@ namespace Assets.Scripts.Spells
     {
         public override void Cast(Transform caster)
         {
-            var player = GameObject.Find("Player").GetComponent<Player>();
-
-            if (player.PlayerCastSpell(2))
-            {
-                int heal = DiceManager.RollDice("1d4");
-                //TextPopUp.CreateAt(transform.position, heal, player.DamageDealer.Text.transform);
-                player.UpdateHealth(heal);
-            }
+            var actor = caster.gameObject.GetComponent<Actor>();
+            int heal = DiceManager.RollDice("1d4");
+            actor.UpdateMana(-Info.Cost);
+            actor.UpdateHealth(heal);
         }
     }
 }

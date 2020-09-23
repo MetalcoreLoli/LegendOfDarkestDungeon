@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Dices;
+﻿using Assets.Scripts.Actors;
+using Assets.Scripts.Dices;
 using Assets.Scripts.Spells;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,19 +35,21 @@ public class FireBall : Spell
 
     public override void Cast(Transform caster)
     {
-        var firePointPos = FirePoint.position;
-        var caster1 = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        var firePointPos = caster.position;
+        var caster1 = caster.GetComponent<Player>();
         Debug.Log(Info.Name + $" was cast by {caster1.GetType().Name}");
         if (caster1.PlayerCastSpell(Info.Cost))
         {
             if (caster1.lookDir == LookDir.Left || caster1.lookDir == LookDir.Right)
-                Instantiate(Info.Prefab, FirePoint.position, FirePoint.rotation);
+            {
+                firePointPos += Vector3.left;
+                Instantiate(Info.Prefab, firePointPos, FirePoint.rotation);
+            }
             else
             {
-                Instantiate(Info.Prefab, FirePointUp.position, FirePointUp.rotation);
-                firePointPos = FirePointUp.position;
+                firePointPos += Vector3.up;
+                Instantiate(Info.Prefab, firePointPos, FirePointUp.rotation);
             }
-
             rb2D.AddForce(firePointPos * 10.0f, ForceMode2D.Impulse);
         }
     }
