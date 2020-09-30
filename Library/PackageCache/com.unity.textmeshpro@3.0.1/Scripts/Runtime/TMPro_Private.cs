@@ -75,7 +75,7 @@ namespace TMPro
             if (canvasRenderer != null)
             {
                 Debug.Log("Removing unnecessary CanvasRenderer component from text object.", this);
-                Destroy(canvasRenderer);
+                DestroyImmediate(canvasRenderer);
             }
 
             // Cache Reference to RectTransform

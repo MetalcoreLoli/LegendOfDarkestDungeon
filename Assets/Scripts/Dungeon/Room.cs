@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,6 +13,7 @@ public class Room
 
     public List<Vector3> UpWallCoord { get; set; }
     public List<Vector3> InnerCoords { get; set; }
+
     public Room(int width, int height, Vector3 location)
     {
         Width = width;
@@ -34,22 +34,18 @@ public class Room
                 int idx = x + width * y;
 
                 temp[idx] = new Tile(new Vector3(x, y, 0) + Location);
-
-               
-
             }
         }
 
-        for (int x = 1; x < width-1; x++)
-            for (int y = 1; y < height-1; y++)
-                InnerCoords.Add(new Vector3(x, y)+ Location);
-                
+        for (int x = 1; x < width - 1; x++)
+            for (int y = 1; y < height - 1; y++)
+                InnerCoords.Add(new Vector3(x, y) + Location);
+
         return temp;
     }
 
     public bool IsIntersectedWith(Room room)
     {
-
         //return room.Body.Intersect(Body).Count() != 0;
 
         foreach (var cell in room.Body)
@@ -61,7 +57,7 @@ public class Room
     }
 
     public Vector3 GetCenter()
-    { 
+    {
         int idx = (Width / 2) + Width * (Height / 2);
         return Body[idx].Location;
     }

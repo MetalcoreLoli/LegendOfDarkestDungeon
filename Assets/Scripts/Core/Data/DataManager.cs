@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.IO;
-using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.ComponentModel;
+using UnityEngine;
 
 namespace Assets.Scripts.Core
 {
@@ -28,8 +25,8 @@ namespace Assets.Scripts.Core
                 BinaryFormatter formatter = new BinaryFormatter();
                 formatter.Serialize(fileStream, gameData);
             }
-         
-            Debug.Log("Saving... "+filePath);
+
+            Debug.Log("Saving... " + filePath);
         }
 
         public void LoadSavedData(string name = "savedata")
@@ -41,7 +38,7 @@ namespace Assets.Scripts.Core
             //{
             //    Debug.Log($"File({file}) was not found !!");
             //    return;
-            //} 
+            //}
             Dictionary<string, object> gameData = new Dictionary<string, object>();
             using (var stream = File.Open(file, FileMode.Open))
             {

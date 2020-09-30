@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Spells
 {
-
     public abstract class Spell : MonoBehaviour
     {
         public SpellInfo Info;
@@ -15,6 +10,7 @@ namespace Assets.Scripts.Spells
         public Transform FirePointUp;
         public SpriteRenderer Icon;
         public Rigidbody2D rb2D;
+
         public abstract void Cast(Transform caster);
     }
 }

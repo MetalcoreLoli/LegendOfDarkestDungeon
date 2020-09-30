@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Dungeon.Factory
 {
     public class DungeonFactoryManager : MonoBehaviour
     {
-        DefaultDungeonFactory dungeonFactory;
-        BlueDungeonFactory dungeonBlueFactory;
+        private DefaultDungeonFactory dungeonFactory;
+        private BlueDungeonFactory dungeonBlueFactory;
 
         public static DungeonFactoryManager instance;
         public DefaultDungeonFactory DefaultDungeonFactory { get => dungeonFactory; private set => dungeonFactory = value; }

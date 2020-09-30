@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public struct Tile
-{ 
+{
     public Vector3 Location { get; set; }
     public GameObject Body { get; set; }
 
@@ -12,5 +10,4 @@ public struct Tile
         Location = location;
         Body = body;
     }
-
 }

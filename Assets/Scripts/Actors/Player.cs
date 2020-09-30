@@ -2,34 +2,31 @@
 using Assets.Scripts.Core;
 using Assets.Scripts.Core.Data;
 using Assets.Scripts.Dices;
-using Assets.Scripts.Stats;
 using Assets.Scripts.UI;
-using Assets.Scripts.UI.Menu;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public enum LookDir
-{ 
-    Up      = 0,
-    Down    = 1,
-    Left    = 2,
-    Right   = 3
+{
+    Up = 0,
+    Down = 1,
+    Left = 2,
+    Right = 3
 }
 
 public class Player : MovingObject, IData<string, int>
 {
     public float speed = 5f;
 
-    private float restartLevelDelay = 0.5f;
+    private float restartLevelDelay = 1f;
     private float manaRegenarationTime = 15f;
     private Animator animator;
 
-    private float horizontal  = 0;
-    private float vertical    = 0;
+    private float horizontal = 0;
+    private float vertical = 0;
 
     private int level = 1;
 
@@ -37,10 +34,9 @@ public class Player : MovingObject, IData<string, int>
     [SerializeField] private int maxExp = 20;
 
     public Camera Camera;
-    
-    private bool isFlipLeftRight    = false;
-    private bool isFlipUpDown       = false;
-    public LookDir lookDir = LookDir.Left;
+
+    private bool isFlipLeftRight = false;
+    private bool isFlipUpDown = false;
 
     [NonSerialized] private Actor actor;
     public static Player Instance = null;
@@ -55,7 +51,6 @@ public class Player : MovingObject, IData<string, int>
             Instance = this;
         else if (Instance != this)
             Destroy(gameObject);
-
     }
 
     protected override void Start()
@@ -77,24 +72,20 @@ public class Player : MovingObject, IData<string, int>
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
         if (GameManager.Instance.playersTurn == false) return;
         var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
         if (!ui.crtMenu.IsOpen)
-        { 
+        {
+            horizontal = (Input.GetAxisRaw("Horizontal"));
+            vertical = (Input.GetAxisRaw("Vertical"));
 
-            horizontal  = (Input.GetAxisRaw("Horizontal"));
-            vertical    = (Input.GetAxisRaw("Vertical"));
-            
             if (GameInput.GetKeyDown("Use"))
             {
                 GameManager.Instance.shortcutMenu.ActivateCell();
             }
-
         }
-
 
         if (horizontal != 0)
         {
@@ -118,9 +109,9 @@ public class Player : MovingObject, IData<string, int>
         {
             if (vertical > 0)
                 lookDir = LookDir.Up;
-            else 
+            else
                 lookDir = LookDir.Down;
-            
+
             if (vertical > 0 && !isFlipUpDown)
             {
                 FlipFirePointUpDown();
@@ -141,17 +132,15 @@ public class Player : MovingObject, IData<string, int>
             float inputAngel = (Mathf.Atan2(inputDir.y, inputDir.x)) * Mathf.Rad2Deg;
             Debug.DrawRay(transform.position, inputDir * 3, Color.white);
             GameObject.Find("FirePoint").transform.eulerAngles = new Vector3(0, 0, inputAngel);
-
         }
 
         //GameObject.Find("FirePoint").transform.eulerAngles = Vector3.up * inputAngel;
         ////transform.eulerAngles = Vector2.up * -angel;
-
     }
 
     private IEnumerator RegenerateMana(float time)
     {
-        while(true)
+        while (true)
         {
 #if UNITY_EDITOR
             time = 10f;
@@ -193,9 +182,6 @@ public class Player : MovingObject, IData<string, int>
             veca.z = (transform.localScale.x < 0) ? -90f : 90f;
             firePoint.transform.localEulerAngles = veca;
         }
-
-
-
     }
 
     private void FixedUpdate()
@@ -211,7 +197,7 @@ public class Player : MovingObject, IData<string, int>
             //}
             //IsMoving = false;
         }
-       // GameManager.Instance.playersTurn = false;
+        // GameManager.Instance.playersTurn = false;
     }
 
     private void Restart()
@@ -262,6 +248,7 @@ public class Player : MovingObject, IData<string, int>
         }
         //TextPopUp.CreateWithColor(transform.position, "+" + value, DamageDealer.Text.transform, Color.yellow);
     }
+
     public void LoseHp(int damage)
     {
         UpdateHealth(-damage);
@@ -270,25 +257,25 @@ public class Player : MovingObject, IData<string, int>
     }
 
     public bool PlayerCastSpell(int cost)
-    { 
+    {
         if (GameManager.Instance.PlayerActor.Characteristics.Mp - cost >= 0)
         {
             GameManager.Instance.PlayerActor.UpdateMana(-cost);
-           // animator.SetTrigger("Casting2");
+            // animator.SetTrigger("Casting2");
             return true;
         }
         return false;
     }
+
     protected override void OnCantMove<T>(T comp)
     {
-        Enemy enemy  = comp as Enemy;
-		//if (DiceManager.TwentyEdges.Roll() > 15)
-  //          LoseHp(enemy.Damage);
+        Enemy enemy = comp as Enemy;
+        //if (DiceManager.TwentyEdges.Roll() > 15)
+        //          LoseHp(enemy.Damage);
     }
 
     public Dictionary<string, int> GetData()
     {
-
         Dictionary<string, int> temp = new Dictionary<string, int>();
 
         //temp.Add("Hp",      actor.Characteristics.Hp);
@@ -305,11 +292,12 @@ public class Player : MovingObject, IData<string, int>
 
         //temp.Add("Exp",    Exp);
         //temp.Add("MaxExp",    MaxExp);
-        
+
         //temp.Add("Level",    Level);
 
         return temp;
     }
+
     public void LoadData(Dictionary<string, int> data)
     {
         //actor.Characteristics.Hp      = data["Hp"];
@@ -327,7 +315,7 @@ public class Player : MovingObject, IData<string, int>
         //MaxExp  = data["MaxExp"];
 
         //Level   = data["Level"];
-        
+
         //GameManager.Instance.playeractor.Characteristics = actor.Characteristics;
         //GameManager.Instance.Player = this;
     }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(FieldOfView))]
@@ -18,8 +16,7 @@ public class FovEditor : Editor
 
         //Handles.DrawLine(fov.transform.position, fov.transform.position + viewAngleA * fov.ViewRadius);
         //Handles.DrawLine(fov.transform.position, fov.transform.position + viewAngleB * fov.ViewRadius);
-        
-        
+
         Handles.color = Color.red;
 
         foreach (var item in fov.visibleTargets)

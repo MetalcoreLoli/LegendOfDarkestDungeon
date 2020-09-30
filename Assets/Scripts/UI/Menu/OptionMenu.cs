@@ -1,9 +1,5 @@
 ﻿using Assets.Scripts.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +7,6 @@ namespace Assets.Scripts.UI.Menu
 {
     public class OptionMenu : Menu
     {
-       
         public InputField[] InputFields;
 
         private KeyCode pressedKey;
@@ -25,7 +20,7 @@ namespace Assets.Scripts.UI.Menu
         }
 
         public override void Close()
-        { 
+        {
             gameObject.SetActive(false);
             GameManager.Instance.Player.enabled = true;
             GameManager.Instance.enabled = true;
@@ -40,13 +35,14 @@ namespace Assets.Scripts.UI.Menu
                 Close();
             }
         }
+
         private void Awake()
         {
             allKeyCodes = System.Enum.GetValues(typeof(KeyCode));
         }
+
         private void Update()
         {
-           
         }
 
         private void OnGUI()
@@ -58,6 +54,7 @@ namespace Assets.Scripts.UI.Menu
             //    Debug.Log(pressedKey);
             //}
         }
+
         public void OnEdit(InputField inputField)
         {
             foreach (KeyCode key in allKeyCodes)

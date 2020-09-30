@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
 using Random = System.Random;
+
 namespace Assets.Scripts.Dices
 {
     public class Dice
@@ -14,9 +11,9 @@ namespace Assets.Scripts.Dices
         private Edge rolledEdge;
         public UInt16 CountOfEdges { get; set; }
 
-        public Int32 RolledValue 
+        public Int32 RolledValue
         {
-            get 
+            get
             {
                 if (rolledValue == 0)
                     Roll();
@@ -42,17 +39,17 @@ namespace Assets.Scripts.Dices
 
         public int Roll()
         {
-            int randIndex   = new Random(DateTime.Now.Millisecond).Next(0, CountOfEdges);
-            rolledValue     = Edges[randIndex].Value;
-            rolledEdge      = Edges[randIndex];
+            int randIndex = new Random(DateTime.Now.Millisecond).Next(0, CountOfEdges);
+            rolledValue = Edges[randIndex].Value;
+            rolledEdge = Edges[randIndex];
             return rolledValue;
         }
 
         public int Roll(Random rand)
         {
-            int randIndex   = rand.Next(0, CountOfEdges);
-            rolledValue     = Edges[randIndex].Value;
-            rolledEdge      = Edges[randIndex];
+            int randIndex = rand.Next(0, CountOfEdges);
+            rolledValue = Edges[randIndex].Value;
+            rolledEdge = Edges[randIndex];
             return rolledValue;
         }
 
@@ -62,7 +59,7 @@ namespace Assets.Scripts.Dices
             return new Dice(countOfEdges);
         }
 
-        public static implicit operator Dice(string dice) 
+        public static implicit operator Dice(string dice)
             => Parser(dice);
     }
 }

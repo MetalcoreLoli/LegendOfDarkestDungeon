@@ -11,13 +11,11 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
     public static GameManager Instance = null;
     public GameObject messageBox;
     public GameObject PlayerObject;
     public Player Player;
     public Actor PlayerActor;
-
 
     public List<Enemy> Enemies;
     [HideInInspector] public bool playersTurn;
@@ -32,6 +30,7 @@ public class GameManager : MonoBehaviour
     public ActorCharacteristics playerCharacteristics;
 
     public int FloorNumber = 1;
+
     private void Awake()
     {
         if (Instance == null)
@@ -51,15 +50,14 @@ public class GameManager : MonoBehaviour
         MessageBox = msg.GetComponent<MessageBox>();
         DontDestroyOnLoad(MessageBox);
 
-        itemManager         = GetComponent<ItemManager>();
-        board               = GetComponent<Board>();
-        shortcutMenu        = GetComponent<ShortcutMenu>();
-        dataManager         = GetComponent<DataManager>();
-        inventoryManager    = GetComponent<InventoryManager>();
+        itemManager = GetComponent<ItemManager>();
+        board = GetComponent<Board>();
+        shortcutMenu = GetComponent<ShortcutMenu>();
+        dataManager = GetComponent<DataManager>();
+        inventoryManager = GetComponent<InventoryManager>();
 
         Player = PlayerObject?.GetComponent<Player>();
         PlayerActor = PlayerObject?.GetComponent<Actor>();
-
 
         if (SaveLoader.Instance().IsNeedToLoad)
         {
@@ -67,23 +65,20 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-
             playerCharacteristics = new ActorCharacteristics(50, DiceManager.RollUndSumFromString("4d6") * 7);
         }
 
-        Enemies = new List<Enemy>();
-
-#if UNITY_EDITOR 
+#if UNITY_EDITOR
         Init();
 #endif
-
     }
+
     private void Start()
     {
         var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
 
-        PlayerActor.OnHealthUpdate  += (s, e) => ui.HpController.SetValue(e);
-        PlayerActor.OnManaUpdate    += (s, e) => ui.MpController.SetValue(e);
+        PlayerActor.OnHealthUpdate += (s, e) => ui.HpController.SetValue(e);
+        PlayerActor.OnManaUpdate += (s, e) => ui.MpController.SetValue(e);
 
         if (!SaveLoader.Instance().IsNeedToLoad)
         {
@@ -93,10 +88,9 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-
         var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
         if (!ui.crtMenu.IsOpen && MessageBox.DialogResult == DialogResult.None)
-        { 
+        {
             //MessageBox = Instantiate(messageBox).GetComponent<MessageBox>();
             MessageBox.Show(":CCCCC", "You DEAD");
         }
@@ -104,12 +98,12 @@ public class GameManager : MonoBehaviour
         {
             StopAllCoroutines();
             Enemies = new List<Enemy>();
-            Destroy (GameObject.Find("SoundManager").gameObject);
-            Destroy (gameObject);
+            Destroy(GameObject.Find("SoundManager").gameObject);
+            Destroy(gameObject);
             SceneManager.LoadScene(0, LoadSceneMode.Single);
         }
 
-        //if (dialogResult == DialogResult.OK || dialogResult == DialogResult.Cancel) 
+        //if (dialogResult == DialogResult.OK || dialogResult == DialogResult.Cancel)
         //{
         //    //SceneManager.LoadScene(0, LoadSceneMode.Single);
         //    Debug.Log(dialogResult+ "on gameover");
@@ -154,6 +148,7 @@ public class GameManager : MonoBehaviour
         Instance.playersTurn = true;
         board.SetUpLevel(FloorNumber);
         var room = board.Rooms.FirstOrDefault();
+        //PlayerObject = Instantiate(PlayerObject);
 
         Player.transform.position = room.GetCenter();
 
@@ -162,7 +157,6 @@ public class GameManager : MonoBehaviour
         Player.GetComponent<Actor>().Characteristics = playerCharacteristics;
 
         shortcutMenu.Init();
-
     }
 
     private void Update()
@@ -170,8 +164,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(MoveEnemies());
     }
 
-
-    IEnumerator MoveEnemies()
+    private IEnumerator MoveEnemies()
     {
         yield return new WaitForSeconds(0.5f);
         if (Enemies.Count > 0)
@@ -188,9 +181,10 @@ public class GameManager : MonoBehaviour
         }
         playersTurn = true;
     }
+
     private void OnDestroy()
     {
-        foreach (var item in Enemies)
-            item.TakeDamage(item.characteristics.MaxHp * 2, false);
+        //foreach (var item in Enemies)
+        //    item.TakeDamage(item.characteristics.MaxHp * 2, false);
     }
 }

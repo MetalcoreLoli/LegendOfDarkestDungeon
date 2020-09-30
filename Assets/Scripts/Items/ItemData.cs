@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Items
 {
-    [CreateAssetMenu(fileName ="new item data", menuName = "Items Data", order = 51)]
+    [CreateAssetMenu(fileName = "new item data", menuName = "Items Data", order = 51)]
     public class ItemData : ScriptableObject
     {
         [SerializeField] private string _name;

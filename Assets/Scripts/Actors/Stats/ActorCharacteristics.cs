@@ -1,20 +1,14 @@
-
+using Assets.Scripts.Actors.Stats;
+using Assets.Scripts.Builders;
 using Assets.Scripts.Dices;
 using System;
 using UnityEngine;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Assets.Scripts.Builders;
-using Assets.Scripts.Actors.Stats;
 
 namespace Assets.Scripts.Stats
 {
     [Serializable]
     public class ActorCharacteristics : ICharacteristics, ICharcteristicsMod
     {
-
         [SerializeField] private int intell;
         [SerializeField] private int charisma;
         [SerializeField] private int dexterity;
@@ -32,12 +26,12 @@ namespace Assets.Scripts.Stats
             set => _hp = value;
         }
 
-
         public int Mp
         {
             get => _mp;
             set => _mp = value;
         }
+
         public int MaxHp { get => _maxHp; set => _maxHp = value; }
 
         public int MaxMp { get => _maxMp; set => _maxMp = value; }
@@ -58,6 +52,7 @@ namespace Assets.Scripts.Stats
                 MaxMp += IntelligenceMod;
             }
         }
+
         public int Charisma
         {
             get => charisma;
@@ -67,6 +62,7 @@ namespace Assets.Scripts.Stats
                 CharismaMod = CalculateModificators(charisma);
             }
         }
+
         public int Dexterity
         {
             get => dexterity;
@@ -76,6 +72,7 @@ namespace Assets.Scripts.Stats
                 DexterityMod = CalculateModificators(dexterity);
             }
         }
+
         public int Strength
         {
             get => strength;
@@ -86,6 +83,7 @@ namespace Assets.Scripts.Stats
                 MaxHp += StrengthMod;
             }
         }
+
         public int Lucky
         {
             get => lucky;
@@ -96,12 +94,12 @@ namespace Assets.Scripts.Stats
             }
         }
 
-
-
         protected virtual int CalculateModificators(int value)
              => (value - 10 != 0) ? (value - 10) / 2 : 0;
-        
-        public ActorCharacteristics() { }
+
+        public ActorCharacteristics()
+        {
+        }
 
         public ActorCharacteristics(int maxHp, int maxMp)
         {
@@ -120,8 +118,6 @@ namespace Assets.Scripts.Stats
             Lucky = DiceManager.RollUndSumFromString("4d6");
             Intelligence = DiceManager.RollUndSumFromString("4d6");
         }
-
-
 
         public static ActorCharacteristics FromTemplate(ActorCharacteristicsTemplate template)
         {
@@ -144,26 +140,26 @@ namespace Assets.Scripts.Stats
             return builder.Build();
         }
 
-        public static ActorCharacteristics FromDices(string diceForHp, string diceForMp)
+        public static ActorCharacteristics FromDices(string diceForHp, string diceForMp, string diceForStats = "4d6")
         {
             var builder = new ActorCharacteristicsBuilder();
 
-            var hpDice = DiceManager.RollUndSumFromString(diceForHp);
-            var mpDice = DiceManager.RollUndSumFromString(diceForMp);
+            int hpDice = DiceManager.RollUndSumFromString(diceForHp);
+            int mpDice = DiceManager.RollUndSumFromString(diceForMp);
 
             builder
                 .WithHp(hpDice).WithMaxHp(hpDice)
                 .WithMp(mpDice).WithMaxMp(mpDice)
                 .Characteristic
-                    .IntelligenceWithValue(DiceManager.RollUndSumFromString("4d6")).Modifactor.CalculateIntelligence()
+                    .IntelligenceWithValue(DiceManager.RollUndSumFromString(diceForStats)).Modifactor.CalculateIntelligence()
                 .Characteristic
-                    .LuckyWithValue(DiceManager.RollUndSumFromString("4d6")).Modifactor.CalculateLucky()
+                    .LuckyWithValue(DiceManager.RollUndSumFromString(diceForStats)).Modifactor.CalculateLucky()
                 .Characteristic
-                    .CharismaWithValue(DiceManager.RollUndSumFromString("4d6")).Modifactor.CalculateCharisma()
+                    .CharismaWithValue(DiceManager.RollUndSumFromString(diceForStats)).Modifactor.CalculateCharisma()
                 .Characteristic
-                    .StrengthWithValue(DiceManager.RollUndSumFromString("4d6")).Modifactor.CalculateStrength()
+                    .StrengthWithValue(DiceManager.RollUndSumFromString(diceForStats)).Modifactor.CalculateStrength()
                 .Characteristic
-                    .DexterityWithValue(DiceManager.RollUndSumFromString("4d6")).Modifactor.CalculateDexterity();
+                    .DexterityWithValue(DiceManager.RollUndSumFromString(diceForStats)).Modifactor.CalculateDexterity();
 
             return builder.Build();
         }

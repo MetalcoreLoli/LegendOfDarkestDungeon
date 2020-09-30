@@ -1,9 +1,4 @@
 ﻿using Assets.Scripts.UI.Menu;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,16 +6,16 @@ namespace Assets.Scripts.UI
 {
     public class UIController : MonoBehaviour
     {
-        BarController hpContoroller;
-        BarController mpContoroller;
-        
+        private BarController hpContoroller;
+        private BarController mpContoroller;
+
         public GameObject selectedSpell;
 
-        [SerializeField] private GameMenuSettings   gameMenu;
-        [SerializeField] public LevelUpMenu         lvlMenu;
-        [SerializeField] public OptionMenu          optionMenu;
-        [SerializeField] public CreatingMenu        crtMenu;
-        [SerializeField] public BookOfSpellMenu     bookOfSpellsMenu;
+        [SerializeField] private GameMenuSettings gameMenu;
+        [SerializeField] public LevelUpMenu lvlMenu;
+        [SerializeField] public OptionMenu optionMenu;
+        [SerializeField] public CreatingMenu crtMenu;
+        [SerializeField] public BookOfSpellMenu bookOfSpellsMenu;
         [SerializeField] private Text hpText;
         [SerializeField] private Text mpText;
 
@@ -28,6 +23,7 @@ namespace Assets.Scripts.UI
 
         public BarController HpController { get => hpContoroller; }
         public BarController MpController { get => mpContoroller; }
+
         private void Awake()
         {
             selectedSpell = GameObject.Find("SelectedSpell");
@@ -35,7 +31,7 @@ namespace Assets.Scripts.UI
             var spellTransform = selectedSpell.transform;
             for (int i = 0; i < SpellsPositions.Length; i++)
             {
-                SpellsPositions[i] 
+                SpellsPositions[i]
                     = new Vector3(spellTransform.position.x + (16 * spellTransform.localScale.x) * i, spellTransform.position.y);
             }
         }
@@ -51,12 +47,11 @@ namespace Assets.Scripts.UI
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape) )
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 if (!gameMenu.IsOpen && !crtMenu.IsOpen)
                     gameMenu.Open();
             }
-
         }
 
         private void FixedUpdate()

@@ -1,10 +1,6 @@
 ﻿using Assets.Scripts.Items;
 using Assets.Scripts.UI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,16 +8,18 @@ namespace Assets.Scripts.Core
 {
     public class ShortcutMenu : MonoBehaviour
     {
-        public  GameObject[] Objects;
-        public  GameObject[] Cells;
+        public GameObject[] Objects;
+        public GameObject[] Cells;
         private UIController uIController;
-        public  GameObject SelectedObject;
-        public  Int32 CurrentCell = 0;
+        public GameObject SelectedObject;
+        public Int32 CurrentCell = 0;
+
         private void Awake()
         {
             //Cells[0].GetComponent<Image>().sprite = playerCasting.SpellPrefabs[0].GetComponent<SpriteRenderer>().sprite;
             //Cells[1].GetComponent<Image>().sprite = playerCasting.SpellPrefabs[1].GetComponent<SpriteRenderer>().sprite;
         }
+
         public void Init()
         {
             Cells = new GameObject[5];
@@ -35,6 +33,7 @@ namespace Assets.Scripts.Core
             Cells[3] = GameObject.Find("CellFour");
             Cells[4] = GameObject.Find("CellFive");
         }
+
         public bool CanPlaceAt(int number)
         {
             return Objects[number] == null;

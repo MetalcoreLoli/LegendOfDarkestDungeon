@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.UI
@@ -29,7 +24,7 @@ namespace Assets.Scripts.UI
         }
 
         public void SetValue(int value)
-        { 
+        {
             Slider.value = value;
         }
     }

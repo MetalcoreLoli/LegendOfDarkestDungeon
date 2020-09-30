@@ -7,20 +7,20 @@ namespace Assets.Scripts.Core
     public static class GameInput
     {
         private static Dictionary<string, KeyCode> keyValuePairs = new Dictionary<string, KeyCode>()
-        { 
-            ["Slot1"]                   = KeyCode.Alpha1,
-            ["Slot2"]                   = KeyCode.Alpha2,
-            ["Slot3"]                   = KeyCode.Alpha3,
-            ["Slot4"]                   = KeyCode.Alpha4,
-            ["Slot5"]                   = KeyCode.Alpha5,
-            ["Use"]                     = KeyCode.LeftControl,
-            ["Inventory"]               = KeyCode.I,
-            ["InventoryMoveUp"]         = KeyCode.J,
-            ["InventoryMoveDown"]       = KeyCode.K,
-            ["InventoryMoveLeft"]       = KeyCode.H,
-            ["InventoryMoveRight"]      = KeyCode.L,
-            ["RemoveFromSlot"]          = KeyCode.X,
-            ["Take"]                    = KeyCode.F
+        {
+            ["Slot1"] = KeyCode.Alpha1,
+            ["Slot2"] = KeyCode.Alpha2,
+            ["Slot3"] = KeyCode.Alpha3,
+            ["Slot4"] = KeyCode.Alpha4,
+            ["Slot5"] = KeyCode.Alpha5,
+            ["Use"] = KeyCode.LeftControl,
+            ["Inventory"] = KeyCode.I,
+            ["InventoryMoveUp"] = KeyCode.J,
+            ["InventoryMoveDown"] = KeyCode.K,
+            ["InventoryMoveLeft"] = KeyCode.H,
+            ["InventoryMoveRight"] = KeyCode.L,
+            ["RemoveFromSlot"] = KeyCode.X,
+            ["Take"] = KeyCode.F
         };
 
         public static void SetKey(string name, KeyCode code)
@@ -30,6 +30,7 @@ namespace Assets.Scripts.Core
             else
                 throw new Exception("Something wrong");
         }
+
         public static KeyCode GetKeyCode(string name) => keyValuePairs[name];
 
         public static bool GetKeyDown(string name) => Input.GetKeyDown(keyValuePairs[name]);

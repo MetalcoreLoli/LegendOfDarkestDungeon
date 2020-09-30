@@ -1,14 +1,13 @@
 ﻿using Assets.Scripts.Dungeon.Factory;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Loader : MonoBehaviour
 {
     public GameObject gameManager;
     public GameObject dungeonManager;
+
     // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
         if (DungeonFactoryManager.instance == null)
         {
@@ -16,7 +15,7 @@ public class Loader : MonoBehaviour
         }
 
         if (GameManager.Instance == null)
-        { 
+        {
             Instantiate(gameManager);
         }
     }

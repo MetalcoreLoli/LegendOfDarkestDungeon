@@ -1,14 +1,7 @@
 ﻿using Assets.Scripts.Actors;
 using Assets.Scripts.Actors.Stats;
-using Assets.Scripts.Dices;
 using Assets.Scripts.Stats;
-using Assets.Scripts.UI.Menu;
 using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +9,6 @@ namespace Assets.Scripts.UI.Menu
 {
     public class CreatingMenu : Menu
     {
-
         public Text IntText;
         public Text StrText;
         public Text DexText;
@@ -29,25 +21,28 @@ namespace Assets.Scripts.UI.Menu
 
         private void Update()
         {
-            var player              = GameManager.Instance.Player.GetComponent<Actor>();
-            Func<int, string> mod   = num => (num > 0) ? $"+{num}" : num.ToString();
-            IntText.text            = $"Int: {player.Characteristics.Intelligence} ({mod(player.Characteristics.IntelligenceMod)})";
-            StrText.text            = $"Str: {player.Characteristics.Strength} ({mod(player.Characteristics.StrengthMod)})";
-            DexText.text            = $"Dex: {player.Characteristics.Dexterity} ({mod(player.Characteristics.DexterityMod)})";
-            ChrText.text            = $"Chr: {player.Characteristics.Charisma} ({mod(player.Characteristics.CharismaMod)})";
-            LckText.text            = $"Lck: {player.Characteristics.Lucky} ({mod(player.Characteristics.LuckyMod)})";
-            ManaPointsText.text     = $"Start ManaPoints : {player.Characteristics.MaxMp}";
+            var player = GameManager.Instance.Player.GetComponent<Actor>();
+            Func<int, string> mod = num => (num > 0) ? $"+{num}" : num.ToString();
+            IntText.text = $"Int: {player.Characteristics.Intelligence} ({mod(player.Characteristics.IntelligenceMod)})";
+            StrText.text = $"Str: {player.Characteristics.Strength} ({mod(player.Characteristics.StrengthMod)})";
+            DexText.text = $"Dex: {player.Characteristics.Dexterity} ({mod(player.Characteristics.DexterityMod)})";
+            ChrText.text = $"Chr: {player.Characteristics.Charisma} ({mod(player.Characteristics.CharismaMod)})";
+            LckText.text = $"Lck: {player.Characteristics.Lucky} ({mod(player.Characteristics.LuckyMod)})";
+            ManaPointsText.text = $"Start ManaPoints : {player.Characteristics.MaxMp}";
         }
+
         public override void Open()
-        { 
+        {
             IsOpen = !IsOpen;
             gameObject.SetActive(IsOpen);
         }
+
         public override void Close()
         {
             IsOpen = !IsOpen;
             gameObject.SetActive(IsOpen);
         }
+
         public void Done()
         {
             if (!string.IsNullOrEmpty(NameText.textComponent.text))
@@ -57,6 +52,7 @@ namespace Assets.Scripts.UI.Menu
                 GameManager.MessageBox.Show("Error", "Enter your character name !!!");
             }
         }
+
         public void Roll()
         {
             GameManager.Instance.UpdatePlayersCharacteristics(ActorCharacteristics.FromTemplate(template));

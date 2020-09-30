@@ -1,9 +1,5 @@
 ﻿using Assets.Scripts.Spells;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.UI.Menu
@@ -20,27 +16,27 @@ namespace Assets.Scripts.UI.Menu
 
         private void Awake()
         {
-            spellInfos  = new List<SpellInfo>();
+            spellInfos = new List<SpellInfo>();
             tilesCoords = new List<Vector3>();
 
-            inventoryTile           = Resources.Load<Sprite>("Sprites/GUI/GUIEmptyInventoryCell");
-            inventorySelectedTile   = Resources.Load<Sprite>("Sprites/GUI/GUISelectedCell");
+            inventoryTile = Resources.Load<Sprite>("Sprites/GUI/GUIEmptyInventoryCell");
+            inventorySelectedTile = Resources.Load<Sprite>("Sprites/GUI/GUISelectedCell");
         }
 
         public override void Close()
         {
             IsOpen = false;
-            GameManager.Instance.enabled           = true;
-            GameManager.Instance.Player.enabled    = true;
+            GameManager.Instance.enabled = true;
+            GameManager.Instance.Player.enabled = true;
         }
 
         public override void Open()
         {
             IsOpen = true;
-            GameManager.Instance.enabled           = false;
-            GameManager.Instance.Player.enabled    = false;
+            GameManager.Instance.enabled = false;
+            GameManager.Instance.Player.enabled = false;
         }
-        
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.B) && !IsOpen)

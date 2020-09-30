@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Dungeon.Factory
@@ -13,14 +11,15 @@ namespace Assets.Scripts.Dungeon.Factory
         {
             throw new NotImplementedException();
         }
-        Vector3 GetFrom(List<Vector3> vector3s)
+
+        private Vector3 GetFrom(List<Vector3> vector3s)
         {
             var index = UnityEngine.Random.Range(0, vector3s.Count);
             var vec = vector3s[index];
             vector3s.Remove(vec);
             return vec;
-
         }
+
         public override Vector3[] MakeEnemisIn(int count, Vector3[] places)
         {
             List<Vector3> vecs = new List<Vector3>();
@@ -75,7 +74,6 @@ namespace Assets.Scripts.Dungeon.Factory
                     int idx = x1 + room.Width * y1;
                     room.Body[idx].Body = DungeonInfo.FloorTile;
 
-                   
                     if (x1 == 1 && y1 == 1)
                         room.Body[idx].Body = DungeonInfo.FloorTileDownLeftCorner;
 
@@ -107,7 +105,6 @@ namespace Assets.Scripts.Dungeon.Factory
 
         public override Vector3[] MakeTourchesAt(int count, Vector3[] places)
         {
-            
             List<Vector3> vecs = new List<Vector3>();
             while (count-- > 0)
                 vecs.Add(GetFrom(places.ToList()));
@@ -139,7 +136,7 @@ namespace Assets.Scripts.Dungeon.Factory
         {
             int min = Math.Min(yStart, yEnd);
             int max = Math.Max(yStart, yEnd);
-            
+
             List<Vector3> vec = new List<Vector3>();
 
             for (int y = min; y < max + 1; y++)

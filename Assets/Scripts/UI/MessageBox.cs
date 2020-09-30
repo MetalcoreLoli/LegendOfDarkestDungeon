@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.UI
 {
-
-    public enum DialogResult 
+    public enum DialogResult
     {
-        None      = 0,
-        OK        = 1,
-        Cancel    = 2
+        None = 0,
+        OK = 1,
+        Cancel = 2
     }
+
     public class MessageBox : MonoBehaviour
     {
         [SerializeField] private Text Tile;
@@ -22,9 +17,9 @@ namespace Assets.Scripts.UI
         [SerializeField] private DialogResult dialogResult = DialogResult.None;
         [SerializeField] private Button okButton;
         [SerializeField] private Button cancelButton;
-        public DialogResult DialogResult { get => dialogResult; private set => dialogResult = value; } 
+        public DialogResult DialogResult { get => dialogResult; private set => dialogResult = value; }
 
-        public DialogResult Show(string title, string message) 
+        public DialogResult Show(string title, string message)
         {
             ResetResult();
             gameObject.SetActive(true);
@@ -50,7 +45,7 @@ namespace Assets.Scripts.UI
         }
 
         private void CancelClick()
-        { 
+        {
             DialogResult = DialogResult.Cancel;
             Debug.Log("Cancel");
             gameObject.SetActive(false);

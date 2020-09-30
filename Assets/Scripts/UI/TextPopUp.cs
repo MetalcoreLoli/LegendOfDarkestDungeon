@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.UI
 {
@@ -15,13 +9,15 @@ namespace Assets.Scripts.UI
 
         [SerializeField] private float livingTime;
         [SerializeField] private float textSpeed;
+
         public static void CreateAt(Vector3 postion, int damage, Transform prefab)
         {
-            Transform popUpTransform = Instantiate(prefab, postion,  Quaternion.identity);
+            Transform popUpTransform = Instantiate(prefab, postion, Quaternion.identity);
             TextPopUp damagePopUp = popUpTransform.GetComponent<TextPopUp>();
             damagePopUp.SetUp(damage);
-           // return damagePopUp;
+            // return damagePopUp;
         }
+
         public static void CreateWithColor(Vector3 postion, string text, Transform prefab, Color color)
         {
             Transform popUpTransform = Instantiate(prefab, postion, Quaternion.identity);
@@ -35,9 +31,11 @@ namespace Assets.Scripts.UI
             textMeshPro = GetComponent<TextMeshPro>();
         }
 
-        public void SetUp(int damageAmount) {
+        public void SetUp(int damageAmount)
+        {
             textMeshPro.SetText(damageAmount.ToString());
         }
+
         public void SetUp(string text, Color color)
         {
             textMeshPro.color = color;

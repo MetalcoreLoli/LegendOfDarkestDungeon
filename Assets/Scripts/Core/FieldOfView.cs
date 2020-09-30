@@ -1,16 +1,13 @@
-﻿using JetBrains.Annotations;
-using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
     public float ViewRadius;
+
     [Range(0, 360)]
     public float ViewAngle;
-
 
     public LayerMask targets;
     public LayerMask blockingMask;
@@ -21,6 +18,7 @@ public class FieldOfView : MonoBehaviour
     {
         StartCoroutine(FinTargetsDelay(0.1f));
     }
+
     private IEnumerator FinTargetsDelay(float delay)
     {
         while (true)
@@ -48,6 +46,7 @@ public class FieldOfView : MonoBehaviour
             }
         }
     }
+
     public Vector2 DirFromAngel(float angle, bool isAngelGlobal = false)
     {
         if (!isAngelGlobal)

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03eb372e11ecbb547a2ae40ff6a26439, type: 3}
+  m_Name: DungeonSetupTemplate
+  m_EditorClassIdentifier: 
+  roomMin: 7
+  roomMax: 10
+  tourchesMin: 10
+  tourchesMax: 15
+  mapWidth: 70
+  mapHeight: 40
+  countOfRooms: 19
+  countOfTraps: 15
+  countOfEnemies: 14

@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-
     public Animator animator;
     [SerializeField] private LayerMask blockingLayer;
     [SerializeField] private GameObject wasLeftHit;
     [SerializeField] private GameObject wasRightHit;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -16,22 +14,18 @@ public class Door : MonoBehaviour
         LinecastLeft();
         LinecastRight();
     }
+
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // GetComponent<BoxCollider2D>().enabled = true;
         // Debug.DrawRay(transform.position, Vector2.right, Color.green);
 
-
-                
         if (wasLeftHit != null)
             Debug.DrawRay(transform.position, (wasLeftHit.transform.position - transform.position).normalized, Color.green);
         if (wasRightHit != null)
             Debug.DrawRay(transform.position, (wasRightHit.transform.position - transform.position).normalized, Color.green);
-
-
     }
-
 
     private void LinecastLeft()
     {
@@ -58,7 +52,6 @@ public class Door : MonoBehaviour
 
         if (hit_right.transform != null)
         {
-
             if (hit_right.transform.gameObject.CompareTag("Wall"))
                 Debug.DrawRay(transform.position, Vector2.right, Color.red);
             wasRightHit = hit_right.transform.gameObject;
@@ -70,10 +63,10 @@ public class Door : MonoBehaviour
         //gameObject.layer = AfterEnter;
 
         if (collision.CompareTag("Player"))
-        { 
+        {
             animator.SetBool("IsClosed", true);
         }
-       
+
         //GetComponent<BoxCollider2D>().enabled = true;
     }
 

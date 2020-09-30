@@ -187,11 +187,11 @@ MonoBehaviour:
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256
+  lookDir: 2
   speed: 5
   exp: 102
   maxExp: 160
   Camera: {fileID: 0}
-  lookDir: 2
 --- !u!50 &3412384894159637495
 Rigidbody2D:
   serializedVersion: 4
@@ -281,6 +281,7 @@ MonoBehaviour:
     _maxHp: 52
     _maxMp: 80
   template: {fileID: 11400000, guid: 03401ed588ec64846a7c0074bd045473, type: 2}
+  textTemplate: {fileID: 11400000, guid: ad487ede08f9902479f603d2079fddba, type: 2}
 --- !u!1 &3412384894891446559
 GameObject:
   m_ObjectHideFlags: 0

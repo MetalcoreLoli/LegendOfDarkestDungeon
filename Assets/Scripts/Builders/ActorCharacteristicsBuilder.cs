@@ -1,10 +1,4 @@
 ﻿using Assets.Scripts.Stats;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEditor.Experimental.GraphView;
 
 namespace Assets.Scripts.Builders
 {
@@ -40,7 +34,6 @@ namespace Assets.Scripts.Builders
             characteristics.MaxMp = mp;
             return this;
         }
-
 
         public ActorCharacteristics Build() => characteristics;
 
@@ -84,7 +77,6 @@ namespace Assets.Scripts.Builders
             characteristics.Lucky = lucky;
             return this;
         }
-
     }
 
     public class ActorCharacteristicsModificatorBuilder : ActorCharacteristicsBuilder

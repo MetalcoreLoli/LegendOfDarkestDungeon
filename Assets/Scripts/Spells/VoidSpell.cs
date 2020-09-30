@@ -1,12 +1,10 @@
 ﻿using Assets.Scripts.Dices;
 using Assets.Scripts.Spells;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class VoidSpell : Spell
 {
-    
     public override void Cast(Transform caster)
     {
         var firePointPos = FirePoint.position;
@@ -23,7 +21,6 @@ public class VoidSpell : Spell
             }
 
             //rb2D.AddForce(firePointPos * 10.0f, ForceMode2D.Impulse);
-
         }
         //Instantiate(Info.Prefab, player.transform.position, Quaternion.identity);
     }
@@ -44,7 +41,7 @@ public class VoidSpell : Spell
         StartCoroutine(DestoryAfter(4.5f));
     }
 
-    IEnumerator DestoryAfter(float seconds)
+    private IEnumerator DestoryAfter(float seconds)
     {
         yield return new WaitForSecondsRealtime(seconds);
         Destroy(gameObject);

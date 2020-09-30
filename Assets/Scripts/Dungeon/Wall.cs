@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
-
     private SpriteRenderer spriteRenderer;
 
     [SerializeField] private GameObject wasHitUp;
@@ -13,8 +10,9 @@ public class Wall : MonoBehaviour
     [SerializeField] private GameObject wasHitRight;
 
     private BoxCollider2D boxCollider2;
+
     // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         boxCollider2 = GetComponent<BoxCollider2D>();
@@ -22,10 +20,10 @@ public class Wall : MonoBehaviour
 
     public bool HitUpLeftWithTag(string tag)
     {
-        var gb      = HitUpOrDefault();
-        var gb1     = HitLeftOrDefault();
-        var free    = HitDownOrDefault();
-        var free1   = HitRightOrDefault();
+        var gb = HitUpOrDefault();
+        var gb1 = HitLeftOrDefault();
+        var free = HitDownOrDefault();
+        var free1 = HitRightOrDefault();
 
         if (gb != null && gb1 != null && (free == null || free1 == null))
             return gb.CompareTag(tag) && gb1.CompareTag(tag);
@@ -35,10 +33,10 @@ public class Wall : MonoBehaviour
 
     public bool HitUpRightWithTag(string tag)
     {
-        var gb      = HitUpOrDefault();
-        var gb1     = HitRightOrDefault();
-        var free    = HitDownOrDefault();
-        var free1   = HitLeftOrDefault();
+        var gb = HitUpOrDefault();
+        var gb1 = HitRightOrDefault();
+        var free = HitDownOrDefault();
+        var free1 = HitLeftOrDefault();
 
         if (gb != null && gb1 != null && (free == null || free1 == null))
             return gb.CompareTag(tag) && gb1.CompareTag(tag);
@@ -48,11 +46,11 @@ public class Wall : MonoBehaviour
 
     public bool HitDownLeftWithTag(string tag)
     {
-        var gb      = HitDownOrDefault();
-        var gb1     = HitLeftOrDefault();
-        var free    = HitUpOrDefault();
-        var free1   = HitRightOrDefault();
-        
+        var gb = HitDownOrDefault();
+        var gb1 = HitLeftOrDefault();
+        var free = HitUpOrDefault();
+        var free1 = HitRightOrDefault();
+
         if (gb != null && gb1 != null && (free == null || free1 == null))
             return gb.CompareTag(tag) && gb1.CompareTag(tag);
         else
@@ -61,17 +59,16 @@ public class Wall : MonoBehaviour
 
     public bool HitDownRightWithTag(string tag)
     {
-        var gb      = HitDownOrDefault();
-        var gb1     = HitRightOrDefault();
-        var free    = HitUpOrDefault();
-        var free1   = HitLeftOrDefault();
+        var gb = HitDownOrDefault();
+        var gb1 = HitRightOrDefault();
+        var free = HitUpOrDefault();
+        var free1 = HitLeftOrDefault();
 
         if (gb != null && gb1 != null && (free == null || free1 == null))
             return gb.CompareTag(tag) && gb1.CompareTag(tag);
         else
             return false;
     }
-
 
     public bool HitLeftRightWithTag(string tag)
     {
@@ -85,6 +82,7 @@ public class Wall : MonoBehaviour
         else
             return false;
     }
+
     public bool HitUpDownWithTag(string tag)
     {
         var gb = HitUpOrDefault();
@@ -100,7 +98,7 @@ public class Wall : MonoBehaviour
 
     public bool HitDownLeftRightWithTag(string tag)
     {
-        var gb  = HitLeftOrDefault();
+        var gb = HitLeftOrDefault();
         var gb1 = HitRightOrDefault();
         var gb2 = HitDownOrDefault();
         //var free = HitUpOrDefault();
@@ -121,6 +119,7 @@ public class Wall : MonoBehaviour
         else
             return false;
     }
+
     public bool HitRightWithTag(string tag)
     {
         var gb = HitRightOrDefault();
@@ -130,7 +129,7 @@ public class Wall : MonoBehaviour
         else
             return false;
     }
-    
+
     public bool HitUpWithTag(string tag)
     {
         var gb = HitUpOrDefault();
@@ -176,6 +175,7 @@ public class Wall : MonoBehaviour
         else
             return default;
     }
+
     public GameObject HitLeftOrDefault()
     {
         boxCollider2.enabled = false;
@@ -187,6 +187,7 @@ public class Wall : MonoBehaviour
         else
             return default;
     }
+
     public GameObject HitRightOrDefault()
     {
         boxCollider2.enabled = false;

@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-
     public AudioSource efxSource;
     public AudioSource musicSource;
     public AudioSource menuMusicSource;
@@ -13,13 +10,14 @@ public class SoundManager : MonoBehaviour
     public float highPitchRange = 1.05f;
 
     public static SoundManager instance = null;
+
     // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
         if (instance == null)
             instance = this;
         else
-            Destroy (gameObject);
+            Destroy(gameObject);
         DontDestroyOnLoad(gameObject);
     }
 
@@ -29,7 +27,6 @@ public class SoundManager : MonoBehaviour
         efxSource.Play();
     }
 
-
     public void RandomizeSfx(params AudioClip[] clips)
     {
         int randIndex = Random.Range(0, clips.Length);
@@ -38,6 +35,4 @@ public class SoundManager : MonoBehaviour
         efxSource.clip = clips[randIndex];
         efxSource.Play();
     }
-
-
 }

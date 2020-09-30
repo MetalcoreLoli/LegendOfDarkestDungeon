@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Spells
 {
     [CreateAssetMenu(fileName = "new spell data", menuName = "Spell Data", order = 54)]
-
     public class SpellInfo : ScriptableObject
     {
         [SerializeField] private string _name;

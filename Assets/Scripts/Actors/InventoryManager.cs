@@ -3,21 +3,14 @@ using Assets.Scripts.Core.Data;
 using Assets.Scripts.Items;
 using Assets.Scripts.Items.Potions;
 using Assets.Scripts.UI;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.Actors
 {
     public class InventoryManager : MonoBehaviour, IData<string, int>
     {
-
         public static InventoryManager instance = null;
         public bool IsOpen { get; set; }
 
@@ -31,8 +24,8 @@ namespace Assets.Scripts.Actors
         public Vector3[] CellsPositions { get; private set; }
         public Vector3 SelectedCellPosition { get; private set; }
 
-
         private int selectedCellNumber = 0;
+
         private void Awake()
         {
             CellsPositions = new Vector3[width * height];
@@ -43,8 +36,8 @@ namespace Assets.Scripts.Actors
                 AddItem(GameManager.Instance.itemManager.GetItem("ManaPotion").GetComponent<ManaPotion>(), 5);
                 AddItem(GameManager.Instance.itemManager.GetItem("HealingPotion").GetComponent<HealingPotion>(), 5);
             }
-
         }
+
         public void AddItem(Item item, int count = 1)
         {
             if (item != null)
@@ -56,9 +49,9 @@ namespace Assets.Scripts.Actors
                     Items[item] += count;
                 else
                     Items.Add(item, count);
-
             }
         }
+
         private void Update()
         {
             var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
@@ -187,7 +180,6 @@ namespace Assets.Scripts.Actors
                 Item[] keies = Items.Keys.Where(k => Items[k] == 0).ToArray();
                 for (int i = 0; i < keies.Count(); i++)
                     Items.Remove(keies[i]);
-
             }
         }
 
@@ -199,13 +191,13 @@ namespace Assets.Scripts.Actors
             else
                 Debug.Log($"You cannot place {item.name} in this slot");
         }
-        
+
         internal void RemoveOne(string name)
         {
             var item = GetItem(name);
             Items[item]--;
         }
-        
+
         public void UseItem(string name)
         {
             if (CanUse(name))
@@ -216,7 +208,7 @@ namespace Assets.Scripts.Actors
                 RemoveOne(name);
             }
         }
-        
+
         public bool CanUse(string name)
         {
             if (Items[GetItem(name)] - 1 >= 0)
@@ -224,18 +216,18 @@ namespace Assets.Scripts.Actors
 
             return false;
         }
-        
+
         public Item GetItem(string name) => Items.Keys.FirstOrDefault(k => k.name == name || k.name == name + "(Clone)");
-        
+
         private void OnGUI()
         {
             if (IsOpen)
             {
                 var guiCell = Resources.Load<Texture2D>("Sprites/GUI/GUIEmptyInventoryCell");
-                var font    = Resources.Load<Font>("Sprites/GUI/SDS_8x8");
+                var font = Resources.Load<Font>("Sprites/GUI/SDS_8x8");
 
-                int t_width     = guiCell.width * 4;
-                int t_height    = guiCell.height * 4;
+                int t_width = guiCell.width * 4;
+                int t_height = guiCell.height * 4;
 
                 var player = GameManager.Instance.Player.GetComponent<Actor>() ?? null;
                 GUI.skin.font = font;
@@ -243,7 +235,6 @@ namespace Assets.Scripts.Actors
                 GUI.skin.box.normal.textColor = Color.white;
                 GUI.skin.box.wordWrap = true;
                 GUI.skin.box.alignment = TextAnchor.MiddleCenter;
-
 
                 for (int x = 0; x < width; x++)
                 {
@@ -275,13 +266,11 @@ namespace Assets.Scripts.Actors
                         else
                             Items.Remove(Items.Keys.ToArray()[i]);
                     }
-
                 }
 
                 string modToStr(int mod) => (mod > 0) ? $"+{mod}" : mod.ToString();
                 if (player != null)
                 {
-
                     GUI.Box(
                         new Rect(t_width * 6 + t_width, t_height, t_width * 3, t_height),
                         ($"Int: {player.Characteristics.Intelligence}({modToStr(player.Characteristics.IntelligenceMod)})"));
@@ -316,11 +305,10 @@ namespace Assets.Scripts.Actors
                 }
 
                 DrawExpUndLevel();
-
             }
         }
-        
-        void DrawExpUndLevel()
+
+        private void DrawExpUndLevel()
         {
             var position = new Vector3(cellWidth * 10, cellHeight * 5);
             var size = new Vector3(cellWidth * 6, cellHeight * 2);
@@ -329,8 +317,8 @@ namespace Assets.Scripts.Actors
                 $"Level: {GameManager.Instance.Player.Level}\n\n" +
                 $"Exp: {GameManager.Instance.Player.Exp} / {GameManager.Instance.Player.MaxExp}\n\n");
         }
-        
-        void DrawItemDescription(Item item)
+
+        private void DrawItemDescription(Item item)
         {
             var position = new Vector3(cellWidth * 10, cellHeight);
             var size = new Vector3(cellWidth * 6, cellHeight * 4);
@@ -340,8 +328,8 @@ namespace Assets.Scripts.Actors
                 $"Count:{Items[item]}\n\n" +
                 $"Description:\n\n" + item.Info.Description);
         }
-        
-        void SelecteCell(Vector3 selectedCellPosition)
+
+        private void SelecteCell(Vector3 selectedCellPosition)
         {
             Vector3 position = selectedCellPosition;
             Vector3 size = new Vector3(64, 64);
@@ -350,18 +338,20 @@ namespace Assets.Scripts.Actors
                     new Rect(position, size),
                     Resources.Load<Texture2D>("Sprites/GUI/GUISelectedCell"));
         }
-        
-        void MoveRight()
+
+        private void MoveRight()
         {
             if (selectedCellNumber + 1 < width * height)
                 selectedCellNumber++;
         }
-        void MoveLeft()
+
+        private void MoveLeft()
         {
             if (selectedCellNumber - 1 >= 0)
                 selectedCellNumber--;
         }
-        void MoveUp()
+
+        private void MoveUp()
         {
             int _selectedCellNumber = (int)(selectedCellNumber - width);
             if (_selectedCellNumber >= 0)
@@ -370,12 +360,14 @@ namespace Assets.Scripts.Actors
                 selectedCellNumber = _selectedCellNumber;
             }
         }
-        void MoveDown()
+
+        private void MoveDown()
         {
             int _selectedCellNumber = (int)(selectedCellNumber + width);
             if (_selectedCellNumber < width * height)
                 selectedCellNumber = _selectedCellNumber;
         }
+
         public Dictionary<string, int> GetData()
         {
             var data = new Dictionary<string, int>();
@@ -384,6 +376,7 @@ namespace Assets.Scripts.Actors
 
             return data;
         }
+
         public void LoadData(Dictionary<string, int> data)
         {
             var itemManager = GameManager.Instance.itemManager;
