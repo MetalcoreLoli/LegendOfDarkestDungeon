@@ -32,16 +32,16 @@ public class Board : MonoBehaviour, IData<GameObject, int>
 
     public GameObject EnemyPrefab;
 
-    public Size RoomsSize;
-    public Size Tourches;
+    //public Size RoomsSize;
+    //public Size Tourches;
 
-    public int CountOfRooms = 19;
-    public int CountOfTraps;
+    //public int CountOfRooms = 19;
+    //public int CountOfTraps;
 
-    public int MapWidth = 70;
-    public int MapHeight = 40;
+    //public int MapWidth = 70;
+    //public int MapHeight = 40;
 
-    public int CountOfEnemies = DiceManager.RollUndSumFromString("3d12");
+    //public int CountOfEnemies = DiceManager.RollUndSumFromString("3d12");
 
     public List<Room> Rooms;
 
@@ -72,7 +72,6 @@ public class Board : MonoBehaviour, IData<GameObject, int>
             factory = DungeonFactoryManager.instance.DefaultDungeonFactory;
 
         Generate(factory);
-
     }
 
     private void BoardSetUp()
@@ -103,6 +102,7 @@ public class Board : MonoBehaviour, IData<GameObject, int>
         dungeonGenerator.OnHorizontalPathTileGeneration     += DungeonGenerator_OnHorizontalPathTileGeneration;
         dungeonGenerator.OnVerticalPathTileGeneration       += DungeonGenerator_OnVerticalPathTileGeneration;
         dungeonGenerator.OnRoomGeneration                   += DungeonGenerator_OnRoomGeneration;
+        dungeonGenerator.OnTrapsTileGeneration              += DungeonGenerator_OnTrapsTileGeneration;
         dungeonGenerator.Generate();
 
         ////PlaceTourches(factory);
@@ -118,6 +118,11 @@ public class Board : MonoBehaviour, IData<GameObject, int>
 
         var lastRoomCenter = Rooms.Last().GetCenter();
         Instantiate(factory.DungeonInfo.Exit, lastRoomCenter, Quaternion.identity);
+    }
+
+    private void DungeonGenerator_OnTrapsTileGeneration(object sender, DungeonTileGenerationEventArg e)
+    {
+        AddGameObjectToMap(Instantiate(e.Tile, e.TileCoords, Quaternion.identity));
     }
 
     private void DungeonGenerator_OnHorizontalPathTileGeneration(object sender, DungeonTileGenerationEventArg e)
@@ -240,34 +245,18 @@ public class Board : MonoBehaviour, IData<GameObject, int>
         return vec;
     }
 
-    private void PlaceTourches(DungeonFactory factory)
-    {
-        UpWallCoords.AddRange(Rooms.SelectMany(room => room.UpWallCoord));
-        int count = Tourches.Max;
-        foreach (var vec in factory.MakeTrapsIn(count, UpWallCoords.ToArray()))
-            AddGameObjectToMap(Instantiate(TourchTile, vec, Quaternion.identity));
-    }
+ 
 
-    private void PlaceTraps(DungeonFactory factory)
-    {
-        InnerRoomCoords.AddRange(Rooms.Skip(1).SelectMany(room => room.InnerCoords));
-        int count = CountOfTraps;
-        foreach (var vec in factory.MakeTrapsIn(count, UpWallCoords.ToArray()))
-        {
-            AddGameObjectToMap(Instantiate(Traps[0], GetRandVectorFrom(InnerRoomCoords), Quaternion.identity));
-        }
-    }
-
-    private void PlaceEnemies(DungeonFactory factory)
-    {
-        int count = CountOfEnemies;
-        foreach (var vec in factory.MakeEnemisIn(count, InnerRoomCoords.ToArray()))
-        {
-            var enemy = Instantiate(EnemyPrefab, vec, Quaternion.identity);
-            enemy.transform.SetParent(boardHolder);
-            GameManager.Instance.Enemies.Add(enemy.GetComponent<Enemy>());
-        }
-    }
+    //private void PlaceEnemies(DungeonFactory factory)
+    //{
+    //    int count = CountOfEnemies;
+    //    foreach (var vec in factory.MakeEnemisIn(count, InnerRoomCoords.ToArray()))
+    //    {
+    //        var enemy = Instantiate(EnemyPrefab, vec, Quaternion.identity);
+    //        enemy.transform.SetParent(boardHolder);
+    //        GameManager.Instance.Enemies.Add(enemy.GetComponent<Enemy>());
+    //    }
+    //}
 
     private void PlaceFountains()
     {

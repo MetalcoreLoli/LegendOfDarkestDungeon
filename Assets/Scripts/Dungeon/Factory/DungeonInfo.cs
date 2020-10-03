@@ -30,6 +30,7 @@ namespace Assets.Scripts.Dungeon.Factory
         [SerializeField] private GameObject floorTileDownLeftCorner;
         [SerializeField] private GameObject closedDoorVertical;
         [SerializeField] private GameObject closedDoorHorizontal;
+        [SerializeField] private GameObject trap;
 
         public GameObject Exit { get => exit; set => exit = value; }
         public GameObject WallTileHorizontal { get => wallTileHorizontal; set => wallTileHorizontal = value; }
@@ -59,5 +60,6 @@ namespace Assets.Scripts.Dungeon.Factory
 
         public GameObject ClosedDoorVertical { get => closedDoorVertical; set => closedDoorVertical = value; }
         public GameObject ClosedDoorHorizontal { get => closedDoorHorizontal; set => closedDoorHorizontal = value; }
+        public GameObject Trap { get => trap; set => trap = value; }
     }
 }

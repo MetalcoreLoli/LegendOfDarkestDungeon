@@ -8,13 +8,22 @@ namespace Assets.Scripts.Dungeon
 {
     public class DungeonGenerator
     {
-        private List<Room> rooms;
+        #region Dependances
         private readonly DungeonFactory factory;
         private readonly IDungeonGeneratorSetup setup;
+        #endregion
+
+        private List<Room> rooms;
         private List<Vector3> hRoomDoorsCoords;
         private List<Vector3> vRoomDoorsCoords;
 
+        public List<Room> Rooms { get => rooms; private set => rooms = value; }
+        public List<Vector3> HRoomDoorsCoords { get => hRoomDoorsCoords; private set => hRoomDoorsCoords = value; }
+        public List<Vector3> VRoomDoorsCoords { get => vRoomDoorsCoords; private set => vRoomDoorsCoords = value; }
+
         public event EventHandler<DungeonTileGenerationEventArg> OnPathTileGeneration;
+        public event EventHandler<DungeonTileGenerationEventArg> OnTourchesTileGeneration;
+        public event EventHandler<DungeonTileGenerationEventArg> OnTrapsTileGeneration;
         public event EventHandler<DungeonTileGenerationEventArg> OnHorizontalPathTileGeneration;
         public event EventHandler<DungeonTileGenerationEventArg> OnVerticalPathTileGeneration;
         public event EventHandler<DungeonRoomGenerationEventArg> OnRoomGeneration;
@@ -23,9 +32,9 @@ namespace Assets.Scripts.Dungeon
         {
             this.factory = factory;
             this.setup = setup;
-            rooms = new List<Room>();
-            hRoomDoorsCoords = new List<Vector3>();
-            vRoomDoorsCoords = new List<Vector3>();
+            Rooms = new List<Room>();
+            HRoomDoorsCoords = new List<Vector3>();
+            VRoomDoorsCoords = new List<Vector3>();
         }
 
         private Room GenerateRoom()
@@ -37,7 +46,7 @@ namespace Assets.Scripts.Dungeon
             GenerateRoomCoords(ref x, ref y, width, height);
 
             Room room = factory.MakeRoom(new Vector2(width, height), new Vector3(x, y));
-            while (rooms.FirstOrDefault(r => r.IsIntersectedWith(room)) != null)
+            while (Rooms.FirstOrDefault(r => r.IsIntersectedWith(room)) != null)
             {
                 GenerateRoomSize(ref width, ref height);
                 GenerateRoomCoords(ref x, ref y, width, height);
@@ -71,17 +80,17 @@ namespace Assets.Scripts.Dungeon
             while (count-- > 0)
             {
                 Room room = GenerateRoom();
-                rooms.Add(room);
+                Rooms.Add(room);
             }
-            return rooms;
+            return Rooms;
         }
 
         private void GenerateTunels()
         {
             for (int i = 1; i < setup.CountOfRooms; i++)
             {
-                var prev = rooms[i - 1];
-                var currt = rooms[i];
+                var prev = Rooms[i - 1];
+                var currt = Rooms[i];
 
                 var pathType = UnityEngine.Random.Range(0, 2);
                 if (pathType == 0)
@@ -147,16 +156,16 @@ namespace Assets.Scripts.Dungeon
         {
             var upEnter = new Vector3(x, y + 1);
             var downEnter = new Vector3(x, y - 1);
-            PlacePathTiles(hRoomDoorsCoords, upEnterTile, upEnter, x, y);
-            PlacePathTiles(hRoomDoorsCoords, downEnterTile, downEnter, x, y);
+            PlacePathTiles(HRoomDoorsCoords, upEnterTile, upEnter, x, y);
+            PlacePathTiles(HRoomDoorsCoords, downEnterTile, downEnter, x, y);
         }
 
         private void PlaceYPathTiles(GameObject upEnterTile, GameObject downEnterTile, float x, float y)
         {
             var upEnter = new Vector3(x + 1, y);
             var downEnter = new Vector3(x - 1, y);
-            PlacePathTiles(vRoomDoorsCoords, upEnterTile, upEnter, x, y);
-            PlacePathTiles(vRoomDoorsCoords, downEnterTile, downEnter, x, y);
+            PlacePathTiles(VRoomDoorsCoords, upEnterTile, upEnter, x, y);
+            PlacePathTiles(VRoomDoorsCoords, downEnterTile, downEnter, x, y);
         }
 
         private void PlacePathTiles(
@@ -186,12 +195,31 @@ namespace Assets.Scripts.Dungeon
                 OnVerticalPathTileGeneration?.Invoke(this, new DungeonTileGenerationEventArg(factory.DungeonInfo.FloorTile, vec, new Vector3(x, vec.y)));
             }
         }
+        private void PlaceTourches()
+        {
+            //UpWallCoords.AddRange(Rooms.SelectMany(room => room.UpWallCoord));
+            //int count = Tourches.Max;
+            //foreach (var vec in factory.MakeTrapsIn(count, UpWallCoords.ToArray()))
+            //    AddGameObjectToMap(Instantiate(TourchTile, vec, Quaternion.identity));
+        }
 
+        private void PlaceTraps()
+        {
+            //InnerRoomCoords.AddRange(Rooms.Skip(1).SelectMany(room => room.InnerCoords));
+            var places = Rooms.Skip(1).SelectMany(r => r.InnerCoords).ToArray();
+            int count = setup.CountOfTraps;
+            foreach (var vec in factory.MakeTrapsIn(count, places))
+            {
+                OnTrapsTileGeneration?.Invoke(this, new DungeonTileGenerationEventArg(factory.DungeonInfo.Trap, vec));
+            }
+        }
         public IEnumerable<Room> Generate ()
         {
             GenerateRooms();
+            PlaceTourches();
             GenerateTunels();
-            return rooms;
+            PlaceTraps();
+            return Rooms;
         }
     }
 }
