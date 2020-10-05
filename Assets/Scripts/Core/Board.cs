@@ -78,64 +78,69 @@ public class Board : MonoBehaviour, IData<GameObject, int>
             var gb = Instantiate(tile.Body, tile.Location, Quaternion.identity);
             map.Add(gb);
         }
-        //CorrectAngels(generator.Factory);
         //CorrectWalls(generator.Factory);
-        //CorrectAngels(factory);
+        //CorrectAngels(generator.Factory); 
+        //CorrectAngels(generator.Factory);
         //PlaceFountains();
 
         //Vector3 lastRoomCenter = generator.Rooms.Last().GetCenter();
         //SpawnObject(lastRoomCenter, factory.DungeonInfo.Exit);
     }
 
-    
+
 
     private void CorrectWalls(DungeonFactory factory)
     {
         var walls = map.Where(gb => gb.CompareTag("Wall"));
 
-        var toReplace = new List<(GameObject, Vector3)>();
+        var toReplace = new List<(GameObject template, Vector3 position)>();
 
-        //foreach (GameObject wall in walls)
-        //{
-        //    var wallScript = wall.GetComponent<Wall>();
+        foreach (GameObject wall in walls)
+        {
+            var wallScript = wall.GetComponent<Wall>();
 
 
-        //    if (wallScript.HitLeftRightWithTag("Wall"))
-        //        toReplace.Add((factory.DungeonInfo.WallTileHorizontal, wall.transform.position));
-        //    else if (wallScript.HitUpDownWithTag("Wall"))
-        //        toReplace.Add((factory.DungeonInfo.WallTileVertical, wall.transform.position));
-        //    else
-        //        continue;
-        //}
+            if (wallScript.HitLeftRightWithTag("Wall"))
+                toReplace.Add((factory.DungeonInfo.WallTileHorizontal, wall.transform.position));
+            else if (wallScript.HitUpDownWithTag("Wall"))
+                toReplace.Add((factory.DungeonInfo.WallTileVertical, wall.transform.position));
+            else
+                continue;
+        }
 
         foreach (var wall in toReplace)
-            ReplaceWith(wall.Item1, wall.Item2);
+            ReplaceWith(wall.template, wall.position);
     }
 
     private void CorrectAngels(DungeonFactory factory)
     {
-        //var walls = map.Where(gb => gb.CompareTag("Wall"));
+        throw new NotImplementedException("TODO: Fix angels correct");
+        {
+            //var walls = map.Where(gb => gb.CompareTag("Wall"));
+            var walls = from gb in map where gb.CompareTag("Wall") select gb;
 
-        //var toReplace = new List<(GameObject tile, Vector3 position)>();
 
-        //foreach (GameObject wall in walls)
-        //{
-        //    var wallScript = wall.GetComponent<Wall>();
+            var toReplace = new List<(GameObject tile, Vector3 position)>();
 
-        //    if (wallScript.HitDownLeftWithTag("Wall"))
-        //        toReplace.Add((factory.DungeonInfo.WallUpRightCornerTile, wall.transform.position));
-        //    else if (wallScript.HitDownRightWithTag("Wall"))
-        //        toReplace.Add((factory.DungeonInfo.WallUpLeftCornerTile, wall.transform.position));
-        //    else if (wallScript.HitUpLeftWithTag("Wall"))
-        //        toReplace.Add((factory.DungeonInfo.WallDownLeftCornerTile, wall.transform.position));
-        //    else if (wallScript.HitUpRightWithTag("Wall"))
-        //        toReplace.Add((factory.DungeonInfo.WallDownRightCornerTile, wall.transform.position));
-        //    else
-        //        continue;
-        //}
+            foreach (var (wall, wallScript) in from GameObject wall in walls
+                                               let wallScript = wall.GetComponent<Wall>()
+                                               select (wall, wallScript))
+            {
+                if (wallScript.HitDownLeftWithTag("Wall"))
+                    toReplace.Add((factory.DungeonInfo.WallUpRightCornerTile, wall.transform.position));
+                else if (wallScript.HitDownRightWithTag("Wall"))
+                    toReplace.Add((factory.DungeonInfo.WallUpLeftCornerTile, wall.transform.position));
+                else if (wallScript.HitUpLeftWithTag("Wall"))
+                    toReplace.Add((factory.DungeonInfo.WallDownLeftCornerTile, wall.transform.position));
+                else if (wallScript.HitUpRightWithTag("Wall"))
+                    toReplace.Add((factory.DungeonInfo.WallDownRightCornerTile, wall.transform.position));
+                else
+                    continue;
+            }
 
-        //foreach (var wall in toReplace)
-        //    ReplaceWith(wall.tile, wall.position);
+            foreach (var wall in toReplace)
+                ReplaceWith(wall.tile, wall.position);
+        }
     }
 
     private void AddGameObjectToMap(GameObject obj)
@@ -150,9 +155,9 @@ public class Board : MonoBehaviour, IData<GameObject, int>
         if (gameObj != null)
         {
             map.Remove(gameObj);
-            DestroyImmediate(gameObj);
+            Destroy(gameObj);
         }
-        AddGameObjectToMap(gameObj);
+        SpawnObject(vector3, tile);
     }
 
     public void SpawnObject(Vector3 pos, GameObject obj)

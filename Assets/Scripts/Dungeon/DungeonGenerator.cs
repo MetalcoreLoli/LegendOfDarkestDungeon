@@ -112,48 +112,48 @@ namespace Assets.Scripts.Dungeon
 
         private void GenerateYPath(DungeonFactory factory, Room prev, Room currt)
         {
-            int height = (prev.Height % 2 == 0) ? prev.Height - 1 : prev.Height;
-            if (prev.GetCenter().y > currt.GetCenter().y)
-            {
-                PlaceYPathTiles(
-                   factory.DungeonInfo.WallUpRightCornerTile,
-                   factory.DungeonInfo.WallUpLeftCornerTile,
-                   prev.GetCenter().x,
-                   prev.GetCenter().y - (height / 2)
-                   );
-            }
-            else
-            {
-                PlaceYPathTiles(
-                    factory.DungeonInfo.WallDownLeftCornerTile,
-                    factory.DungeonInfo.WallDownRightCornerTile,
-                    prev.GetCenter().x,
-                    prev.GetCenter().y + (height / 2)
-                    );
-            }
+            //int height = (prev.Height % 2 == 0) ? prev.Height  : prev.Height - 1;
+            ////if (prev.GetCenter().y > currt.GetCenter().y)
+            ////{
+            ////    PlaceYPathTiles(
+            ////       factory.DungeonInfo.WallUpLeftCornerTile,
+            ////       factory.DungeonInfo.WallUpRightCornerTile,
+            ////       prev.GetCenter().x,
+            ////       prev.GetCenter().y - (height / 2)
+            ////       );
+            ////}
+            ////else
+            ////{
+            ////    PlaceYPathTiles(
+            ////        factory.DungeonInfo.WallDownRightCornerTile,
+            ////        factory.DungeonInfo.WallDownLeftCornerTile,
+            ////        prev.GetCenter().x,
+            ////        prev.GetCenter().y + (height / 2)
+            ////        );
+            ////}
             CreateHorizontalPath(factory, (int)currt.GetCenter().x, (int)prev.GetCenter().x, (int)currt.GetCenter().y);
             CreateVerticalPath(factory, (int)prev.GetCenter().y, (int)currt.GetCenter().y, (int)prev.GetCenter().x);
         }
 
         private void GenerateXPath(DungeonFactory factory, Room prev, Room currt)
         {
-            int width = (prev.Width % 2 == 0) ? prev.Width - 1 : prev.Width;
-            if (prev.GetCenter().x > currt.GetCenter().x)
-            {
-                PlaceXPathTiles(
-                    factory.DungeonInfo.WallDownLeftCornerTile,
-                    factory.DungeonInfo.WallUpRightCornerTile,
-                    prev.GetCenter().x - (width / 2),
-                    prev.GetCenter().y);
-            }
-            else
-            {
-                PlaceXPathTiles(
-                    factory.DungeonInfo.WallDownRightCornerTile,
-                    factory.DungeonInfo.WallUpLeftCornerTile,
-                    prev.GetCenter().x + (width / 2),
-                    prev.GetCenter().y);
-            }
+            //int width = (prev.Width % 2 == 0) ? prev.Width  : prev.Width - 1;
+            ////if (prev.GetCenter().x > currt.GetCenter().x)
+            ////{
+            ////    PlaceXPathTiles(
+            ////        factory.DungeonInfo.WallDownLeftCornerTile,
+            ////        factory.DungeonInfo.WallUpRightCornerTile,
+            ////        prev.GetCenter().x - (width / 2),
+            ////        prev.GetCenter().y);
+            ////}
+            ////else
+            ////{
+            ////    PlaceXPathTiles(
+            ////        factory.DungeonInfo.WallDownRightCornerTile,
+            ////        factory.DungeonInfo.WallUpLeftCornerTile,
+            ////        prev.GetCenter().x + (width / 2),
+            ////        prev.GetCenter().y);
+            ////}
             CreateHorizontalPath(factory, (int)prev.GetCenter().x, (int)currt.GetCenter().x, (int)prev.GetCenter().y);
             CreateVerticalPath(factory, (int)currt.GetCenter().y, (int)prev.GetCenter().y, (int)currt.GetCenter().x);
         }
@@ -226,8 +226,8 @@ namespace Assets.Scripts.Dungeon
                 ReplaceTileOnMapOrAdd(tile);
                 PlaceWallPair(
                     factory.DungeonInfo.WallTileVertical,
-                    new Vector3(vec.x + 1, vec.y),
-                    new Vector3(vec.x - 1, vec.y)
+                    new Vector3(x + 1, vec.y),
+                    new Vector3(x - 1, vec.y)
                     );
                 OnVerticalPathTileGeneration?.Invoke(this, new DungeonTileGenerationEventArg(tile.Body, tile.Location, new Vector3(x, vec.y)));
             }
@@ -304,7 +304,6 @@ namespace Assets.Scripts.Dungeon
         public void PlaceVerticalDoors()
         {
             PlaceDoors(VRoomDoorsCoords, factory.DungeonInfo.ClosedDoorVertical, Vector2.up, Vector2.down);
-
         }
 
         private void Setup()
