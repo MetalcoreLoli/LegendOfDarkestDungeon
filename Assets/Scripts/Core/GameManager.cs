@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
         Enemies = new List<Enemy>();
         Instance.playersTurn = true;
         board.SetUpLevel(FloorNumber);
-        var room = board.Rooms.FirstOrDefault();
+        var room = board.dungeonGenerator.Rooms.FirstOrDefault();
         //PlayerObject = Instantiate(PlayerObject);
 
         Player.transform.position = room.GetCenter();

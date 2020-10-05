@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public struct Tile
 {
@@ -9,5 +10,14 @@ public struct Tile
     {
         Location = location;
         Body = body;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is Tile b)
+        {
+            return this.Location == b.Location;
+        }
+        throw new ArgumentException("obj is not Tile");
     }
 }

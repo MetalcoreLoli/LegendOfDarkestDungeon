@@ -59,3 +59,4 @@ MonoBehaviour:
     type: 3}
   closedDoorHorizontal: {fileID: 2628248733754246426, guid: 2c65f83f93f21fd4f805e3759484e67f,
     type: 3}
+  trap: {fileID: 3177136674332636102, guid: a2a9c844d2508614c802d3ec0287ae5c, type: 3}

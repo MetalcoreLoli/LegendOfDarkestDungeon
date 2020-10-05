@@ -1,8 +1,10 @@
 ﻿using Assets.Scripts.Dungeon.Factory;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 namespace Assets.Scripts.Dungeon
 {
@@ -17,24 +19,27 @@ namespace Assets.Scripts.Dungeon
         private List<Vector3> hRoomDoorsCoords;
         private List<Vector3> vRoomDoorsCoords;
 
+        private List<Tile> map;
+
         public List<Room> Rooms { get => rooms; private set => rooms = value; }
         public List<Vector3> HRoomDoorsCoords { get => hRoomDoorsCoords; private set => hRoomDoorsCoords = value; }
         public List<Vector3> VRoomDoorsCoords { get => vRoomDoorsCoords; private set => vRoomDoorsCoords = value; }
+
+        public DungeonFactory Factory => factory;
 
         public event EventHandler<DungeonTileGenerationEventArg> OnPathTileGeneration;
         public event EventHandler<DungeonTileGenerationEventArg> OnTourchesTileGeneration;
         public event EventHandler<DungeonTileGenerationEventArg> OnTrapsTileGeneration;
         public event EventHandler<DungeonTileGenerationEventArg> OnHorizontalPathTileGeneration;
         public event EventHandler<DungeonTileGenerationEventArg> OnVerticalPathTileGeneration;
+        public event EventHandler<DungeonTileGenerationEventArg> OnDoorTileGeneration;
         public event EventHandler<DungeonRoomGenerationEventArg> OnRoomGeneration;
 
         public DungeonGenerator(DungeonFactory factory, IDungeonGeneratorSetup setup)
         {
             this.factory = factory;
             this.setup = setup;
-            Rooms = new List<Room>();
-            HRoomDoorsCoords = new List<Vector3>();
-            VRoomDoorsCoords = new List<Vector3>();
+            Setup();
         }
 
         private Room GenerateRoom()
@@ -45,14 +50,15 @@ namespace Assets.Scripts.Dungeon
             GenerateRoomSize(ref width, ref height);
             GenerateRoomCoords(ref x, ref y, width, height);
 
-            Room room = factory.MakeRoom(new Vector2(width, height), new Vector3(x, y));
+            Room room = Factory.MakeRoom(new Vector2(width, height), new Vector3(x, y));
             while (Rooms.FirstOrDefault(r => r.IsIntersectedWith(room)) != null)
             {
                 GenerateRoomSize(ref width, ref height);
                 GenerateRoomCoords(ref x, ref y, width, height);
 
-                room = factory.MakeRoom(new Vector2(width, height), new Vector3(x, y));
+                room = Factory.MakeRoom(new Vector2(width, height), new Vector3(x, y));
             }
+            map.AddRange(room.Body);
             OnRoomGeneration?.Invoke(this, new DungeonRoomGenerationEventArg(room));
             return room;
         }
@@ -95,11 +101,11 @@ namespace Assets.Scripts.Dungeon
                 var pathType = UnityEngine.Random.Range(0, 2);
                 if (pathType == 0)
                 {
-                    GenerateXPath(factory, prev, currt);
+                    GenerateXPath(Factory, prev, currt);
                 }
                 else
                 {
-                    GenerateYPath(factory, prev, currt);
+                    GenerateYPath(Factory, prev, currt);
                 }
             }
         }
@@ -175,16 +181,40 @@ namespace Assets.Scripts.Dungeon
                     float x,
                     float y)
         {
+
+            map.Add(new Tile(coord, tile));
             OnPathTileGeneration?.Invoke(this, new DungeonTileGenerationEventArg(tile, coord));
             coords.Add(new Vector3(x, y));
         }
 
+        private void PlaceWallPair(GameObject tile, Vector3 firstWallPos, Vector3 secondWallPos)
+        {
+            PlaceWall(tile, firstWallPos);
+            PlaceWall(tile, secondWallPos);
+        }
+
+        private void PlaceWall(GameObject tileTemplate, Vector3 wallPos)
+        {
+            Tile tile = new Tile(wallPos, tileTemplate);
+            bool isOnMap = map.Contains(tile);
+            if (!isOnMap) 
+                map.Add(tile);
+        }
 
         private void CreateHorizontalPath(DungeonFactory factory, int xStart, int xEnd, int y)
         {
             foreach (var vec in factory.MakeHorizontalPath(xStart, xEnd, y))
             {
-                OnHorizontalPathTileGeneration?.Invoke(this, new DungeonTileGenerationEventArg(factory.DungeonInfo.FloorTile, vec, new Vector3(vec.x, y)));
+
+                var tile = new Tile(vec, factory.DungeonInfo.FloorTile);
+                ReplaceTileOnMapOrAdd(tile);
+                PlaceWallPair(
+                    factory.DungeonInfo.WallTileHorizontal,
+                    new Vector3(vec.x, y + 1),
+                    new Vector3(vec.x, y - 1)
+                    );
+                
+                OnHorizontalPathTileGeneration?.Invoke(this, new DungeonTileGenerationEventArg(tile.Body, tile.Location, new Vector3(vec.x, y)));
             }
         }
 
@@ -192,8 +222,27 @@ namespace Assets.Scripts.Dungeon
         {
             foreach (var vec in factory.MakeVecticalPath(yStart, yEnd, x))
             {
-                OnVerticalPathTileGeneration?.Invoke(this, new DungeonTileGenerationEventArg(factory.DungeonInfo.FloorTile, vec, new Vector3(x, vec.y)));
+                var tile = new Tile(vec, factory.DungeonInfo.FloorTile);
+                ReplaceTileOnMapOrAdd(tile);
+                PlaceWallPair(
+                    factory.DungeonInfo.WallTileVertical,
+                    new Vector3(vec.x + 1, vec.y),
+                    new Vector3(vec.x - 1, vec.y)
+                    );
+                OnVerticalPathTileGeneration?.Invoke(this, new DungeonTileGenerationEventArg(tile.Body, tile.Location, new Vector3(x, vec.y)));
             }
+        }
+
+        private void ReplaceTileOnMapOrAdd(Tile tile)
+        {
+            Tile? t = map.FirstOrDefault(tt => tt.Location.Equals(tile.Location));
+            if (t.HasValue)
+            {
+                map.Remove((Tile)t);
+                map.Add(tile);
+            }
+            else
+                map.Add(tile);
         }
         private void PlaceTourches()
         {
@@ -208,18 +257,71 @@ namespace Assets.Scripts.Dungeon
             //InnerRoomCoords.AddRange(Rooms.Skip(1).SelectMany(room => room.InnerCoords));
             var places = Rooms.Skip(1).SelectMany(r => r.InnerCoords).ToArray();
             int count = setup.CountOfTraps;
-            foreach (var vec in factory.MakeTrapsIn(count, places))
+            foreach (var vec in Factory.MakeTrapsIn(count, places))
             {
-                OnTrapsTileGeneration?.Invoke(this, new DungeonTileGenerationEventArg(factory.DungeonInfo.Trap, vec));
+                map.Add(new Tile(vec, Factory.DungeonInfo.Trap));
+                OnTrapsTileGeneration?.Invoke(this, new DungeonTileGenerationEventArg(Factory.DungeonInfo.Trap, vec));
             }
         }
-        public IEnumerable<Room> Generate ()
+
+        private Vector3 GetRandVectorFrom(List<Vector3> vector3s)
         {
+            var vec = vector3s[UnityEngine.Random.Range(0, vector3s.ToList().Count)];
+            vector3s.Remove(vec);
+            return vec;
+        }
+        private void PlaceDoors (IEnumerable<Vector3> coorsd, GameObject tile, Vector3 firstRayDirection, Vector3 secondRayDirection)
+        {
+            UInt16 count = (UInt16)coorsd.Count();
+
+            while (count --> 0)
+            {
+                var vec = GetRandVectorFrom(coorsd.ToList());
+                RaycastHit2D firstHit   = Physics2D.Raycast(vec, firstRayDirection, 1);
+                RaycastHit2D secondHit  = Physics2D.Raycast(vec, secondRayDirection, 1);
+
+                if (firstHit.transform != null && secondHit.transform != null)
+                {
+                    var fsthit = firstHit.transform;
+                    var sndhit = secondHit.transform;
+                    if (fsthit.gameObject.CompareTag("Wall") 
+                        && sndhit.gameObject.CompareTag("Wall"))
+                    {
+                        map.Add(new Tile(vec, tile));
+                        OnDoorTileGeneration?.Invoke(this, new DungeonTileGenerationEventArg(tile, vec));
+                    }
+                    else continue;
+                }
+                else continue;
+            }
+        }
+
+        public void PlaceHorizontalDoors()
+        {
+            PlaceDoors(HRoomDoorsCoords, factory.DungeonInfo.ClosedDoorHorizontal, Vector2.left, Vector2.right);
+        }
+
+        public void PlaceVerticalDoors()
+        {
+            PlaceDoors(VRoomDoorsCoords, factory.DungeonInfo.ClosedDoorVertical, Vector2.up, Vector2.down);
+
+        }
+
+        private void Setup()
+        {
+            Rooms            = new List<Room>();
+            HRoomDoorsCoords = new List<Vector3>();
+            VRoomDoorsCoords = new List<Vector3>();
+            map              = new List<Tile>();
+        }
+        public IEnumerable<Tile> Generate ()
+        {
+            Setup();
             GenerateRooms();
             PlaceTourches();
             GenerateTunels();
             PlaceTraps();
-            return Rooms;
+            return map;
         }
     }
 }
