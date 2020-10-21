@@ -1,10 +1,8 @@
 ﻿using Assets.Scripts.Dungeon.Factory;
-using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 
 namespace Assets.Scripts.Dungeon
 {
@@ -112,79 +110,83 @@ namespace Assets.Scripts.Dungeon
 
         private void GenerateYPath(DungeonFactory factory, Room prev, Room currt)
         {
-            //int height = (prev.Height % 2 == 0) ? prev.Height  : prev.Height - 1;
-            ////if (prev.GetCenter().y > currt.GetCenter().y)
-            ////{
-            ////    PlaceYPathTiles(
-            ////       factory.DungeonInfo.WallUpLeftCornerTile,
-            ////       factory.DungeonInfo.WallUpRightCornerTile,
-            ////       prev.GetCenter().x,
-            ////       prev.GetCenter().y - (height / 2)
-            ////       );
-            ////}
-            ////else
-            ////{
-            ////    PlaceYPathTiles(
-            ////        factory.DungeonInfo.WallDownRightCornerTile,
-            ////        factory.DungeonInfo.WallDownLeftCornerTile,
-            ////        prev.GetCenter().x,
-            ////        prev.GetCenter().y + (height / 2)
-            ////        );
-            ////}
             CreateHorizontalPath(factory, (int)currt.GetCenter().x, (int)prev.GetCenter().x, (int)currt.GetCenter().y);
             CreateVerticalPath(factory, (int)prev.GetCenter().y, (int)currt.GetCenter().y, (int)prev.GetCenter().x);
+
+            int height = (prev.Height % 2 == 0) ? prev.Height - 1 : prev.Height;
+            if (prev.GetCenter().y > currt.GetCenter().y)
+            {
+                PlaceVecticalDoorTiles(
+                   prev.GetCenter().x,
+                   prev.GetCenter().y - (height / 2)
+                   );
+            }
+            else
+            {
+                PlaceVecticalDoorTiles(
+                    prev.GetCenter().x,
+                    prev.GetCenter().y + (height / 2)
+                    );
+            }
         }
 
         private void GenerateXPath(DungeonFactory factory, Room prev, Room currt)
         {
-            //int width = (prev.Width % 2 == 0) ? prev.Width  : prev.Width - 1;
-            ////if (prev.GetCenter().x > currt.GetCenter().x)
-            ////{
-            ////    PlaceXPathTiles(
-            ////        factory.DungeonInfo.WallDownLeftCornerTile,
-            ////        factory.DungeonInfo.WallUpRightCornerTile,
-            ////        prev.GetCenter().x - (width / 2),
-            ////        prev.GetCenter().y);
-            ////}
-            ////else
-            ////{
-            ////    PlaceXPathTiles(
-            ////        factory.DungeonInfo.WallDownRightCornerTile,
-            ////        factory.DungeonInfo.WallUpLeftCornerTile,
-            ////        prev.GetCenter().x + (width / 2),
-            ////        prev.GetCenter().y);
-            ////}
             CreateHorizontalPath(factory, (int)prev.GetCenter().x, (int)currt.GetCenter().x, (int)prev.GetCenter().y);
             CreateVerticalPath(factory, (int)currt.GetCenter().y, (int)prev.GetCenter().y, (int)currt.GetCenter().x);
+
+            int width = (prev.Width % 2 == 0) ? prev.Width - 1 : prev.Width;
+            if (prev.GetCenter().x > currt.GetCenter().x)
+            {
+                PlaceHorizontalPathTiles(
+                    prev.GetCenter().x - (width / 2),
+                    prev.GetCenter().y);
+            }
+            else
+            {
+                PlaceHorizontalPathTiles(
+                    prev.GetCenter().x + (width / 2),
+                    prev.GetCenter().y);
+            }
         }
 
-        private void PlaceXPathTiles(GameObject upEnterTile, GameObject downEnterTile, float x, float y)
+        private void PlaceVecticalDoorTiles(float x, float y)
         {
-            var upEnter = new Vector3(x, y + 1);
-            var downEnter = new Vector3(x, y - 1);
-            PlacePathTiles(HRoomDoorsCoords, upEnterTile, upEnter, x, y);
-            PlacePathTiles(HRoomDoorsCoords, downEnterTile, downEnter, x, y);
+            if (CanBeDoorPlace(new Vector3(x, y), Vector3.up, Vector3.down))
+                PlaceDoorTile(VRoomDoorsCoords, factory.DungeonInfo.ClosedDoorVertical, x, y);
         }
 
-        private void PlaceYPathTiles(GameObject upEnterTile, GameObject downEnterTile, float x, float y)
+        private void PlaceHorizontalPathTiles(float x, float y)
         {
-            var upEnter = new Vector3(x + 1, y);
-            var downEnter = new Vector3(x - 1, y);
-            PlacePathTiles(VRoomDoorsCoords, upEnterTile, upEnter, x, y);
-            PlacePathTiles(VRoomDoorsCoords, downEnterTile, downEnter, x, y);
+            if (CanBeDoorPlace(new Vector3(x, y), Vector3.left, Vector3.right))
+                PlaceDoorTile(HRoomDoorsCoords, factory.DungeonInfo.ClosedDoorHorizontal, x, y);
         }
 
-        private void PlacePathTiles(
+        private bool CanBeDoorPlace(Vector3 doorDirection, Vector3 firstRayDirection, Vector3 secondRayDirection)
+        {
+            Nullable<Tile> fstTile = map.Where(t => t.Template.CompareTag("Wall")).ToList().Find(t => t.Location.Equals(doorDirection + firstRayDirection));
+            Nullable<Tile> sndTile = map.Where(t => t.Template.CompareTag("Wall")).ToList().Find(t => t.Location.Equals(doorDirection + secondRayDirection));
+            return fstTile.HasValue && sndTile.HasValue;
+        }
+
+
+        /// <summary>
+        ///  Placing door in x, y coord und add it to door coords list
+        /// </summary>
+        /// <param name="coords">list of doors coords</param>
+        /// <param name="tileTemplate"> template of door tile</param>
+        /// <param name="x"> is room enter coord</param>
+        /// <param name="y"> is room enter coord</param>
+        private void PlaceDoorTile(
                     IList<Vector3> coords,
-                    GameObject tile,
-                    Vector3 coord,
+                    GameObject tileTemplate,
                     float x,
                     float y)
         {
-
-            map.Add(new Tile(coord, tile));
-            OnPathTileGeneration?.Invoke(this, new DungeonTileGenerationEventArg(tile, coord));
-            coords.Add(new Vector3(x, y));
+            var coord = new Vector3(x, y);
+            map.Add(new Tile(coord, tileTemplate));
+            OnPathTileGeneration?.Invoke(this, new DungeonTileGenerationEventArg(tileTemplate, coord));
+            coords.Add(coord);
         }
 
         private void PlaceWallPair(GameObject tile, Vector3 firstWallPos, Vector3 secondWallPos)
@@ -197,7 +199,7 @@ namespace Assets.Scripts.Dungeon
         {
             Tile tile = new Tile(wallPos, tileTemplate);
             bool isOnMap = map.Contains(tile);
-            if (!isOnMap) 
+            if (!isOnMap)
                 map.Add(tile);
         }
 
@@ -208,13 +210,14 @@ namespace Assets.Scripts.Dungeon
 
                 var tile = new Tile(vec, factory.DungeonInfo.FloorTile);
                 ReplaceTileOnMapOrAdd(tile);
+
                 PlaceWallPair(
                     factory.DungeonInfo.WallTileHorizontal,
                     new Vector3(vec.x, y + 1),
                     new Vector3(vec.x, y - 1)
                     );
-                
-                OnHorizontalPathTileGeneration?.Invoke(this, new DungeonTileGenerationEventArg(tile.Body, tile.Location, new Vector3(vec.x, y)));
+
+                OnHorizontalPathTileGeneration?.Invoke(this, new DungeonTileGenerationEventArg(tile.Template, tile.Location, new Vector3(vec.x, y)));
             }
         }
 
@@ -224,12 +227,13 @@ namespace Assets.Scripts.Dungeon
             {
                 var tile = new Tile(vec, factory.DungeonInfo.FloorTile);
                 ReplaceTileOnMapOrAdd(tile);
+
                 PlaceWallPair(
                     factory.DungeonInfo.WallTileVertical,
                     new Vector3(x + 1, vec.y),
                     new Vector3(x - 1, vec.y)
                     );
-                OnVerticalPathTileGeneration?.Invoke(this, new DungeonTileGenerationEventArg(tile.Body, tile.Location, new Vector3(x, vec.y)));
+                OnVerticalPathTileGeneration?.Invoke(this, new DungeonTileGenerationEventArg(tile.Template, tile.Location, new Vector3(x, vec.y)));
             }
         }
 
@@ -254,9 +258,9 @@ namespace Assets.Scripts.Dungeon
 
         private void PlaceTraps()
         {
-            //InnerRoomCoords.AddRange(Rooms.Skip(1).SelectMany(room => room.InnerCoords));
             var places = Rooms.Skip(1).SelectMany(r => r.InnerCoords).ToArray();
             int count = setup.CountOfTraps;
+
             foreach (var vec in Factory.MakeTrapsIn(count, places))
             {
                 map.Add(new Tile(vec, Factory.DungeonInfo.Trap));
@@ -264,63 +268,52 @@ namespace Assets.Scripts.Dungeon
             }
         }
 
-        private Vector3 GetRandVectorFrom(List<Vector3> vector3s)
-        {
-            var vec = vector3s[UnityEngine.Random.Range(0, vector3s.ToList().Count)];
-            vector3s.Remove(vec);
-            return vec;
-        }
-        private void PlaceDoors (IEnumerable<Vector3> coorsd, GameObject tile, Vector3 firstRayDirection, Vector3 secondRayDirection)
-        {
-            UInt16 count = (UInt16)coorsd.Count();
-
-            while (count --> 0)
-            {
-                var vec = GetRandVectorFrom(coorsd.ToList());
-                RaycastHit2D firstHit   = Physics2D.Raycast(vec, firstRayDirection, 1);
-                RaycastHit2D secondHit  = Physics2D.Raycast(vec, secondRayDirection, 1);
-
-                if (firstHit.transform != null && secondHit.transform != null)
-                {
-                    var fsthit = firstHit.transform;
-                    var sndhit = secondHit.transform;
-                    if (fsthit.gameObject.CompareTag("Wall") 
-                        && sndhit.gameObject.CompareTag("Wall"))
-                    {
-                        map.Add(new Tile(vec, tile));
-                        OnDoorTileGeneration?.Invoke(this, new DungeonTileGenerationEventArg(tile, vec));
-                    }
-                    else continue;
-                }
-                else continue;
-            }
-        }
-
-        public void PlaceHorizontalDoors()
-        {
-            PlaceDoors(HRoomDoorsCoords, factory.DungeonInfo.ClosedDoorHorizontal, Vector2.left, Vector2.right);
-        }
-
-        public void PlaceVerticalDoors()
-        {
-            PlaceDoors(VRoomDoorsCoords, factory.DungeonInfo.ClosedDoorVertical, Vector2.up, Vector2.down);
-        }
-
         private void Setup()
         {
-            Rooms            = new List<Room>();
+            Rooms = new List<Room>();
             HRoomDoorsCoords = new List<Vector3>();
             VRoomDoorsCoords = new List<Vector3>();
-            map              = new List<Tile>();
+            map = new List<Tile>();
         }
-        public IEnumerable<Tile> Generate ()
+
+        public IEnumerable<Tile> Generate()
         {
             Setup();
             GenerateRooms();
             PlaceTourches();
             GenerateTunels();
+            WallCorrection();
             PlaceTraps();
+            map.Add(
+                new Tile(
+                    Rooms.Last().GetCenter(),
+                    factory.DungeonInfo.Exit
+                    )
+                );
             return map;
+        }
+
+        /*
+               up
+               #.#
+               #.#
+           #####.#####
+      left ........... right
+           #####.#####
+               #.#
+               #.#
+              down         
+         */
+        private void WallCorrection()
+        {
+            foreach (Tile tile in map.Where(t => t.CompareTemplateTag("Wall")))
+            {
+
+                if (tile.CompareTemplateTag("Wall"))
+                {
+
+                }
+            }
         }
     }
 }

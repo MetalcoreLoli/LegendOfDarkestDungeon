@@ -38,34 +38,34 @@ namespace Assets.Scripts.Dungeon.Factory
                 for (int y1 = 0; y1 < room.Height; y1++)
                 {
                     int idx = x1 + room.Width * y1;
-                    room.Body[idx].Body = DungeonInfo.FloorTile;
+                    room.Body[idx].Template = DungeonInfo.FloorTile;
 
                     if (x1 == 0 && y1 == 0)
-                        room.Body[idx].Body = DungeonInfo.WallDownRightCornerTile;
+                        room.Body[idx].Template = DungeonInfo.WallDownRightCornerTile;
 
                     if (x1 == room.Width - 1 && y1 == 0)
-                        room.Body[idx].Body = DungeonInfo.WallDownLeftCornerTile;
+                        room.Body[idx].Template = DungeonInfo.WallDownLeftCornerTile;
 
                     if (x1 == 0 && y1 == room.Height - 1)
-                        room.Body[idx].Body = DungeonInfo.WallUpLeftCornerTile;
+                        room.Body[idx].Template = DungeonInfo.WallUpLeftCornerTile;
 
                     if (x1 == room.Width - 1 && y1 == room.Height - 1)
-                        room.Body[idx].Body = DungeonInfo.WallUpRightCornerTile;
+                        room.Body[idx].Template = DungeonInfo.WallUpRightCornerTile;
 
                     if ((x1 == room.Width - 1 && y1 > 0 && y1 < room.Height - 1))
-                        room.Body[idx].Body = DungeonInfo.WallTileVertical;
+                        room.Body[idx].Template = DungeonInfo.WallTileVertical;
 
                     if ((y1 == room.Height - 1 && x1 > 0 && x1 < room.Width - 1))
                     {
-                        room.Body[idx].Body = DungeonInfo.WallTileHorizontal;
+                        room.Body[idx].Template = DungeonInfo.WallTileHorizontal;
                         room.UpWallCoord.Add(new Vector3(x1, y1) + room.Location);
                     }
 
                     if (x1 > 0 && x1 < room.Width - 1 && y1 == 0)
-                        room.Body[idx].Body = DungeonInfo.WallTileHorizontal;
+                        room.Body[idx].Template = DungeonInfo.WallTileHorizontal;
 
                     if (y1 > 0 && y1 < room.Height - 1 && x1 == 0)
-                        room.Body[idx].Body = DungeonInfo.WallTileVertical;
+                        room.Body[idx].Template = DungeonInfo.WallTileVertical;
                 }
             }
             for (int x1 = 1; x1 < room.Width - 1; x1++)
@@ -73,31 +73,31 @@ namespace Assets.Scripts.Dungeon.Factory
                 for (int y1 = 1; y1 < room.Height - 1; y1++)
                 {
                     int idx = x1 + room.Width * y1;
-                    room.Body[idx].Body = DungeonInfo.FloorTile;
+                    room.Body[idx].Template = DungeonInfo.FloorTile;
 
                     if (x1 == 1 && y1 == 1)
-                        room.Body[idx].Body = DungeonInfo.FloorTileDownLeftCorner;
+                        room.Body[idx].Template = DungeonInfo.FloorTileDownLeftCorner;
 
                     if (x1 == room.Width - 2 && y1 == 1)
-                        room.Body[idx].Body = DungeonInfo.FloorTileDownRightCorner;
+                        room.Body[idx].Template = DungeonInfo.FloorTileDownRightCorner;
 
                     if (x1 == 1 && y1 == room.Height - 2)
-                        room.Body[idx].Body = DungeonInfo.FloorTileUpLeftCorner;
+                        room.Body[idx].Template = DungeonInfo.FloorTileUpLeftCorner;
 
                     if (x1 == room.Width - 2 && y1 == room.Height - 2)
-                        room.Body[idx].Body = DungeonInfo.FloorTileUpRightCorner;
+                        room.Body[idx].Template = DungeonInfo.FloorTileUpRightCorner;
 
                     if ((x1 == room.Width - 2 && y1 > 1 && y1 < room.Height - 2))
-                        room.Body[idx].Body = DungeonInfo.FloorRightTile;
+                        room.Body[idx].Template = DungeonInfo.FloorRightTile;
 
                     if ((y1 == room.Height - 2 && x1 > 1 && x1 < room.Width - 2))
-                        room.Body[idx].Body = DungeonInfo.FloorTileUp;
+                        room.Body[idx].Template = DungeonInfo.FloorTileUp;
 
                     if (x1 > 1 && x1 < room.Width - 2 && y1 == 1)
-                        room.Body[idx].Body = DungeonInfo.FloorTileDown;
+                        room.Body[idx].Template = DungeonInfo.FloorTileDown;
 
                     if (y1 > 1 && y1 < room.Height - 2 && x1 == 1)
-                        room.Body[idx].Body = DungeonInfo.FloorLeftTile;
+                        room.Body[idx].Template = DungeonInfo.FloorLeftTile;
                 }
             }
 

@@ -69,14 +69,12 @@ public class Board : MonoBehaviour, IData<GameObject, int>
 
     private void DrawDungeon(DungeonGenerator generator)
     {
-        generator.OnTrapsTileGeneration              += (s, e) => SpawnObject(e.TileCoords, e.Tile);
-        generator.OnDoorTileGeneration               += (s, e) => SpawnObject(e.TileCoords, e.Tile);
+        
         tiles = generator.Generate().ToList();
-
+        
         foreach (var tile in tiles)
         {
-            var gb = Instantiate(tile.Body, tile.Location, Quaternion.identity);
-            map.Add(gb);
+            SpawnObject(tile.Location, tile.Template);
         }
         //CorrectWalls(generator.Factory);
         //CorrectAngels(generator.Factory); 

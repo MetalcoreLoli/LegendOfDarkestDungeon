@@ -15,6 +15,7 @@ TagManager:
   - MpBar
   - Spell
   - Item
+  - Floor
   layers:
   - Default
   - TransparentFX

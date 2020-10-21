@@ -4,13 +4,15 @@ using UnityEngine;
 public struct Tile
 {
     public Vector3 Location { get; set; }
-    public GameObject Body { get; set; }
+    public GameObject Template { get; set; }
 
     public Tile(Vector3 location, GameObject body = null)
     {
         Location = location;
-        Body = body;
+        Template = body;
     }
+
+    public bool CompareTemplateTag(string tag) => Template.CompareTag(tag);
 
     public override bool Equals(object obj)
     {
