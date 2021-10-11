@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
     public Board board;
     public static MessageBox MessageBox;
     public DataManager dataManager;
-    public ShortcutMenu shortcutMenu;
     public InventoryManager inventoryManager;
     public ItemManager itemManager;
     public GameObject potion;
@@ -52,7 +51,6 @@ public class GameManager : MonoBehaviour
 
         itemManager = GetComponent<ItemManager>();
         board = GetComponent<Board>();
-        shortcutMenu = GetComponent<ShortcutMenu>();
         dataManager = GetComponent<DataManager>();
         inventoryManager = GetComponent<InventoryManager>();
 
@@ -155,8 +153,6 @@ public class GameManager : MonoBehaviour
         //var players_light = GameObject.FindGameObjectWithTag("PlayersLight").GetComponent<Light>();
         //players_light.intensity = 25;
         Player.GetComponent<Actor>().Characteristics = playerCharacteristics;
-
-        shortcutMenu.Init();
     }
 
     private void Update()

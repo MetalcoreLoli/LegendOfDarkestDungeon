@@ -62,9 +62,6 @@ public class Player : MovingObject, IData<string, int>
         //        actor.Characteristics.Mp = actor.Characteristics.MaxMp = 25000;
         //#endif
 
-        GameManager.Instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[0], 0);
-        GameManager.Instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[1], 1);
-        GameManager.Instance.shortcutMenu.AddToShortcutMenu(GetComponent<Casting>().SpellPrefabs[2], 2);
         //GameManager.Instance.shortcutMenu.AddToShortcutMenu(GameManager.Instance.potion, 4);
 
         StartCoroutine(RegenerateMana(manaRegenarationTime));
@@ -83,7 +80,6 @@ public class Player : MovingObject, IData<string, int>
 
             if (GameInput.GetKeyDown("Use"))
             {
-                GameManager.Instance.shortcutMenu.ActivateCell();
             }
         }
 

@@ -185,11 +185,11 @@ namespace Assets.Scripts.Actors
 
         private void PlaceItemIntoShortcut(Item item, int number)
         {
-            var shortcutMenu = GameManager.Instance.shortcutMenu;
-            if (shortcutMenu.CanPlaceAt(number))
-                shortcutMenu.AddToShortcutMenu(item.gameObject, number);
-            else
-                Debug.Log($"You cannot place {item.name} in this slot");
+            //var shortcutMenu = GameManager.Instance.shortcutMenu;
+            //if (shortcutMenu.CanPlaceAt(number))
+            //    shortcutMenu.AddToShortcutMenu(item.gameObject, number);
+            //else
+            //    Debug.Log($"You cannot place {item.name} in this slot");
         }
 
         internal void RemoveOne(string name)

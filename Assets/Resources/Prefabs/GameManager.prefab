@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3696895299073686524}
   - component: {fileID: 5305657837293284685}
   - component: {fileID: 16602674035487019}
-  - component: {fileID: 723522010257357606}
   - component: {fileID: 1089183485027916794}
   - component: {fileID: 4154352486510079050}
   - component: {fileID: 413098892787668039}
@@ -49,17 +48,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a454276e07717944b854db8ca318a850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  messageBox: {fileID: 8215454618644874083, guid: d9fc5bfeae5899948855b555d9aa6e60,
-    type: 3}
-  PlayerObject: {fileID: 3412384894159637499, guid: b34513db1fdb1084da9c00fbc66002bc,
-    type: 3}
+  messageBox: {fileID: 8215454618644874083, guid: d9fc5bfeae5899948855b555d9aa6e60, type: 3}
+  PlayerObject: {fileID: 3412384894159637499, guid: b34513db1fdb1084da9c00fbc66002bc, type: 3}
   Player: {fileID: 0}
   PlayerActor: {fileID: 0}
   Enemies: []
   playersTurn: 0
   board: {fileID: 0}
   dataManager: {fileID: 0}
-  shortcutMenu: {fileID: 0}
   inventoryManager: {fileID: 0}
   itemManager: {fileID: 0}
   potion: {fileID: 7646737463396547637, guid: d3cf9a26f01400742b80b3001f999dcf, type: 3}
@@ -86,57 +82,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c097f46e296354ca60526188019851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TourchTile: {fileID: 9143279058621068323, guid: c97c4fe975c32a54baf56502484859de,
-    type: 3}
-  BloodFountain: {fileID: 6581752387913811905, guid: 46431fff166a5fd4d95273eb9c6920d2,
-    type: 3}
+  TourchTile: {fileID: 9143279058621068323, guid: c97c4fe975c32a54baf56502484859de, type: 3}
+  BloodFountain: {fileID: 6581752387913811905, guid: 46431fff166a5fd4d95273eb9c6920d2, type: 3}
   Traps:
   - {fileID: 3177136674332636102, guid: a2a9c844d2508614c802d3ec0287ae5c, type: 3}
-  EnemyPrefab: {fileID: 616915655446757402, guid: 19948f187e647ea40ae53723dbd046b6,
-    type: 3}
-  RoomsSize:
-    Min: 7
-    Max: 10
-  Tourches:
-    Min: 7
-    Max: 15
-  CountOfRooms: 19
-  CountOfTraps: 7
-  MapWidth: 70
-  MapHeight: 40
-  CountOfEnemies: 14
+  EnemyPrefab: {fileID: 616915655446757402, guid: 19948f187e647ea40ae53723dbd046b6, type: 3}
   map: []
   blockingLayer:
     serializedVersion: 2
     m_Bits: 0
-  dungeonSetupTemplate: {fileID: 11400000, guid: 1c4cc2334f79a6a4bab452df03599ae1,
-    type: 2}
---- !u!114 &723522010257357606
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8860340643004524190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec498d419f4640c4aa8e45197c1aec09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Objects:
-  - {fileID: 576122911487092457, guid: dcbdd2606664ebc43a8ec8273dd9e530, type: 3}
-  - {fileID: 2830494459419614571, guid: 2921b5830511cf04fac11553a1b2840f, type: 3}
-  - {fileID: 3660896762601296697, guid: 7383cf11b2b33154fa8b6d8392c4831f, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  Cells:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  SelectedObject: {fileID: 0}
-  CurrentCell: 0
+  dungeonSetupTemplate: {fileID: 11400000, guid: 1c4cc2334f79a6a4bab452df03599ae1, type: 2}
 --- !u!114 &1089183485027916794
 MonoBehaviour:
   m_ObjectHideFlags: 0
