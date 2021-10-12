@@ -462,6 +462,11 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!224 &833970301 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5742625077607254337, guid: 6e30dc7a2e06fc34d9b1651d6dc5571d, type: 3}
+  m_PrefabInstance: {fileID: 5742625078449019850}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1009499424
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -832,6 +837,10 @@ PrefabInstance:
       propertyPath: optionMenu
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5742625077979765389, guid: 6e30dc7a2e06fc34d9b1651d6dc5571d, type: 3}
+      propertyPath: _bookOfSpellsMenuLink
+      value: 
+      objectReference: {fileID: 833970301}
     - target: {fileID: 5742625078526357858, guid: 6e30dc7a2e06fc34d9b1651d6dc5571d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
