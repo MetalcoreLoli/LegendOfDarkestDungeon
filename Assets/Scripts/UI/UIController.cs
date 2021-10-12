@@ -8,6 +8,9 @@ namespace Assets.Scripts.UI
     {
         private BarController hpContoroller;
         private BarController mpContoroller;
+        
+        [SerializeField]private Transform _hpBar;
+        [SerializeField]private Transform _mpBar;
 
         public GameObject selectedSpell;
 
@@ -26,6 +29,8 @@ namespace Assets.Scripts.UI
 
         private void Awake()
         {
+            hpContoroller = _hpBar.GetComponent<BarController>();
+            mpContoroller = _mpBar.GetComponent<BarController>();
             selectedSpell = GameObject.Find("SelectedSpell");
             SpellsPositions = new Vector3[5];
             var spellTransform = selectedSpell.transform;
@@ -38,8 +43,6 @@ namespace Assets.Scripts.UI
 
         private void Start()
         {
-            hpContoroller = GameObject.FindGameObjectWithTag("HpBar").GetComponent<BarController>();
-            mpContoroller = GameObject.FindGameObjectWithTag("MpBar").GetComponent<BarController>();
             hpContoroller.SetMax(GameManager.Instance.playerCharacteristics.MaxHp);
             mpContoroller.SetMax(GameManager.Instance.playerCharacteristics.MaxMp);
             gameMenu.Close();
@@ -60,9 +63,6 @@ namespace Assets.Scripts.UI
 
             hpContoroller.SetValue(GameManager.Instance.playerCharacteristics.Hp);
             mpContoroller.SetValue(GameManager.Instance.playerCharacteristics.Mp);
-
-            hpText.text = $"{GameManager.Instance.playerCharacteristics.Hp} / {GameManager.Instance.playerCharacteristics.MaxHp}";
-            mpText.text = $"{GameManager.Instance.playerCharacteristics.Mp} / {GameManager.Instance.playerCharacteristics.MaxMp}";
         }
 
         public void SelectShortcutBarCell(int numberOfCell)

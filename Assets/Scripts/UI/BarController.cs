@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.UI
@@ -7,9 +8,17 @@ namespace Assets.Scripts.UI
     {
         public Slider Slider;
 
+        [SerializeField] private string _textFormat = "{0} / {1}";
+        [SerializeField] private Text _text;
+       
         private void Awake()
         {
             Slider = GetComponent<Slider>();
+        }
+
+        private void FixedUpdate()
+        {
+            _text.text = String.Format(_textFormat, Slider.minValue, Slider.maxValue);
         }
 
         public void SetMin(int value)

@@ -6,6 +6,7 @@ namespace Assets.Scripts.UI.Menu
 {
     public class GameMenuSettings : Menu
     {
+        [SerializeField] private Transform _optionsMenu = null;
         public override void Open()
         {
             if (GameManager.Instance.inventoryManager.IsOpen)
@@ -20,11 +21,11 @@ namespace Assets.Scripts.UI.Menu
 
         public override void Close()
         {
-            gameObject.SetActive(false);
             IsOpen = false;
             SoundManager.instance.musicSource.Play();
             SoundManager.instance.menuMusicSource.Stop();
             GameManager.Instance.enabled = true;
+            DestroyImmediate(gameObject);
         }
 
         public void Save()
@@ -40,8 +41,7 @@ namespace Assets.Scripts.UI.Menu
 
         public void OpenOptions()
         {
-            var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
-            ui.optionMenu.Open();
+            _optionsMenu.gameObject.GetComponent<OptionMenu>().Open();
             Close();
         }
 
