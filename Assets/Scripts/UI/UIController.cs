@@ -33,13 +33,17 @@ namespace Assets.Scripts.UI
         {
             hpContoroller = _hpBar.GetComponent<BarController>();
             mpContoroller = _mpBar.GetComponent<BarController>();
+
+            gameMenu = _gameMenuLink.GetComponent<GameMenuSettings>();
+            lvlMenu = _lvlMenuLink.GetComponent<LevelUpMenu>();
+            optionMenu = _optionMenuLink.GetComponent<OptionMenu>();
+            crtMenu = _crtMenuLink.GetComponent<CreatingMenu>();
         }
 
         private void Start()
         {
             hpContoroller.SetMax(GameManager.Instance.playerCharacteristics.MaxHp);
             mpContoroller.SetMax(GameManager.Instance.playerCharacteristics.MaxMp);
-            gameMenu.Close();
         }
 
         private void Update()
