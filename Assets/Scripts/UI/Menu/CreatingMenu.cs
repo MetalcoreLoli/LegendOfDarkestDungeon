@@ -3,6 +3,7 @@ using Assets.Scripts.Actors.Stats;
 using Assets.Scripts.Stats;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.Menu
@@ -19,16 +20,17 @@ namespace Assets.Scripts.UI.Menu
 
         [SerializeField] private ActorCharacteristicsTemplate template;
 
+        private ActorCharacteristics _player = new ActorCharacteristics();
         private void Update()
         {
-            var player = GameManager.Instance.Player.GetComponent<Actor>();
+            //GameManager.Instance.Player.GetComponent<Actor>();
             Func<int, string> mod = num => (num > 0) ? $"+{num}" : num.ToString();
-            IntText.text = $"Int: {player.Characteristics.Intelligence} ({mod(player.Characteristics.IntelligenceMod)})";
-            StrText.text = $"Str: {player.Characteristics.Strength} ({mod(player.Characteristics.StrengthMod)})";
-            DexText.text = $"Dex: {player.Characteristics.Dexterity} ({mod(player.Characteristics.DexterityMod)})";
-            ChrText.text = $"Chr: {player.Characteristics.Charisma} ({mod(player.Characteristics.CharismaMod)})";
-            LckText.text = $"Lck: {player.Characteristics.Lucky} ({mod(player.Characteristics.LuckyMod)})";
-            ManaPointsText.text = $"Start ManaPoints : {player.Characteristics.MaxMp}";
+            IntText.text = $"Int: {_player.Intelligence} ({mod(_player.IntelligenceMod)})";
+            StrText.text = $"Str: {_player.Strength} ({mod(_player.StrengthMod)})";
+            DexText.text = $"Dex: {_player.Dexterity} ({mod(_player.DexterityMod)})";
+            ChrText.text = $"Chr: {_player.Charisma} ({mod(_player.CharismaMod)})";
+            LckText.text = $"Lck: {_player.Lucky} ({mod(_player.LuckyMod)})";
+            ManaPointsText.text = $"Start ManaPoints : {_player.MaxMp}";
         }
 
         public override void Open()
@@ -46,16 +48,12 @@ namespace Assets.Scripts.UI.Menu
         public void Done()
         {
             if (!string.IsNullOrEmpty(NameText.textComponent.text))
-                Close();
-            else
-            {
-                GameManager.MessageBox.Show("Error", "Enter your character name !!!");
-            }
+                SceneManager.LoadScene(2, LoadSceneMode.Single);
         }
 
         public void Roll()
         {
-            GameManager.Instance.UpdatePlayersCharacteristics(ActorCharacteristics.FromTemplate(template));
+            _player = ActorCharacteristics.FromTemplate(template); 
         }
     }
 }
