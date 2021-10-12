@@ -73,15 +73,15 @@ public class Player : MovingObject, IData<string, int>
     {
         if (GameManager.Instance.playersTurn == false) return;
         var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
-        if (!ui.crtMenu.IsOpen)
-        {
-            horizontal = (Input.GetAxisRaw("Horizontal"));
-            vertical = (Input.GetAxisRaw("Vertical"));
+        //if (!ui.crtMenu.IsOpen)
+        //{
+        //    horizontal = (Input.GetAxisRaw("Horizontal"));
+        //    vertical = (Input.GetAxisRaw("Vertical"));
 
-            if (GameInput.GetKeyDown("Use"))
-            {
-            }
-        }
+        //    if (GameInput.GetKeyDown("Use"))
+        //    {
+        //    }
+        //}
 
         if (horizontal != 0)
         {
@@ -235,10 +235,10 @@ public class Player : MovingObject, IData<string, int>
         if (exp >= maxExp)
         {
             Level++;
-            var lvlMenu = GameObject.Find("HUDCanvas").GetComponent<UIController>().lvlMenu;
-            lvlMenu.Points = lvlMenu.MaxPoints += 2;
-            maxExp *= 2;
-            lvlMenu.Open();
+            //var lvlMenu = GameObject.Find("HUDCanvas").GetComponent<UIController>().lvlMenu;
+            //lvlMenu.Points = lvlMenu.MaxPoints += 2;
+            //maxExp *= 2;
+            //lvlMenu.Open();
             actor.Characteristics.Hp = actor.Characteristics.MaxHp;
             actor.Characteristics.Mp = actor.Characteristics.MaxMp;
         }

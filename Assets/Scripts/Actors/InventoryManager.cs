@@ -55,8 +55,8 @@ namespace Assets.Scripts.Actors
         private void Update()
         {
             var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
-            if (GameInput.GetKeyDown("Inventory") && !ui.crtMenu.IsOpen)
-                IsOpen = !IsOpen;
+            //if (GameInput.GetKeyDown("Inventory") && !ui.crtMenu.IsOpen)
+            //    IsOpen = !IsOpen;
 
             if (IsOpen)
             {

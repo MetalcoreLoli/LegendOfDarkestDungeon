@@ -12,11 +12,17 @@ namespace Assets.Scripts.UI
         [SerializeField]private Transform _hpBar;
         [SerializeField]private Transform _mpBar;
 
-        [SerializeField] private GameMenuSettings gameMenu;
-        [SerializeField] public LevelUpMenu lvlMenu;
-        [SerializeField] public OptionMenu optionMenu;
-        [SerializeField] public CreatingMenu crtMenu;
-        [SerializeField] public BookOfSpellMenu bookOfSpellsMenu;
+        private GameMenuSettings gameMenu;
+        private LevelUpMenu lvlMenu;
+        private OptionMenu optionMenu;
+        private CreatingMenu crtMenu;
+        private BookOfSpellMenu bookOfSpellsMenu;
+        
+        [SerializeField] private Transform _gameMenuLink;
+        [SerializeField] private Transform _lvlMenuLink;
+        [SerializeField] private Transform _optionMenuLink;
+        [SerializeField] private Transform _crtMenuLink;
+        [SerializeField] private Transform _bookOfSpellsMenuLink;
 
         public Vector3[] SpellsPositions { get; private set; }
 

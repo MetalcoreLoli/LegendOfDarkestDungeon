@@ -80,18 +80,18 @@ public class GameManager : MonoBehaviour
 
         if (!SaveLoader.Instance().IsNeedToLoad)
         {
-            ui.crtMenu.Open();
+            //ui.crtMenu.Open();
         }
     }
 
     public void GameOver()
     {
         var ui = GameObject.Find("HUDCanvas").GetComponent<UIController>();
-        if (!ui.crtMenu.IsOpen && MessageBox.DialogResult == DialogResult.None)
-        {
-            //MessageBox = Instantiate(messageBox).GetComponent<MessageBox>();
-            MessageBox.Show(":CCCCC", "You DEAD");
-        }
+       // if (!ui.crtMenu.IsOpen && MessageBox.DialogResult == DialogResult.None)
+       // {
+       //     //MessageBox = Instantiate(messageBox).GetComponent<MessageBox>();
+       //     MessageBox.Show(":CCCCC", "You DEAD");
+       // }
         if (MessageBox.DialogResult != DialogResult.None)
         {
             StopAllCoroutines();

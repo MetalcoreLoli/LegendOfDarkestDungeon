@@ -474,14 +474,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hpBar: {fileID: 5742625078133783778}
   _mpBar: {fileID: 5742625078142979121}
-  selectedSpell: {fileID: 5742625078128118307}
-  gameMenu: {fileID: 106331783980010724, guid: ca14e719fe1cb1f97b50009a5d5b288b, type: 3}
-  lvlMenu: {fileID: 0}
-  optionMenu: {fileID: 0}
-  crtMenu: {fileID: 0}
-  bookOfSpellsMenu: {fileID: 5742625077607254341}
-  hpText: {fileID: 5742625077399225131}
-  mpText: {fileID: 5742625077859999545}
+  _gameMenuLink: {fileID: 106331783980010747, guid: ca14e719fe1cb1f97b50009a5d5b288b, type: 3}
+  _lvlMenuLink: {fileID: 48607779652283976, guid: d1355ee832b574a7290d5abd9276aab8, type: 3}
+  _optionMenuLink: {fileID: 7923344948605913760, guid: de3ac778db83902c3aeb32e59d243fc0, type: 3}
+  _crtMenuLink: {fileID: 3530922266097494053, guid: 4b873d1030995d6b5a5af1c1b38229f4, type: 3}
+  _bookOfSpellsMenuLink: {fileID: 0}
 --- !u!1 &5742625078133783789
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,6 +592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Slider: {fileID: 5742625078133783777}
+  _textFormat: '{0}/{1}'
   _text: {fileID: 5742625077399225131}
 --- !u!1 &5742625078136533023
 GameObject:
@@ -784,6 +782,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Slider: {fileID: 5742625078142979124}
+  _textFormat: '{0}/{1}'
   _text: {fileID: 5742625077859999545}
 --- !u!1 &5742625078526357869
 GameObject:
@@ -1072,10 +1071,5 @@ PrefabInstance:
 --- !u!224 &5742625079306293631 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7385152732668884682, guid: c123d682fb54585a691ce253a30f36ef, type: 3}
-  m_PrefabInstance: {fileID: 3011978364395644853}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5742625078128118307 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7385152733644680598, guid: c123d682fb54585a691ce253a30f36ef, type: 3}
   m_PrefabInstance: {fileID: 3011978364395644853}
   m_PrefabAsset: {fileID: 0}
