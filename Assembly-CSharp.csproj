@@ -65,7 +65,6 @@
      <Compile Include="Assets\Scripts\Spells\SpellInfo.cs" />
      <Compile Include="Assets\Scripts\Spells\ISpell.cs" />
      <Compile Include="Assets\Scripts\UI\InputFiledInfo.cs" />
-     <Compile Include="Assets\Scripts\Core\ShortcutMenu.cs" />
      <Compile Include="Assets\Scripts\Dungeon\Tile.cs" />
      <Compile Include="Assets\Scripts\Core\GameManager.cs" />
      <Compile Include="Assets\Scripts\Dungeon\IDungeonGeneratorSetup.cs" />
